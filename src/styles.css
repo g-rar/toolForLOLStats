@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
 
 :root {
-    --color-main:#FFB902;
+    --color-main:rgb(255, 209, 2);
     --color-secondary: rgb(255, 242, 64);
     --color-dark: rgb(121, 90, 13);
     --color-bright: rgb(247, 247, 247);
@@ -33,8 +33,15 @@ body {
 }
 
 .main_title {
+    display: flex;
+    align-items: center;
     color: black;
     font-size: x-large;
+}
+
+.main_title svg {
+    height: 2.5rem;
+    width: 2.5rem;
 }
 
 .btn-sandwitch {
@@ -56,6 +63,11 @@ body {
     font-family: 'Roboto', sans-serif;
     color: var(--color-bg);
 }
+
+.side-menu hr {
+    width: 90%;
+}
+
 .side-menu h1 {
     margin-left: 1rem;
     margin-right: 1rem;
@@ -113,7 +125,7 @@ body {
     padding: 1.25rem;
     margin: 0.5rem;
     border-radius: 10px;
-    color: white; 
+    color: var(--color-bg); 
     font-size: 1rem;
     font-weight: 500;
 }
