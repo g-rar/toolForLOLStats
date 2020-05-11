@@ -1,0 +1,56 @@
+<div class="page-content">
+    <h1>Componente principal</h1>
+    <p>Quiero probar que se puedan agarrar los datos de un match y meterlos acá. En primera necesito el apiKey y el id/URL del match:</p>
+
+    <form [formGroup]="matchForm" (ngSubmit)="onSubmit(matchForm.value)">
+        <div>
+            <label for="apiKey">Api Key: </label>
+            <input id="apiKey" type="text" formControlName="apiKey">
+        </div>
+        <div>
+            <label for="matchId">Match ID: </label>
+            <input id="matchId" type="text" formControlName="matchId">
+        </div>
+        <button type="submit">Consultar</button>
+    </form>
+
+    <table>
+        <caption>
+            <h2>{{nameTeam1}}</h2>
+            <hr/>
+        </caption>
+        <thead>
+            <th>Nombre</th><th>Kills</th><th>Deaths</th><th>Assists</th><th>Minions</th><th>Gold</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let playerStats of statsTeam1">
+                <td>{{playerStats.playerName}}</td>
+                <td>{{playerStats.kills}}</td>
+                <td>{{playerStats.deaths}}</td>
+                <td>{{playerStats.assists}}</td>
+                <td>{{playerStats.minions}}</td>
+                <td>{{playerStats.gold}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <table>
+        <caption>
+            <h2>{{nameTeam2}}</h2>
+            <hr/>
+        </caption>
+        <thead>
+            <th>Nombre</th><th>Kills</th><th>Deaths</th><th>Assists</th><th>Minions</th><th>Gold</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let playerStats of statsTeam2">
+                <td>{{playerStats.playerName}}</td>
+                <td>{{playerStats.kills}}</td>
+                <td>{{playerStats.deaths}}</td>
+                <td>{{playerStats.assists}}</td>
+                <td>{{playerStats.minions}}</td>
+                <td>{{playerStats.gold}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
