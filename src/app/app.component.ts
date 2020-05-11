@@ -35,10 +35,5 @@ export class AppComponent {
   }
 
   constructor(db : AngularFirestore){
-    db.collection("testCollection").doc("testDoc").set({
-      //literal se puede guardar cualquier objeto javascript
-      "title": "Hello world",
-      "value": 5
-    })
   }
 }
