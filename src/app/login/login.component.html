@@ -1,0 +1,25 @@
+<div id="login-component" *ngIf="loginOverlayOpen">
+    <div class="overlay-bg" (click)="showOverlay(false)"></div>
+    <div class="overlay-card">
+        <div class="toolbar">
+            <div class="main_title">
+                Login
+            </div>
+        </div>
+        <div class="page-content">
+            <div *ngIf="isLoggedIn">
+                <p>El usuario está loggeado con el correo: {{loggedMail}}</p>
+                <button class="main-btn btn-small" (click)="logOut()">Salir</button>
+            </div>
+            <div *ngIf="!isLoggedIn">
+                <form [formGroup]="loginForm" (ngSubmit)="logIn(loginForm.value)">
+                    <label for="email">Email:</label>
+                    <input class="text-input" type="text" formControlName="email">
+                    <label for="password">Password:</label>
+                    <input class="text-input" type="text" formControlName="password">
+                    <button type="submit" class="main-btn btn-small">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

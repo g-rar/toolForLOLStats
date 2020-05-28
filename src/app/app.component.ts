@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { LoginComponent } from './login/login.component';
 
 @Component({
   selector: 'app-root',
@@ -19,19 +20,20 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
         transition('open => closed', [animate('0.2s')]),
         transition('closed => open', [animate('0.2s')])
       ]
-    )
-  ]
+    )],
 })
 export class AppComponent {
 
+  @ViewChild(LoginComponent, {static: false}) private loginComp:LoginComponent;
+
   sideMenuOpen = false;
 
-  closeSideMenu(){
-    this.sideMenuOpen = false;
+  showSideMenu(show:boolean){
+    this.sideMenuOpen = show;
   }
 
-  openSideMenu(){
-    this.sideMenuOpen = true;
+  showLoginOverlay(show:boolean){
+    this.loginComp.showOverlay(show);
   }
 
   constructor(db : AngularFirestore){

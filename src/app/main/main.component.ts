@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { RiotComService } from '../services/riot-com.service';
+import { AuthService } from '../services/auth.service';
+import { async } from '@angular/core/testing';
+import { AngularFirestore } from '@angular/fire/firestore/';
 
 @Component({
   selector: 'app-main',
@@ -9,8 +12,10 @@ import { RiotComService } from '../services/riot-com.service';
 })
 export class MainComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private riotCom: RiotComService) { 
-  }
+  isLoggedIn = false;
+  loggedMail = '';
+
+  constructor(private authService : AuthService, private formBuilder: FormBuilder, private db:AngularFirestore) {}
 
   ngOnInit() {
   }

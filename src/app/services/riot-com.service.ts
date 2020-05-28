@@ -14,6 +14,8 @@ export class RiotComService {
     return new Promise((resolve, reject) => {
       this.http.get("/lol/match/v4/matches/"+matchId+"?api_key="+apiKey).subscribe(data => {
         let match = data as apiModel.Match
+        console.log(match);
+        
         if(!match.teams){
           reject(match)
         }

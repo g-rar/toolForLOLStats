@@ -13,6 +13,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
 import { ReportGameComponent } from './report-game/report-game.component';
+import { LoginComponent } from './login/login.component';
 
 
 var firebaseConfig = {
@@ -30,7 +31,8 @@ var firebaseConfig = {
     AppComponent,
     MainComponent,
     NotFoundComponent,
-    ReportGameComponent
+    ReportGameComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

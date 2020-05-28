@@ -1,4 +1,4 @@
-<div class="side-menu" [@openCloseSideMenu]="sideMenuOpen ? 'open' : 'closed'" (mouseleave)="closeSideMenu()">
+<div class="side-menu" [@openCloseSideMenu]="sideMenuOpen ? 'open' : 'closed'" (mouseleave)="showSideMenu(false)">
   <ul class="side-menu-nav">
     <li class="nav-item">
       <a href="/" class="side-menu-link">
@@ -18,8 +18,8 @@
   </ul>
 </div>
 <div class="toolbar" role="banner">
-  <a (click)="openSideMenu()">
-    <svg class="btn-sandwitch" width="30" height="23" viewBox="0 0 59 45" xmlns="http://www.w3.org/2000/svg">
+  <a (click)="showSideMenu(true)">
+    <svg class="btn-toolbar" width="30" height="23" viewBox="0 0 59 45" xmlns="http://www.w3.org/2000/svg">
       <rect width="59" height="11" />
       <rect y="34" width="59" height="11" />
       <rect y="16" width="59" height="13" />
@@ -33,6 +33,11 @@
       </g>
     </svg>
   </div>
-  <div></div>
+  <div>
+    <a (click)="showLoginOverlay(true)">
+      <svg class="btn-toolbar" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path d="M20.822 18.096c-3.439-.794-6.64-1.49-5.09-4.418 4.72-8.912 1.251-13.678-3.732-13.678-5.082 0-8.464 4.949-3.732 13.678 1.597 2.945-1.725 3.641-5.09 4.418-3.073.71-3.188 2.236-3.178 4.904l.004 1h23.99l.004-.969c.012-2.688-.092-4.222-3.176-4.935z"/></svg>
+    </a>
+  </div>
 </div>
 <router-outlet></router-outlet>
+<app-login></app-login>

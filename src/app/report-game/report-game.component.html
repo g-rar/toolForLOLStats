@@ -5,11 +5,11 @@
     <form [formGroup]="matchForm" (ngSubmit)="onSubmit(matchForm.value)">
         <div>
             <label for="apiKey">Api Key: </label>
-            <input id="apiKey" type="text" formControlName="apiKey">
+            <input class="text-input" id="apiKey" type="text" formControlName="apiKey">
         </div>
         <div>
             <label for="matchId">Match ID: </label>
-            <input id="matchId" type="text" formControlName="matchId">
+            <input class="text-input" id="matchId" type="text" formControlName="matchId">
         </div>
         <button type="submit">Reportar</button>
     </form>
