@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.user.subscribe((data) => {
+    this.authService.user$.subscribe((data) => {
       this.isLoggedIn = data ? true : false;
       this.loggedMail = data ? data.email : "foo"
     })

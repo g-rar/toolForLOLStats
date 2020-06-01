@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { LoginComponent } from './login/login.component';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +28,7 @@ export class AppComponent {
   @ViewChild(LoginComponent, {static: false}) private loginComp:LoginComponent;
 
   sideMenuOpen = false;
+  isLoggedIn = false;
 
   showSideMenu(show:boolean){
     this.sideMenuOpen = show;
@@ -36,6 +38,12 @@ export class AppComponent {
     this.loginComp.showOverlay(show);
   }
 
-  constructor(db : AngularFirestore){
+  constructor(private authService: AuthService){
+  }
+
+  ngOnInit() {
+    this.authService.user$.subscribe((data) => {
+      this.isLoggedIn = data ? true : false;
+    })
   }
 }
