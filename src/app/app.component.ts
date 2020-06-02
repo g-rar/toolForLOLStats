@@ -3,39 +3,27 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './services/auth.service';
+import { SideMenuComponent } from './side-menu/side-menu.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  animations: [
-    //animations triggers go here
-    trigger(
-      'openCloseSideMenu', [
-        state('closed', style({
-          'margin-left': '-30rem',
-        })),
-        state('open', style({
-          'margin-left': "0",
-        })),
-        transition('open => closed', [animate('0.2s')]),
-        transition('closed => open', [animate('0.2s')])
-      ]
-    )],
+
 })
 export class AppComponent {
 
   @ViewChild(LoginComponent, {static: false}) private loginComp:LoginComponent;
+  @ViewChild(SideMenuComponent, {static: false}) private sideMenu:SideMenuComponent;
 
-  sideMenuOpen = false;
   isLoggedIn = false;
-
-  showSideMenu(show:boolean){
-    this.sideMenuOpen = show;
-  }
 
   showLoginOverlay(show:boolean){
     this.loginComp.showOverlay(show);
+  }
+
+  showSideMenu(){
+    this.sideMenu.showSideMenu(true);
   }
 
   constructor(private authService: AuthService){

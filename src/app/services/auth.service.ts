@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { CanActivate, Router } from '@angular/router';
 import { NotFoundComponent } from '../not-found/not-found.component';
+import { take, tap, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,20 +17,31 @@ export class AuthService {
     this.user$ = auth.user;
     this.user$.subscribe((data) => {
       this.userDetails = data;
+      if(data){
+        localStorage.setItem('userLogged', 'true');  
+      } else {
+        localStorage.setItem('userLogged', null);  
+      }
     })
   }
 
   logInWithEmailAndPassword(email, password) {
     return this.auth.signInWithEmailAndPassword(email, password).then((value)=>{
-      console.log("Logged in as: " + value.user);      
+      window.location.reload();
     }).catch(err => console.error(err));
   }
 
   logOut() {
-    this.auth.signOut();
+    this.auth.signOut().then(()=>{
+      window.location.reload()
+    });
   }
 
-  isLoggedIn() {
-    return this.userDetails != null;
+  isLoggedIn(){
+    if(JSON.parse(localStorage.getItem('userLogged')) != null){
+      return true;
+    } else {
+      return false;
+    }
   }
 }

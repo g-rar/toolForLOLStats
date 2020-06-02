@@ -9,10 +9,10 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  private loginOverlayOpen:boolean;
-  private isLoggedIn:boolean;
-  private loginForm:FormGroup;
-  private loggedMail="foo";
+  loginOverlayOpen:boolean;
+  isLoggedIn:boolean;
+  loginForm:FormGroup;
+  loggedMail: string;
 
   constructor(private authService:AuthService,private formBuilder: FormBuilder) {
     this.loginForm = formBuilder.group({
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.authService.user$.subscribe((data) => {
       this.isLoggedIn = data ? true : false;
-      this.loggedMail = data ? data.email : "foo"
+      this.loggedMail = data ? data.email : null;
     })
   }
 

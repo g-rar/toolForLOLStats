@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReportGameComponent } from './report-game/report-game.component';
 import { LoginComponent } from './login/login.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { SideMenuComponent } from './side-menu/side-menu.component';
 
 
 var firebaseConfig = {
@@ -34,7 +35,8 @@ var firebaseConfig = {
     NotFoundComponent,
     ReportGameComponent,
     LoginComponent,
-    UnauthorizedComponent
+    UnauthorizedComponent,
+    SideMenuComponent
   ],
   imports: [
     BrowserModule,
