@@ -7,7 +7,7 @@
     object-fit: cover;
     z-index: 0;
     object-position: 50% 10%;
-    opacity: 60%;
+    opacity: 50%;
 }
 
 
@@ -37,8 +37,9 @@ hr {
 
 .main-page-menu {
     position: relative;
-    z-index: 10;
+    z-index: 0;
     padding: 10px 10px;
+    margin-top: 10%;
 }
 
 /* buttons */
@@ -51,13 +52,33 @@ hr {
 }
 
 .main-page-btn{
-    font-size: large;
-    border: none;
-    background: var(--color-main);
-    padding: 1.25rem;
+    border-style: solid;
+    border-color: var(--color-main);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: rgba(99, 71, 10, 0.726);
+    padding: 0.75rem;
     margin: 0.5rem 1rem;
     border-radius: 10px;
-    color: var(--color-bg); 
-    font-size: 1rem;
-    font-weight: 500;
+    transition: 300ms ease-in-out;
+}
+
+.main-page-btn-text {
+    max-width: 7rem;
+    text-align: left;
+    color: white;
+    font-size: 1.2rem;
+    transition: 300ms ease-in-out;
+}
+
+.main-page-btn /deep/ svg {
+    fill:var(--color-main);
+    height:3rem;
+    width:3rem;
+    transition: 300ms ease-in-out;
+}
+
+.main-page-btn:hover {
+    background: rgba(141, 100, 11, 0.726);
 }

@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
 
 :root {
     --color-main:rgb(255, 209, 2);
@@ -55,61 +54,6 @@ body {
     fill: rgba(0, 0, 0, 0.733);
 }
 
-/*============== Side menu ================*/
-
-.side-menu{
-    position: fixed;
-    height: 100vh;
-    background-color: var(--color-main);
-    transition: 200ms ease-in-out;
-    font-family: 'Roboto', sans-serif;
-    color: var(--color-bg);
-}
-
-.side-menu hr {
-    width: 90%;
-}
-
-.side-menu h1 {
-    margin-left: 1rem;
-    margin-right: 1rem;
-    justify-self: center;
-}
-
-.side-menu-nav {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.nav-item {
-    padding: 0;
-    width: 100%;
-    transition: 200ms ease-in-out;
-}
-
-.nav-item:hover {
-    background: var(--color-bright);
-}
-
-.side-menu-link {
-    margin: 0.25rem;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    text-decoration: none;
-    color: inherit;
-    font-size: 1.25rem;
-}
-
-.side-menu-link img {
-    width:2rem;
-    height:2rem;
-}
 
 /*================= Forms ================*/
 .text-input {

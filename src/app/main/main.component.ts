@@ -15,6 +15,7 @@ export class MainComponent implements OnInit {
   isLoggedIn = false;
   loggedMail = '';
 
+
   constructor(private authService : AuthService, private formBuilder: FormBuilder, private db:AngularFirestore) {}
 
   ngOnInit() {

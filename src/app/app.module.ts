@@ -16,7 +16,7 @@ import { ReportGameComponent } from './report-game/report-game.component';
 import { LoginComponent } from './login/login.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
-
+import { InlineSVGModule } from 'ng-inline-svg';
 
 var firebaseConfig = {
   apiKey: "AIzaSyAm4XhFsTNZUgHbkW7ZFnNglLA0kqlBS6k",
@@ -47,6 +47,7 @@ var firebaseConfig = {
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireAuthModule,
+    InlineSVGModule.forRoot(),
     AppRoutingModule,
     HttpClientModule
   ],
