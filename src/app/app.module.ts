@@ -8,14 +8,14 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { MainComponent } from './main/main.component';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { MainComponent } from './pages/main/main.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
-import { ReportGameComponent } from './report-game/report-game.component';
-import { LoginComponent } from './login/login.component';
-import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
-import { SideMenuComponent } from './side-menu/side-menu.component';
+import { ReportGameComponent } from './pages/report-game/report-game.component';
+import { LoginComponent } from './widgets/login/login.component';
+import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
+import { SideMenuComponent } from './widgets/side-menu/side-menu.component';
 
 
 var firebaseConfig = {
