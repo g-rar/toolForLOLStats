@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { RiotComService } from '../services/riot-com.service';
+import { RiotComService } from '../../services/riot-com.service';
 
 @Component({
   selector: 'app-report-game',

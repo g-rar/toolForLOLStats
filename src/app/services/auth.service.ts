@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { CanActivate, Router } from '@angular/router';
-import { NotFoundComponent } from '../not-found/not-found.component';
+import { NotFoundComponent } from '../pages/not-found/not-found.component';
 import { take, tap, map } from 'rxjs/operators';
 
 @Injectable({
