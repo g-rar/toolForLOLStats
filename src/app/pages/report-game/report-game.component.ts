@@ -5,7 +5,7 @@ import { RiotComService } from '../../services/riot-com.service';
 @Component({
   selector: 'app-report-game',
   templateUrl: './report-game.component.html',
-  styleUrls: ['./report-game.component.css']
+  styleUrls: ['./report-game.component.scss']
 })
 export class ReportGameComponent implements OnInit {
 
@@ -27,6 +27,8 @@ export class ReportGameComponent implements OnInit {
   }
 
   onSubmit(formData){
+    console.log(formData);
+    
     this.riotCom.consultMatch(formData.apiKey, formData.matchId).then((result) => {
       console.log(result);
       this.nameTeam1 = result.team1.name
