@@ -1,5 +1,5 @@
 export default class User{
     constructor(
-        readonly email: string
+        public email: string
     ){}
 }

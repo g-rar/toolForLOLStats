@@ -1,7 +1,7 @@
 export default class SetResult{
     constructor(
-        readonly teamId: string,
-        readonly teamName: string,
-        readonly score: number
+        public teamId: string,
+        public teamName: string,
+        public score: number
     ){}
 }

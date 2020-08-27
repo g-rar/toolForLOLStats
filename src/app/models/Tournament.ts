@@ -1,11 +1,14 @@
 export default class Tournament {
     constructor(
-        readonly id: string,
-        readonly name: string,
-        readonly completed: boolean,
-        readonly startDate: Date,
-        readonly endDate: Date,
-        readonly roundIds: string[],
-        readonly teamIds: string[]
+        public id: string,
+        public name: string,
+        public startDate: Date,
+        public endDate: Date,
+        public roundIds: string[],
+        public teamIds: string[]
     ){}
+
+    get completed(): boolean {
+        return !(this.endDate);
+    }
 }

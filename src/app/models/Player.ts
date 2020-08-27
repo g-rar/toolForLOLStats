@@ -2,9 +2,9 @@ import Champion from './Champion'
 
 export default class Player {
     constructor(
-        readonly id: string,
-        readonly name: string,
-        readonly champions: Champion[],
-        readonly teams: string[]
+        public id: string,
+        public name: string,
+        public champions: Champion[],
+        public teams: string[]
     ){}
 }
