@@ -16,7 +16,7 @@ import { ReportGameComponent } from './report-game/report-game.component';
 import { LoginComponent } from './login/login.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
 var firebaseConfig = {
   apiKey: "AIzaSyAm4XhFsTNZUgHbkW7ZFnNglLA0kqlBS6k",
@@ -48,6 +48,7 @@ var firebaseConfig = {
     AngularFireStorageModule,
     AngularFireAuthModule,
     AppRoutingModule,
+    NgbModule,
     HttpClientModule
   ],
   providers: [],
