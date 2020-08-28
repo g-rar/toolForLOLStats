@@ -17,6 +17,7 @@ import { ReportGameComponent } from './pages/report-game/report-game.component';
 import { LoginComponent } from './widgets/login/login.component';
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
 import { SideMenuComponent } from './widgets/side-menu/side-menu.component';
+import { TournamentsComponent } from './pages/tournaments/tournaments.component';
 
 
 var firebaseConfig = {
@@ -37,7 +38,8 @@ var firebaseConfig = {
     ReportGameComponent,
     LoginComponent,
     UnauthorizedComponent,
-    SideMenuComponent
+    SideMenuComponent,
+    TournamentsComponent
   ],
   imports: [
     BrowserModule,

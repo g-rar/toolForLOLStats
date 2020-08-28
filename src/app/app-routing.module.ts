@@ -5,6 +5,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { ReportGameComponent } from './pages/report-game/report-game.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
+import { TournamentsComponent } from './pages/tournaments/tournaments.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,9 @@ const routes: Routes = [
   },
   {
     path: 'unauthorized', component: UnauthorizedComponent
+  },
+  {
+    path: 'tournaments', component: TournamentsComponent
   },
   {
     path: '**', component: NotFoundComponent
