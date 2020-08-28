@@ -1,7 +1,8 @@
 import PerformanceStats from './stats/PerformanceStats';
 import Champion from './Champion'
+import Clonable from './Clonable';
 
-export default class TeamPerformance{
+export default class TeamPerformance implements Clonable<TeamPerformance>{
     constructor(
         public teamId: string,
         public teamName: string,
@@ -9,4 +10,20 @@ export default class TeamPerformance{
         public won: boolean,
         public playerStats: PerformanceStats[]
     ){}
+
+    clone(): TeamPerformance {
+        const bans: Champion[] = [];
+        this.bans.forEach( ban => bans.push(ban.clone()) );
+
+        const playerStats: PerformanceStats[] = [];
+        this.playerStats.forEach( stats => playerStats.push(stats.clone()) );
+
+        return new TeamPerformance(
+            this.teamId,
+            this.teamName,
+            bans,
+            this.won,
+            playerStats
+        );
+    }
 }

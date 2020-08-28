@@ -35,7 +35,7 @@ export default interface Controller{
 
     //matches
     fetchMatch(matchId: number, identityLocation: IdentityLocation): Promise<Match>;
-    addMatch(match: Match, firstTeamId: string, secondTeamId: string): Promise<void>;
+    addMatch(tournamentId: string, roundId:string, setId:string, matchId: number): Promise<void>;
     getMatches(tournamentId: string, roundId?: string, setId?: string): Promise<Match[]>;
 
     //teams and players

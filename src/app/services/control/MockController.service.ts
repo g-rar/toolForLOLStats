@@ -42,6 +42,8 @@ export default class MockController implements Controller{
     private rounds: Round[];
     private sets: Set[];
 
+    private fetchedMatch: Match;
+
     constructor(){
         //champions
         this.champions =  [ 
@@ -60,7 +62,7 @@ export default class MockController implements Controller{
         //players
         this.players = [];
         for(let i = 0; i < 20; i++)
-            this.players.push(new Player(''+i, 'Player ' + i, this.champions, [ '' + (i % 4) ]));
+            this.players.push(new Player(''+i, 'Player ' + i));
 
         //teams
         this.teams = [
@@ -114,8 +116,7 @@ export default class MockController implements Controller{
             minutesPlayed,
             this.random(0, 60), //vision score
             this.random(10, 200), //crowd control score
-            player.id,
-            player.name,
+            player,
             champion,
             this.random(0, 5), //largest multikill
             this.random(0, 7), //largest killing spree
@@ -345,12 +346,23 @@ export default class MockController implements Controller{
                 secondTeamIndex = this.random(0, this.teams.length - 1);
             }while(firstTeamIndex === secondTeamIndex);
 
-            resolve(this.generateMatch(this.teams[firstTeamIndex], this.teams[secondTeamIndex]));
+            this.fetchedMatch = this.generateMatch(this.teams[firstTeamIndex], this.teams[secondTeamIndex]);
+            resolve(this.fetchedMatch.clone());
         });
     }
 
-    addMatch(match: Match, firstTeamId: string, secondTeamId: string): Promise<void> {
-        throw new Error("Method not implemented.");
+    addMatch(tournamentId: string, roundId:string, setId:string, matchId: number): Promise<void> {
+        return new Promise((resolve, reject) => {
+            if(this.fetchedMatch == null)
+                reject(new Error("Must fetch a match first!"));
+            else if(this.fetchedMatch.id != matchId)
+                reject(new Error("The matchId must match the most recently fetched match id!"));
+            else{
+                this.matches.push(this.fetchedMatch);
+                this.fetchedMatch = null;
+                resolve();
+            }
+        });
     }
 
     getMatches(tournamentId: string, roundId?: string, setId?: string): Promise<Match[]> {

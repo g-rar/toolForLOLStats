@@ -194,19 +194,47 @@ describe('MockController', () => {
         expect(numberOfSetsPreDeletion).toBe(numberOfSetsPostDeletion + 1);
     });
 
+    it('should get a non-empty list of matches', async () => {
+        const matches: Match[] = await controller.getMatches(STUB_TOURNAMENT_ID, STUB_ROUND_ID, STUB_SET_ID);
+
+        expect(matches).toBeTruthy();
+        expect(matches.length).toBeGreaterThan(0);
+    });
+
     it('should fetch a randomly generated match', async () => {
         const match: Match = await controller.fetchMatch(STUB_MATCH_ID, STUB_IDENTITY_LOCATION);
         
         expect(match).toBeTruthy();
     });
     
-    //MISSING addMatch
+    it('should fail when adding a match if no match has been fetched before', async () => {
+        await expectAsync(controller.addMatch(STUB_TOURNAMENT_ID, STUB_ROUND_ID, STUB_SET_ID, STUB_MATCH_ID)).toBeRejectedWith(
+            new Error("Must fetch a match first!")
+        );
+    });
 
-    it('should get a non-empty list of matches', async () => {
-        const matches: Match[] = await controller.getMatches(STUB_TOURNAMENT_ID, STUB_ROUND_ID, STUB_SET_ID);
+    it('should fail when adding a match if the previously fetched match does not match the ID passed whn adding', async () => {
+        //IMPORTANT: the STUB_MATCH_ID passed into fetchMatch is NEVER the actual
+        //id assigned to the match internally because MockTournament assigns it one.
+        await controller.fetchMatch(STUB_MATCH_ID, STUB_IDENTITY_LOCATION);
+        //since the fetched match's id is NOT STUB_MATCH_ID then this will fail
+        await expectAsync(controller.addMatch(STUB_TOURNAMENT_ID, STUB_ROUND_ID, STUB_SET_ID, STUB_MATCH_ID)).toBeRejectedWith(
+            new Error("The matchId must match the most recently fetched match id!")
+        );
+    });
 
-        expect(matches).toBeTruthy();
-        expect(matches.length).toBeGreaterThan(0);
+    it('should add a match after fetching with the correct id', async () => {
+        //IMPORTANT: the STUB_MATCH_ID passed into fetchMatch is NEVER the actual
+        //id assigned to the match internally because MockController assigns it one.
+        //It must be obtained after fetching.
+        const matchId: number = (await controller.fetchMatch(STUB_MATCH_ID, STUB_IDENTITY_LOCATION)).id;
+        
+        const numberOfMatchesPreInsertion: number = (await controller.getMatches(STUB_TOURNAMENT_ID, STUB_ROUND_ID, STUB_SET_ID)).length;
+        await expect(controller.addMatch(STUB_TOURNAMENT_ID, STUB_ROUND_ID, STUB_SET_ID, matchId));
+        const numberOfMatchesPostInsertion: number = (await controller.getMatches(STUB_TOURNAMENT_ID, STUB_ROUND_ID, STUB_SET_ID)).length;
+        
+        //there should be one more match after inserting
+        expect(numberOfMatchesPreInsertion + 1).toBe(numberOfMatchesPostInsertion);
     });
 
     it('should get the player\'s overall stats', async () => {
