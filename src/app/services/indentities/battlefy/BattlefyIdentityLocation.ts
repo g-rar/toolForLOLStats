@@ -1,4 +1,4 @@
-import IdentityLocation from './IdentityLocation'
+import IdentityLocation from '../IdentityLocation'
 
 export default class BattlefyIdentityLocation implements IdentityLocation {
     constructor(
