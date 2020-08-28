@@ -9,6 +9,6 @@ export default class Tournament {
     ){}
 
     get completed(): boolean {
-        return !(this.endDate);
+        return !(this.endDate === null);
     }
 }

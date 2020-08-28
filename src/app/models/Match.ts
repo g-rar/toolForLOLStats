@@ -3,7 +3,6 @@ import TeamPerformance from './TeamPerformance'
 export default class Match {
     constructor(
         public id: number,
-        public identityUrl: string,
         public red: TeamPerformance,
         public blue: TeamPerformance,
         public minutesPlayed: number,

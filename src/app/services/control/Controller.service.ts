@@ -7,7 +7,9 @@ import {
     Match,
     Team,
     PlayerOverallStats 
-} from '../../models/index'
+} from '../../models/index';
+
+import IdentityLocation from '../indentities/IdentityLocation';
 
 export default interface Controller{
     //basic authentication
@@ -32,7 +34,7 @@ export default interface Controller{
     deleteSet(tournamentId: string, roundId: string, setId: string): Promise<void>;
 
     //matches
-    fetchMatch(matchId: number, tournamentCode: string): Promise<Match>;
+    fetchMatch(matchId: number, identityLocation: IdentityLocation): Promise<Match>;
     addMatch(match: Match, firstTeamId: string, secondTeamId: string): Promise<void>;
     getMatches(tournamentId: string, roundId?: string, setId?: string): Promise<Match[]>;
 

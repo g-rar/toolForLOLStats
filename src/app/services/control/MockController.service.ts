@@ -1,4 +1,5 @@
 import Controller from './Controller.service';
+import IdentityLocation from '../indentities/IdentityLocation';
 import {
     User, 
     Tournament,
@@ -13,7 +14,7 @@ import {
     PerformanceStats,
     TeamPerformance,
     SetResult
-} from '../../models/index'
+} from '../../models/index';
 
 export default class MockController implements Controller{
 
@@ -147,11 +148,11 @@ export default class MockController implements Controller{
         );
     }
 
-    private generateMatch(winner: Team, loser: Team){
+    //made public to easily generate fake matches
+    public generateMatch(winner: Team, loser: Team){
         const minutesPlayed = this.random(15, 60);
         return new Match(
             this.ids++,
-            'https://battlefy.com', 
             this.generateTeamPerformance(winner, minutesPlayed, true),
             this.generateTeamPerformance(loser, minutesPlayed, false), 
             minutesPlayed, 
@@ -238,22 +239,9 @@ export default class MockController implements Controller{
 
     endTournament(id: string): Promise<void> {
         return new Promise((resolve, reject) => {
-            let chosen: Tournament = null;
             for(let i = 0; i < this.tournaments.length; i++)
-                if(this.tournaments[i].id == id)
-                    chosen = this.tournaments.splice(i, 1)[0];
-            if(chosen){
-                this.tournaments.push(
-                    new Tournament(
-                        chosen.id, 
-                        chosen.name, 
-                        chosen.startDate, 
-                        new Date(), 
-                        chosen.roundIds, 
-                        chosen.teamIds
-                    )
-                );
-            }
+                if(this.tournaments[i].id === id)
+                    this.tournaments[i].endDate = new Date();
             resolve();
         });
     }
@@ -276,7 +264,7 @@ export default class MockController implements Controller{
 
     getTournamentChampionStats(tournamentId: string, championId: number): Promise<ChampionOverallStats>{
         return new Promise((resolve, reject) => {
-            let stats: ChampionOverallStats;
+            let stats: ChampionOverallStats = null;
             for(let i = 0; i < this.champions.length; i++){
                 if(this.champions[i].id == championId){
                     stats = this.generateChampionOverallStats(this.champions[i]);
@@ -347,9 +335,17 @@ export default class MockController implements Controller{
         });
     }
 
-    fetchMatch(matchId: number, tournamentCode: string): Promise<Match> {
-        return new Promise((resolve, reject) => {
-            resolve(this.matches[0]);
+    fetchMatch(matchId: number, identityLocation: IdentityLocation): Promise<Match> {
+            return new Promise((resolve, reject) => {
+                const firstTeamIndex: number = this.random(0, this.teams.length - 1);
+            
+            //it could roll the same index for the second team, so it has to reroll that case
+            let secondTeamIndex: number;
+            do{
+                secondTeamIndex = this.random(0, this.teams.length - 1);
+            }while(firstTeamIndex === secondTeamIndex);
+
+            resolve(this.generateMatch(this.teams[firstTeamIndex], this.teams[secondTeamIndex]));
         });
     }
 
@@ -369,6 +365,7 @@ export default class MockController implements Controller{
             resolve();
         });
     }
+
     getTeams(tournamentId: string): Promise<Team[]> {
         return new Promise((resolve, reject) => {
             resolve(this.teams);
@@ -377,7 +374,7 @@ export default class MockController implements Controller{
 
     getPlayerStats(teamId?: string): Promise<PlayerOverallStats[]> {
         return new Promise((resolve, reject) => {
-            let stats: PlayerOverallStats[];
+            let stats: PlayerOverallStats[] = [];
             for(let i = 0; i < this.players.length; i++)
                 stats.push(this.generatePlayerOverallStats(this.players[i]));
             resolve(stats);
