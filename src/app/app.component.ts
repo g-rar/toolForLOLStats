@@ -1,9 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './widgets/login/login.component';
 import { AuthService } from './services/auth.service';
-import { SideMenuComponent } from './side-menu/side-menu.component';
+import { SideMenuComponent } from './widgets/side-menu/side-menu.component';
 
 @Component({
   selector: 'app-root',
