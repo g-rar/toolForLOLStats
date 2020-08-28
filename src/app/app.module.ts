@@ -12,6 +12,7 @@ import { MainComponent } from './pages/main/main.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
+import { InlineSVGModule } from 'ng-inline-svg';
 import { ReportGameComponent } from './pages/report-game/report-game.component';
 import { LoginComponent } from './widgets/login/login.component';
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
@@ -47,6 +48,7 @@ var firebaseConfig = {
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireAuthModule,
+    InlineSVGModule.forRoot(),
     AppRoutingModule,
     HttpClientModule
   ],

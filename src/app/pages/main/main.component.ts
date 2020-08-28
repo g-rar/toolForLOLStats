@@ -14,6 +14,12 @@ export class MainComponent implements OnInit {
 
   isLoggedIn = false;
   loggedMail = '';
+  // btnSVGProps = {'fill':'var(--color-main)',
+  //               'height':'3rem',
+  //               'width':'3rem',
+  //               'transition': '300ms ease-in-out',
+  //              };
+
 
   constructor(private authService : AuthService, private formBuilder: FormBuilder, private db:AngularFirestore) {}
 
