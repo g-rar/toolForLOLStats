@@ -3,5 +3,10 @@
         "target":"https://la1.api.riotgames.com",
         "secure": false,
         "changeOrigin": true
+    },
+    "battlefy/*":{
+        "target":"https://battlefy.com",
+        "secure": false,
+        "changeOrigin": true
     }
 }
