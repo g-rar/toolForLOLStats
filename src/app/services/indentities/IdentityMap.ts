@@ -23,8 +23,13 @@ export default class IdentityMap{
         return players;
     }
 
-    set(champion: string, summoner: string): void {
-        this.championToPlayer.set(champion, summoner);
+    set(champion: string, player: string): void {
+        this.championToPlayer.set(champion, player);
+    }
+
+    setAll(championToPlayer: Map<string, string>): void{
+        for(const champion of championToPlayer.keys())
+            this.set(champion, championToPlayer.get(champion));
     }
 
     get(champion: string): string{

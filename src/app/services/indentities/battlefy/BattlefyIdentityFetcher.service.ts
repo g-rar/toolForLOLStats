@@ -6,13 +6,14 @@ import { HTMLFetcher } from '../../html/HTMLFetcher.service';
 
 export default class BattlefyIdentityFetcher implements IdentityFetcher{
 
-    private static readonly FIRST_TEAM_NAME_SELECTOR: string = "html#ng-app.no-js.wf-roboto-n4-active.wf-roboto-n3-active.wf-roboto-n5-active.wf-roboto-i4-active.wf-roboto-i3-active.wf-roboto-i1-active.wf-roboto-n1-active.wf-active body bf-app.firefox main.main.side-bar-open div div#tournament.tournament-layout div bf-tournament.game-league-of-legends.match-page div.tournament-details div.tournament-wrapper div.tournament-details-content.tournament-body.tournament-content.infinite-scroll-container div.tournament-fixed-size div.tournament-routes div.stage-view-container div#stage-bracket-container div bf-match div.match-page div.role-component bf-match-viewer div.card bf-match-core-info div.match-participant-names div.match-team-container div.hidden-xs.hidden-sm.bfy-match-team h2 span.team-name";
-    private static readonly FIRST_TEAM_VICTORY_SELECTOR: string = "html#ng-app.no-js.wf-roboto-n4-active.wf-roboto-n3-active.wf-roboto-n5-active.wf-roboto-i4-active.wf-roboto-i3-active.wf-roboto-i1-active.wf-roboto-n1-active.wf-active body bf-app.firefox main.main.side-bar-open div div#tournament.tournament-layout div bf-tournament.game-league-of-legends.match-page div.tournament-details div.tournament-wrapper div.tournament-details-content.tournament-body.tournament-content.infinite-scroll-container div.tournament-fixed-size div.tournament-routes div.stage-view-container div#stage-bracket-container div bf-match div.match-page div.role-component bf-match-viewer div.card bf-match-core-info div.match-participant-names div.match-team-container div.win-status.top div small.winner span";
-    private static readonly FIRST_TEAM_DEFEAT_SELECTOR: string = "html#ng-app.no-js.wf-roboto-n4-active.wf-roboto-n3-active.wf-roboto-n5-active.wf-roboto-i4-active.wf-roboto-i3-active.wf-roboto-i1-active.wf-roboto-n1-active.wf-active body bf-app.firefox main.main.side-bar-open div div#tournament.tournament-layout div bf-tournament.game-league-of-legends.match-page div.tournament-details div.tournament-wrapper div.tournament-details-content.tournament-body.tournament-content.infinite-scroll-container div.tournament-fixed-size div.tournament-routes div.stage-view-container div#stage-bracket-container div bf-match div.match-page div.role-component bf-match-viewer div.card bf-match-core-info div.match-participant-names div.match-team-container div.win-status.top div small.loser span";
-
-    private static readonly SECOND_TEAM_NAME_SELECTOR: string = "html#ng-app.no-js.wf-roboto-n4-active.wf-roboto-n3-active.wf-roboto-n5-active.wf-roboto-i4-active.wf-roboto-i3-active.wf-roboto-i1-active.wf-roboto-n1-active.wf-active body bf-app.firefox main.main.side-bar-open div div#tournament.tournament-layout div bf-tournament.game-league-of-legends.match-page div.tournament-details div.tournament-wrapper div.tournament-details-content.tournament-body.tournament-content.infinite-scroll-container div.tournament-fixed-size div.tournament-routes div.stage-view-container div#stage-bracket-container div bf-match div.match-page div.role-component bf-match-viewer div.card bf-match-core-info div.match-participant-names div.match-team-container.text-align-right div.hidden-xs.hidden-sm.bfy-match-team h2 span.team-name";
-    private static readonly SECOND_TEAM_VICTORY_SELECTOR: string = "html#ng-app.no-js.wf-roboto-n4-active.wf-roboto-n3-active.wf-roboto-n5-active.wf-roboto-i4-active.wf-roboto-i3-active.wf-roboto-i1-active.wf-roboto-n1-active.wf-active body bf-app.firefox main.main.side-bar-open div div#tournament.tournament-layout div bf-tournament.game-league-of-legends.match-page div.tournament-details div.tournament-wrapper div.tournament-details-content.tournament-body.tournament-content.infinite-scroll-container div.tournament-fixed-size div.tournament-routes div.stage-view-container div#stage-bracket-container div bf-match div.match-page div.role-component bf-match-viewer div.card bf-match-core-info div.match-participant-names div.match-team-container.text-align-right div.win-status.bottom div small.winner span";
-    private static readonly SECOND_TEAM_DEFEAT_SELECTOR: string = "html#ng-app.no-js.wf-roboto-n4-active.wf-roboto-n3-active.wf-roboto-n5-active.wf-roboto-i4-active.wf-roboto-i3-active.wf-roboto-i1-active.wf-roboto-n1-active.wf-active body bf-app.firefox main.main.side-bar-open div div#tournament.tournament-layout div bf-tournament.game-league-of-legends.match-page div.tournament-details div.tournament-wrapper div.tournament-details-content.tournament-body.tournament-content.infinite-scroll-container div.tournament-fixed-size div.tournament-routes div.stage-view-container div#stage-bracket-container div bf-match div.match-page div.role-component bf-match-viewer div.card bf-match-core-info div.match-participant-names div.match-team-container.text-align-right div.win-status.bottom div small.loser span";
+    private static readonly TEAM_NAME_AND_STATUS_SELECTOR: string = "html#ng-app.no-js.wf-roboto-n4-active.wf-roboto-n5-active.wf-roboto-i4-active.wf-roboto-n3-active.wf-roboto-i3-active.wf-roboto-i1-active.wf-roboto-n1-active.wf-active body bf-app.firefox main.main.side-bar-open div div#tournament.tournament-layout div bf-tournament.game-league-of-legends.match-page div.tournament-details div.tournament-wrapper div.tournament-details-content.tournament-body.tournament-content.infinite-scroll-container div.tournament-fixed-size div.tournament-routes div.stage-view-container div#stage-bracket-container div bf-match div.match-page div#match-extras div.visible-lg bfy-lol-match-stats div div bfy-lol-stats.static div div.end-of-game.game-stats.clearfix div div.well h2.team-name span";
+    private static readonly WINNING_TEAM_PLAYER_NAME_SELECTOR: string = "html#ng-app.no-js.wf-roboto-n4-active.wf-roboto-n5-active.wf-roboto-i4-active.wf-roboto-n3-active.wf-roboto-i3-active.wf-roboto-i1-active.wf-roboto-n1-active.wf-active body bf-app.firefox main.main.side-bar-open div div#tournament.tournament-layout div bf-tournament.game-league-of-legends.match-page div.tournament-details div.tournament-wrapper div.tournament-details-content.tournament-body.tournament-content.infinite-scroll-container div.tournament-fixed-size div.tournament-routes div.stage-view-container div#stage-bracket-container div bf-match div.match-page div#match-extras div.visible-lg bfy-lol-match-stats div div bfy-lol-stats.static div div.end-of-game.game-stats.clearfix div div.well div.stat-table-container table.table.table-striped.table-stats tbody tr.player-winner td.player div.player-name-container div.summoner-spell-container.pl-10 div.summoner-name b";
+    private static readonly WINNING_TEAM_CHAMPION_IMAGE_SELECTOR: string = "html#ng-app.no-js.wf-roboto-n4-active.wf-roboto-n5-active.wf-roboto-i4-active.wf-roboto-n3-active.wf-roboto-i3-active.wf-roboto-i1-active.wf-roboto-n1-active.wf-active body bf-app.firefox main.main.side-bar-open div div#tournament.tournament-layout div bf-tournament.game-league-of-legends.match-page div.tournament-details div.tournament-wrapper div.tournament-details-content.tournament-body.tournament-content.infinite-scroll-container div.tournament-fixed-size div.tournament-routes div.stage-view-container div#stage-bracket-container div bf-match div.match-page div#match-extras div.visible-lg bfy-lol-match-stats div div bfy-lol-stats.static div div.end-of-game.game-stats.clearfix div div.well div.stat-table-container table.table.table-striped.table-stats tbody tr.player-winner td.player div.player-name-container img.lol-champion-icon";
+    private static readonly LOSING_TEAM_PLAYER_NAME_SELECTOR: string = "html#ng-app.no-js.wf-roboto-n4-active.wf-roboto-n5-active.wf-roboto-i4-active.wf-roboto-n3-active.wf-roboto-i3-active.wf-roboto-i1-active.wf-roboto-n1-active.wf-active body bf-app.firefox main.main.side-bar-open div div#tournament.tournament-layout div bf-tournament.game-league-of-legends.match-page div.tournament-details div.tournament-wrapper div.tournament-details-content.tournament-body.tournament-content.infinite-scroll-container div.tournament-fixed-size div.tournament-routes div.stage-view-container div#stage-bracket-container div bf-match div.match-page div#match-extras div.visible-lg bfy-lol-match-stats div div bfy-lol-stats.static div div.end-of-game.game-stats.clearfix div div.well div.stat-table-container table.table.table-striped.table-stats tbody tr.player-loser td.player div.player-name-container div.summoner-spell-container.pl-10 div.summoner-name b";
+    private static readonly LOSING_TEAM_CHAMPION_IMAGE_SELECTOR: string = "html#ng-app.no-js.wf-roboto-n4-active.wf-roboto-n5-active.wf-roboto-i4-active.wf-roboto-n3-active.wf-roboto-i3-active.wf-roboto-i1-active.wf-roboto-n1-active.wf-active body bf-app.firefox main.main.side-bar-open div div#tournament.tournament-layout div bf-tournament.game-league-of-legends.match-page div.tournament-details div.tournament-wrapper div.tournament-details-content.tournament-body.tournament-content.infinite-scroll-container div.tournament-fixed-size div.tournament-routes div.stage-view-container div#stage-bracket-container div bf-match div.match-page div#match-extras div.visible-lg bfy-lol-match-stats div div bfy-lol-stats.static div div.end-of-game.game-stats.clearfix div div.well div.stat-table-container table.table.table-striped.table-stats tbody tr.player-loser td.player div.player-name-container img.lol-champion-icon";
+    private static readonly VICTORY_STATUS: string = "- VICTORY";
+    private static readonly DEFEAT_STATUS: string = "- DEFEAT";
+    private static readonly TEAM_SIZE: number = 5;
 
     private htmlFetcher: HTMLFetcher;
 
@@ -28,41 +29,93 @@ export default class BattlefyIdentityFetcher implements IdentityFetcher{
         const doc: HTMLDocument = await this.htmlFetcher.fetch(battlefyUrl);
 
         //get empty team identities
-        const firstTeamIdentities: IdentityMap = this.getTeamIdentity(doc,
-            BattlefyIdentityFetcher.FIRST_TEAM_NAME_SELECTOR,
-            BattlefyIdentityFetcher.FIRST_TEAM_VICTORY_SELECTOR,
-            BattlefyIdentityFetcher.FIRST_TEAM_DEFEAT_SELECTOR
-        );
-        const secondTeamIdentities: IdentityMap = this.getTeamIdentity(doc,
-            BattlefyIdentityFetcher.SECOND_TEAM_NAME_SELECTOR,
-            BattlefyIdentityFetcher.SECOND_TEAM_VICTORY_SELECTOR,
-            BattlefyIdentityFetcher.SECOND_TEAM_DEFEAT_SELECTOR
-        );
+        const identities: [IdentityMap, IdentityMap] = this.getEmptyTeamIdentities(doc, BattlefyIdentityFetcher.TEAM_NAME_AND_STATUS_SELECTOR);
+        //add the champion-player maps to the identities
+        const firstTeamChampionToPlayerMap = this.getChampionPlayerMapForIdentity(doc, identities[0]);
+        const secondTeamChampionToPlayerMap = this.getChampionPlayerMapForIdentity(doc, identities[1]);
+        identities[0].setAll(firstTeamChampionToPlayerMap);
+        identities[1].setAll(secondTeamChampionToPlayerMap);
 
-        return [ firstTeamIdentities, secondTeamIdentities ];
+        return identities;
     }
 
-    private getTeamIdentity(doc: HTMLDocument, teamNameSelector: string, victorySelector: string, defeatSelector: string): IdentityMap {
-        const name: string = this.getTeamName(doc, teamNameSelector);
-        const status: boolean = this.getTeamStatus(doc, victorySelector, defeatSelector);
-        return new IdentityMap(name, status);
-    }
-
-    private getTeamName(doc: HTMLDocument, teamNameSelector: string): string {
-        const teamNameElement: Element = doc.querySelector(teamNameSelector);
-        if(teamNameElement)
-            return teamNameElement.innerHTML.trim();
-        else
+    private getEmptyTeamIdentities(doc: HTMLDocument, teamNameSelector: string): [ IdentityMap, IdentityMap ]{
+        //this querySelectorAll should always return 4 nodes:
+        //first team name, first team match status, second team name, second team match status
+        const nodes: NodeListOf<Element> = doc.querySelectorAll(teamNameSelector);
+        if(nodes.length != 4)
             throw new Error(IdentityFetcherError.UNABLE_TO_FIND_TEAM_NAME);
+        
+        const firstTeamName: string = nodes[0].innerHTML.trim();
+        const firstTeamStatus: string = nodes[1].innerHTML.trim();
+        const secondTeamName: string = nodes[2].innerHTML.trim();
+        const secondTeamStatus: string = nodes[3].innerHTML.trim();
+
+        const firstTeamIdentity: IdentityMap = this.getEmptyTeamIdentity(firstTeamName, firstTeamStatus);
+        const secondTeamIdentity: IdentityMap = this.getEmptyTeamIdentity(secondTeamName, secondTeamStatus);
+
+        return [firstTeamIdentity, secondTeamIdentity];
     }
 
-    private getTeamStatus(doc: HTMLDocument, victorySelector: string, defeatSelector: string): boolean {
-        let status: Element = doc.querySelector(victorySelector);
-        if(status)
-            return true;
-        status = doc.querySelector(defeatSelector);
-        if(status)
-            return false;
-        throw new Error(IdentityFetcherError.UNABLE_TO_FIND_TEAM_STATUS);
+    private getEmptyTeamIdentity(teamName: string, teamStatus: string): IdentityMap {
+        if(teamStatus === BattlefyIdentityFetcher.VICTORY_STATUS)
+            return new IdentityMap(teamName, true);
+        if(teamStatus === BattlefyIdentityFetcher.DEFEAT_STATUS)
+            return new IdentityMap(teamName, false);
+        else
+            throw new Error(IdentityFetcherError.UNABLE_TO_FIND_TEAM_STATUS);
+    }
+
+    private getChampionPlayerMapForIdentity(doc: HTMLDocument, identity: IdentityMap): Map<string, string>{
+        if(identity.won){
+            return this.getChampionPlayerMapBySelectors(doc, 
+                BattlefyIdentityFetcher.WINNING_TEAM_PLAYER_NAME_SELECTOR,
+                BattlefyIdentityFetcher.WINNING_TEAM_CHAMPION_IMAGE_SELECTOR
+            );
+        } else {
+            return this.getChampionPlayerMapBySelectors(doc, 
+                BattlefyIdentityFetcher.LOSING_TEAM_PLAYER_NAME_SELECTOR,
+                BattlefyIdentityFetcher.LOSING_TEAM_CHAMPION_IMAGE_SELECTOR
+            );
+        }
+    }
+
+    private getChampionPlayerMapBySelectors(doc: HTMLDocument, playerSelector: string, championImageSelector: string): Map<string, string> {
+        const players: string[] = this.getInnerHTMLList(doc, playerSelector);
+        const championImages: string[] = this.getSourceList(doc, championImageSelector);
+
+        if(players.length != BattlefyIdentityFetcher.TEAM_SIZE)
+            throw new Error(IdentityFetcherError.UNABLE_TO_FIND_PLAYER_DATA);
+        else if(championImages.length != BattlefyIdentityFetcher.TEAM_SIZE)
+            throw new Error(IdentityFetcherError.UNABLE_TO_FIND_CHAMPION_DATA);
+        else{
+            const champions: string[] = this.getChampionAssetIDsFromImage(championImages);
+            const map: Map<string, string> = new Map();
+            for(let i = 0; i < 5; i++)
+                map.set(champions[i], players[i]);
+            return map;
+        }
+    }
+
+    private getInnerHTMLList(doc: HTMLDocument, selector: string): string[]{
+        const innerHtmls: string[] = [];
+        doc.querySelectorAll(selector).forEach( node => innerHtmls.push(node.innerHTML.trim()) );
+        return innerHtmls;
+    }
+
+    private getSourceList(doc: HTMLDocument, selector: string): string[]{
+        const sources: string[] = [];
+        doc.querySelectorAll(selector).forEach( node => sources.push(node.getAttribute('src').trim()) );
+        return sources;
+    }
+
+    private getChampionAssetIDsFromImage(championImages: string[]): string[] {
+        const ids: string[] = [];
+        championImages.forEach( image => {
+            const start: number = image.lastIndexOf('/') + 1;
+            const end: number = image.lastIndexOf('.');
+            ids.push(image.substring(start, end));
+        });
+        return ids;
     }
 }

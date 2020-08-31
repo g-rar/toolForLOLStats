@@ -31,13 +31,20 @@ describe('BattlefyIdentityFetcher', () => {
 
     it('should get the identity maps', async () => {
         //since the fetcher was initialized with the mock HTML fetcher the identity location doesn't matter
-        const response: [IdentityMap, IdentityMap] = await fetcher.fetch(STUB_IDENTITY_LOCATION);
-        expect(response).toBeTruthy();
+        const identities: [IdentityMap, IdentityMap] = await fetcher.fetch(STUB_IDENTITY_LOCATION);
+        expect(identities).toBeTruthy();
     });
 
-    /*
-    it('should ', async () => {
-        
+    it('should get exactly 5 player records per team', async () => {
+        //since the fetcher was initialized with the mock HTML fetcher the identity location doesn't matter
+        const identities: [IdentityMap, IdentityMap] = await fetcher.fetch(STUB_IDENTITY_LOCATION);
+        expect(identities[0].players.length).toBe(5);
+        expect(identities[1].players.length).toBe(5);
     });
-    */
+
+    it('should always get a winning team and a losing team', async () => {
+        //since the fetcher was initialized with the mock HTML fetcher the identity location doesn't matter
+        const identities: [IdentityMap, IdentityMap] = await fetcher.fetch(STUB_IDENTITY_LOCATION);
+        expect(identities[0].won).toBe(!identities[1].won);
+    });
 });
