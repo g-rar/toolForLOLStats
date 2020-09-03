@@ -32,7 +32,6 @@ describe('BattlefyIdentityFetcher', () => {
     it('should get the identity maps', async () => {
         //since the fetcher was initialized with the mock HTML fetcher the identity location doesn't matter
         const identities: [IdentityMap, IdentityMap] = await fetcher.fetch(STUB_IDENTITY_LOCATION);
-        console.log(identities);
         expect(identities).toBeTruthy();
     });
 
