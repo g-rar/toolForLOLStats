@@ -1,3 +1,3 @@
-export default interface Database{
+export default abstract class Database{
     
 }

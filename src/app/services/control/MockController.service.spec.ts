@@ -1,9 +1,10 @@
 import MockController from './MockController.service';
-import IdentityLocation from '../indentities/IdentityLocation'
+import Controller from './Controller.service';
+import IdentityLocation from '../indentities/IdentityLocation';
 import { User, Tournament, Team, Round, Set, Match, ChampionOverallStats, PlayerOverallStats } from '../../models/index';
+import { TestBed } from '@angular/core/testing';
 
 describe('MockController', () => {
-    let controller: MockController;
 
     const STUB_USERNAME: string = "username doesn't matter";
     const STUB_PASSWORD: string = "password doesn't matter";
@@ -14,8 +15,11 @@ describe('MockController', () => {
     const STUB_MATCH_ID: number = -1;
     const STUB_IDENTITY_LOCATION: IdentityLocation = null;
 
+    let controller: Controller;
+
     beforeEach(() => {
-        controller = new MockController();
+        TestBed.configureTestingModule({ providers: [ { provide: Controller, useClass: MockController }] });
+        controller = TestBed.inject(Controller);
     });
 
     it('should be created', () => {
@@ -24,7 +28,6 @@ describe('MockController', () => {
 
     it('should authenticate any user', async () => {
         const user: User = await controller.authenticate(STUB_USERNAME, STUB_PASSWORD);
-        
         expect(user).toBeTruthy();
     });
 

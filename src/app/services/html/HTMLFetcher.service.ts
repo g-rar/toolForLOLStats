@@ -1,5 +1,5 @@
-export interface HTMLFetcher{
-    fetch(url: string): Promise<HTMLDocument>
+export abstract class HTMLFetcher{
+    fetch: (url: string) => Promise<HTMLDocument>
 }
 
 export enum HTMLFetcherError {

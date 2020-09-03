@@ -1,8 +1,8 @@
 import IdentityLocation from './IdentityLocation';
 import IdentityMap from './IdentityMap';
 
-export interface IdentityFetcher {
-    fetch(location: IdentityLocation): Promise<[IdentityMap, IdentityMap]>;
+export abstract class IdentityFetcher {
+    fetch: (location: IdentityLocation) => Promise<[IdentityMap, IdentityMap]>;
 }
 
 export enum IdentityFetcherError {

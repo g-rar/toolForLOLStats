@@ -1,5 +1,8 @@
+import { Injectable } from '@angular/core';
+import ControlModule from '../control.module';
 import Controller from './Controller.service';
 import IdentityLocation from '../indentities/IdentityLocation';
+
 import {
     User, 
     Tournament,
@@ -16,6 +19,9 @@ import {
     SetResult
 } from '../../models/index';
 
+@Injectable({
+    providedIn: ControlModule,
+})
 export default class MockController implements Controller{
 
     private ids: number = 0;

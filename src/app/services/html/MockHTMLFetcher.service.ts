@@ -1,5 +1,10 @@
+import { Injectable } from '@angular/core';
+import ControlModule from '../control.module';
 import { HTMLFetcher } from './HTMLFetcher.service';
 
+@Injectable({
+    providedIn: ControlModule,
+})
 export default class MockHTMLFetcher implements HTMLFetcher{
 
     async fetch(url: string): Promise<HTMLDocument> {

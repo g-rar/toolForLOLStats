@@ -1,5 +1,5 @@
 import Champion from '../../models/Champion';
 
-export default interface ChampionFetcher{
-    fetch(id: number): Champion;
+export default abstract class ChampionFetcher{
+    fetch: (id: number) => Champion;
 }
