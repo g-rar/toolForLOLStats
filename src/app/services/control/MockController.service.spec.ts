@@ -1,5 +1,5 @@
 import MockController from './MockController.service';
-import Controller from './Controller.service';
+import { Controller } from './Controller.service';
 import IdentityLocation from '../indentities/IdentityLocation';
 import { User, Tournament, Team, Round, Set, Match, ChampionOverallStats, PlayerOverallStats } from '../../models/index';
 import { TestBed } from '@angular/core/testing';
@@ -18,7 +18,7 @@ describe('MockController', () => {
     let controller: Controller;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({ providers: [ { provide: Controller, useClass: MockController }] });
+        TestBed.configureTestingModule({ providers: [ { provide: Controller, useClass: MockController } ] });
         controller = TestBed.inject(Controller);
     });
 
@@ -27,15 +27,19 @@ describe('MockController', () => {
     });
 
     it('should authenticate any user', async () => {
-        const user: User = await controller.authenticate(STUB_USERNAME, STUB_PASSWORD);
+        const user: User = await controller.login(STUB_USERNAME, STUB_PASSWORD);
         expect(user).toBeTruthy();
     });
 
     it('should return the same email on the user', async () => {
         const email: string = "ajoscram@gmail.com";
-        const user: User = await controller.authenticate(email, STUB_PASSWORD);
+        const user: User = await controller.login(email, STUB_PASSWORD);
 
         expect(user.email).toBe(email);
+    });
+
+    it('should always logout regardless of the user state', async () => {
+        await expectAsync(controller.logout()).toBeResolved();
     });
 
     it('should get a non-empty list of existing tournaments', async () => {

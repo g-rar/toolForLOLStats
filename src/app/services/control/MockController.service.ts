@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import ControlModule from '../control.module';
-import Controller from './Controller.service';
+import { Controller } from './Controller.service';
 import IdentityLocation from '../indentities/IdentityLocation';
 
 import {
@@ -52,7 +52,7 @@ export default class MockController implements Controller{
 
     constructor(){
         //champions
-        this.champions =  [ 
+        this.champions = [ 
             MockController.AATROX,
             MockController.EZREAL,
             MockController.AHRI,
@@ -155,8 +155,7 @@ export default class MockController implements Controller{
         );
     }
 
-    //made public to easily generate fake matches
-    public generateMatch(winner: Team, loser: Team){
+    private generateMatch(winner: Team, loser: Team){
         const minutesPlayed = this.random(15, 60);
         return new Match(
             this.ids++,
@@ -231,9 +230,15 @@ export default class MockController implements Controller{
         return result;
     }
 
-    authenticate(email: string, password: string): Promise<User> {
+    login(email: string, password: string): Promise<User> {
         return new Promise((resolve, reject) => {
             resolve(new User(email));
+        });
+    }
+
+    logout(): Promise<void>{
+        return new Promise((resolve, reject)=> {
+            resolve();
         });
     }
 

@@ -11,9 +11,10 @@ import {
 
 import IdentityLocation from '../indentities/IdentityLocation';
 
-export default abstract class Controller{
+export abstract class Controller{
     //basic authentication
-    authenticate: (email: string, password: string) => Promise<User>;
+    login: (email: string, password: string) => Promise<User>;
+    logout: () => Promise<void>;
 
     //tournaments
     addTournament: (name: string, startDate: Date) => Promise<void>;
@@ -42,4 +43,8 @@ export default abstract class Controller{
     addTeam: (tournamentId: string, name: string) => Promise<void>;
     getTeams: (tournamentId: string) => Promise<Team[]>;
     getPlayerStats: (teamId?: string) => Promise<PlayerOverallStats[]>;
+}
+
+export enum ControllerError{
+    
 }
