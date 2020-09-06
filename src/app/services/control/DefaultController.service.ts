@@ -46,12 +46,12 @@ export default class DefaultController implements Controller{
         return await this.authenticator.logout();
     }
 
-    async addTournament(name: string, startDate: Date): Promise<void>{
+    async addTournament(name: string, startDate: Date): Promise<Tournament>{
         await this.authenticator.validate();
         throw new Error("Not implemented yet.");
     }
 
-    async endTournament(id: string): Promise<void>{
+    async endTournament(id: string): Promise<Tournament>{
         await this.authenticator.validate();
         throw new Error("Not implemented yet.");
     }
@@ -68,12 +68,12 @@ export default class DefaultController implements Controller{
         throw new Error("Not implemented yet.");
     }
 
-    async addRound(tournamentId: string, roundName: string): Promise<void>{
+    async addRound(tournamentId: string, roundName: string): Promise<Round>{
         await this.authenticator.validate();
         throw new Error("Not implemented yet.");
     }
 
-    async deleteRound(tournamentId: string, roundId: string): Promise<void>{
+    async deleteRound(tournamentId: string, roundId: string): Promise<Round>{
         await this.authenticator.validate();
         throw new Error("Not implemented yet.");
     }
@@ -86,7 +86,7 @@ export default class DefaultController implements Controller{
         throw new Error("Not implemented yet.");
     }
 
-    async addSet(tournamentId: string, roundId: string, firstTeamId: string, secondTeamId: string): Promise<void>{
+    async addSet(tournamentId: string, roundId: string, firstTeamId: string, secondTeamId: string): Promise<Set>{
         await this.authenticator.validate();
         throw new Error("Not implemented yet.");
     }
@@ -95,7 +95,7 @@ export default class DefaultController implements Controller{
         throw new Error("Not implemented yet.");
     }
 
-    async deleteSet(tournamentId: string, roundId: string, setId: string): Promise<void>{
+    async deleteSet(tournamentId: string, roundId: string, setId: string): Promise<Set>{
         await this.authenticator.validate();
         throw new Error("Not implemented yet.");
     }
@@ -105,7 +105,7 @@ export default class DefaultController implements Controller{
         throw new Error("Not implemented yet.");
     }
 
-    async addMatch(tournamentId: string, roundId: string, setId: string, matchId: number): Promise<void>{
+    async addMatch(tournamentId: string, roundId: string, setId: string, matchId: number): Promise<Match>{
         await this.authenticator.validate();
         throw new Error("Not implemented yet.");
     }
@@ -114,7 +114,7 @@ export default class DefaultController implements Controller{
         throw new Error("Not implemented yet.");
     }
 
-    async addTeam(tournamentId: string, name: string): Promise<void>{
+    async addTeam(tournamentId: string, name: string): Promise<Team>{
         await this.authenticator.validate();
         throw new Error("Not implemented yet.");
     }

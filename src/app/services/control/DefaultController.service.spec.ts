@@ -15,7 +15,7 @@ import { MatchFetcher, MatchFetcherError } from '../matches/MatchFetcher.service
 import MockMatchFetcher from '../matches/MockMatchFetcher.service';
 
 
-describe('AngularHTMLFetcher', () => {
+describe('DefaultController', () => {
 
     let controller: Controller;
 
@@ -57,7 +57,7 @@ describe('AngularHTMLFetcher', () => {
     });
 
     it('should fail if a logout is attempted when a user isn\'t logged in', async () => {
-        //user gets logged in on the beforeEach, so logout must be called an extra time to trigger
+        //user gets logged-in on the beforeEach, so logout must be called an extra time to trigger
         await expectAsync(controller.logout()).toBeResolved();
         await expectAsync(controller.logout()).toBeRejectedWith(
             new Error(AuthenticatorError.NOT_AUTHENTICATED)

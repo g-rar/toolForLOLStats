@@ -242,19 +242,23 @@ export default class MockController implements Controller{
         });
     }
 
-    addTournament(name: string, startDate: Date): Promise<void> {
+    addTournament(name: string, startDate: Date): Promise<Tournament> {
         return new Promise((resolve, reject) => {
-            this.tournaments.push(new Tournament(''+this.ids++, name, startDate, null, [], []));
-            resolve();
+            const tournament: Tournament = new Tournament(''+this.ids++, name, startDate, null, [], []);
+            this.tournaments.push(tournament);
+            resolve(tournament);
         });
     }
 
-    endTournament(id: string): Promise<void> {
+    endTournament(id: string): Promise<Tournament> {
         return new Promise((resolve, reject) => {
-            for(let i = 0; i < this.tournaments.length; i++)
-                if(this.tournaments[i].id === id)
+            for(let i = 0; i < this.tournaments.length; i++){
+                if(this.tournaments[i].id === id){
                     this.tournaments[i].endDate = new Date();
-            resolve();
+                    return resolve(this.tournaments[i]);
+                }
+            }
+            return reject(new Error('tournament not found'));
         });
     }
 
@@ -287,19 +291,23 @@ export default class MockController implements Controller{
         });
     }
 
-    addRound(tournamentId: string, roundName: string): Promise<void> {
+    addRound(tournamentId: string, roundName: string): Promise<Round> {
         return new Promise((resolve, reject) => {
-            this.rounds.push(new Round(''+this.ids++, roundName, this.sets));
-            resolve();
+            const round: Round = new Round(''+this.ids++, roundName, this.sets);
+            this.rounds.push(round);
+            resolve(round);
         });
     }
 
-    deleteRound(tournamentId: string, roundId: string): Promise<void> {
+    deleteRound(tournamentId: string, roundId: string): Promise<Round> {
         return new Promise((resolve, reject) => {
-            for(let i = 0; i < this.rounds.length; i++)
-                if(this.rounds[i].id === roundId)
-                    this.rounds.splice(i, 1);
-            resolve();
+            for(let i = 0; i < this.rounds.length; i++){
+                if(this.rounds[i].id === roundId){
+                    const round: Round = this.rounds.splice(i, 1)[0];
+                    return resolve(round);
+                }
+            }
+            return reject(new Error('round not found'));
         });
     }
 
@@ -322,10 +330,11 @@ export default class MockController implements Controller{
         });
     }
 
-    addSet(tournamentId: string, roundId: string, firstTeamId: string, secondTeamId: string): Promise<void> {
+    addSet(tournamentId: string, roundId: string, firstTeamId: string, secondTeamId: string): Promise<Set> {
         return new Promise((resolve, reject) => {
-            this.sets.push(this.generateSet(this.getTeam(firstTeamId), this.getTeam(secondTeamId), []));
-            resolve();
+            const set: Set = this.generateSet(this.getTeam(firstTeamId), this.getTeam(secondTeamId), []);
+            this.sets.push(set);
+            resolve(set);
         });
     }
 
@@ -335,15 +344,15 @@ export default class MockController implements Controller{
         });
     }
     
-    deleteSet(tournamentId: string, roundId: string, setId: string): Promise<void> {
+    deleteSet(tournamentId: string, roundId: string, setId: string): Promise<Set> {
         return new Promise((resolve, reject) => {
             for(let i = 0; i < this.sets.length; i++){
                 if(this.sets[i].id === setId){
-                    this.sets.splice(i, 1);
-                    break;
+                    const set: Set = this.sets.splice(i, 1)[0];
+                    return resolve(set);
                 }
             }
-            resolve();
+            return reject(new Error('set not found'));
         });
     }
 
@@ -362,16 +371,17 @@ export default class MockController implements Controller{
         });
     }
 
-    addMatch(tournamentId: string, roundId:string, setId:string, matchId: number): Promise<void> {
+    addMatch(tournamentId: string, roundId:string, setId:string, matchId: number): Promise<Match> {
         return new Promise((resolve, reject) => {
             if(this.fetchedMatch == null)
                 reject(new Error("Must fetch a match first!"));
             else if(this.fetchedMatch.id != matchId)
                 reject(new Error("The matchId must match the most recently fetched match id!"));
             else{
-                this.matches.push(this.fetchedMatch);
+                const match: Match = this.fetchedMatch;
                 this.fetchedMatch = null;
-                resolve();
+                this.matches.push(match);
+                resolve(match);
             }
         });
     }
@@ -382,10 +392,11 @@ export default class MockController implements Controller{
         });
     }
 
-    addTeam(tournamentId: string, name: string): Promise<void> {
+    addTeam(tournamentId: string, name: string): Promise<Team> {
         return new Promise((resolve, reject) => {
-            this.teams.push(new Team(''+this.ids++, name, [ ]));
-            resolve();
+            const team: Team = new Team(''+this.ids++, name, [ ]);
+            this.teams.push(team);
+            resolve(team);
         });
     }
 

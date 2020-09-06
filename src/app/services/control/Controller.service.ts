@@ -17,30 +17,30 @@ export abstract class Controller{
     logout: () => Promise<void>;
 
     //tournaments
-    addTournament: (name: string, startDate: Date) => Promise<void>;
-    endTournament: (id: string) => Promise<void>;
+    addTournament: (name: string, startDate: Date) => Promise<Tournament>;
+    endTournament: (id: string) => Promise<Tournament>;
     getTournaments: () => Promise<Tournament[]>;
     getTournamentChampionsStats: (tournamentId: string) => Promise<ChampionOverallStats[]>;
     getTournamentChampionStats: (tournamentId: string, championId: number) => Promise<ChampionOverallStats>;
 
     //rounds
-    addRound: (tournamentId: string, roundName: string) => Promise<void>;
-    deleteRound: (tournamentId: string, roundId: string) => Promise<void>;
+    addRound: (tournamentId: string, roundName: string) => Promise<Round>;
+    deleteRound: (tournamentId: string, roundId: string) => Promise<Round>;
     getRound: (tournamentId: string, roundId: string) => Promise<Round>;
     getRounds: (tournamentId: string) => Promise<Round[]>;
 
     //sets
-    addSet: (tournamentId: string, roundId: string, firstTeamId: string, secondTeamId: string) => Promise<void>;
+    addSet: (tournamentId: string, roundId: string, firstTeamId: string, secondTeamId: string) => Promise<Set>;
     getSets: (tournamentId: string, roundId: string) => Promise<Set[]>;
-    deleteSet: (tournamentId: string, roundId: string, setId: string) => Promise<void>;
+    deleteSet: (tournamentId: string, roundId: string, setId: string) => Promise<Set>;
 
     //matches
     fetchMatch: (matchId: number, identityLocation: IdentityLocation) => Promise<Match>;
-    addMatch: (tournamentId: string, roundId:string, setId:string, matchId: number) => Promise<void>;
+    addMatch: (tournamentId: string, roundId:string, setId:string, matchId: number) => Promise<Match>;
     getMatches: (tournamentId: string, roundId?: string, setId?: string) => Promise<Match[]>;
 
     //teams and players
-    addTeam: (tournamentId: string, name: string) => Promise<void>;
+    addTeam: (tournamentId: string, name: string) => Promise<Team>;
     getTeams: (tournamentId: string) => Promise<Team[]>;
     getPlayerStats: (teamId?: string) => Promise<PlayerOverallStats[]>;
 }
