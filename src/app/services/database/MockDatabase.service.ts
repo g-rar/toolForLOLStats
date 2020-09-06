@@ -52,15 +52,18 @@ export default class MockDatabase implements Database {
         this.sets = [];
 
         //rounds
+        const groupsID: string = ''+this.ids++;
+        const semifinalsID: string = ''+this.ids++;
+        const finalsID: string = ''+this.ids++;
         this.rounds = [ 
-            new Round(''+this.ids++, 'Groups', this.sets),
-            new Round(''+this.ids++, 'Semifinals', this.sets),
-            new Round(''+this.ids++, 'Finals', this.sets)
+            new Round(groupsID, 'Groups', this.sets),
+            new Round(semifinalsID, 'Semifinals', this.sets),
+            new Round(finalsID, 'Finals', this.sets)
         ];
 
         //tournaments
         this.tournaments = [
-            new Tournament(''+this.ids++, 'Dummy Tournament', new Date(), null, [ 'Groups', 'Semifinals', 'Finals'], ['0', '1', '2', '3'])
+            new Tournament(''+this.ids++, 'Dummy Tournament', new Date(), null, [ groupsID, semifinalsID, finalsID], ['0', '1', '2', '3'])
         ];
     }
 
