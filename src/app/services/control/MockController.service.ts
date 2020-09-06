@@ -280,14 +280,13 @@ export default class MockController implements Controller{
 
     getTournamentChampionStats(tournamentId: string, championId: number): Promise<ChampionOverallStats>{
         return new Promise((resolve, reject) => {
-            let stats: ChampionOverallStats = null;
             for(let i = 0; i < this.champions.length; i++){
                 if(this.champions[i].id == championId){
-                    stats = this.generateChampionOverallStats(this.champions[i]);
-                    break;
+                    const stats: ChampionOverallStats = this.generateChampionOverallStats(this.champions[i]);
+                    return resolve(stats);
                 }
             }
-            resolve(stats);
+            return reject(new Error('champion not found'));
         });
     }
 
@@ -313,14 +312,10 @@ export default class MockController implements Controller{
 
     getRound(tournamentId: string, roundId: string): Promise<Round> {
         return new Promise((resolve, reject) => {
-            let round: Round;
-            for(let i = 0; i < this.rounds.length; i++){
-                if(this.rounds[i].id === roundId){
-                    round = this.rounds[i];
-                    break;
-                }
-            }
-            resolve(round);
+            for(let i = 0; i < this.rounds.length; i++)
+                if(this.rounds[i].id === roundId)
+                    return resolve(this.rounds[i]);
+            reject(new Error('round not found'));
         });
     }
 
