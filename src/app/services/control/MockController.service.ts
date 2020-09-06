@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import ControlModule from '../control.module';
 import { Controller } from './Controller.service';
-import IdentityLocation from '../indentities/IdentityLocation';
+import IdentityLocation from '../identities/IdentityLocation';
 
 import {
     User, 

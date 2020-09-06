@@ -1,3 +1,7 @@
-export default abstract class Database{
+export abstract class Database{
     
+}
+
+export enum DatabaseError{
+
 }

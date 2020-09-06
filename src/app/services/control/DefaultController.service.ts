@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import ControlModule from '../control.module';
 import { Controller, ControllerError } from './Controller.service';
-import IdentityLocation from '../indentities/IdentityLocation';
-import { Authenticator, AuthenticatorError } from '../authentication/Authenticator.service';
-import Database from '../database/Database.service';
-import ChampionFetcher from '../champions/ChampionFetcher.service';
-import { IdentityFetcher } from '../indentities/IdentityFetcher.service';
-import MatchFetcher from '../matches/MatchFetcher.service';
+import { Authenticator } from '../authentication/Authenticator.service';
+import { Database } from '../database/Database.service';
+import { ChampionFetcher } from '../champions/ChampionFetcher.service';
+import { IdentityFetcher } from '../identities/IdentityFetcher.service';
+import IdentityLocation from '../identities/IdentityLocation';
+import { MatchFetcher } from '../matches/MatchFetcher.service';
 
 import {
     User, 
@@ -23,7 +23,6 @@ import {
     TeamPerformance,
     SetResult
 } from '../../models/index';
-import { async } from 'rxjs';
 
 @Injectable({
     providedIn: ControlModule,

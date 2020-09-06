@@ -1,6 +1,6 @@
 import MockController from './MockController.service';
 import { Controller } from './Controller.service';
-import IdentityLocation from '../indentities/IdentityLocation';
+import IdentityLocation from '../identities/IdentityLocation';
 import { User, Tournament, Team, Round, Set, Match, ChampionOverallStats, PlayerOverallStats } from '../../models/index';
 import { TestBed } from '@angular/core/testing';
 

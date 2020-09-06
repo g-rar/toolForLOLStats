@@ -18,7 +18,9 @@ import { ReportGameComponent } from './pages/report-game/report-game.component';
 import { LoginComponent } from './widgets/login/login.component';
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
 import { SideMenuComponent } from './widgets/side-menu/side-menu.component';
-
+import ControlModule from './services/control.module';
+import { Controller } from './services/control/Controller.service';
+import MockController from './services/control/MockController.service';
 
 var firebaseConfig = {
   apiKey: "AIzaSyAm4XhFsTNZUgHbkW7ZFnNglLA0kqlBS6k",
@@ -52,9 +54,12 @@ var firebaseConfig = {
     InlineSVGModule.forRoot(),
     AppRoutingModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    ControlModule
   ],
-  providers: [],
+  providers: [
+    { provide: Controller, useClass: MockController }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

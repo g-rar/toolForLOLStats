@@ -9,7 +9,7 @@ import {
     PlayerOverallStats 
 } from '../../models/index';
 
-import IdentityLocation from '../indentities/IdentityLocation';
+import IdentityLocation from '../identities/IdentityLocation';
 
 export abstract class Controller{
     //basic authentication
