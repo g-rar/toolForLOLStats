@@ -13,7 +13,10 @@ import { IdentityFetcher, IdentityFetcherError } from '../identities/IdentityFet
 import MockIdentityFetcher from '../identities/MockIdentityFetcher.service';
 import { MatchFetcher, MatchFetcherError } from '../matches/MatchFetcher.service';
 import MockMatchFetcher from '../matches/MockMatchFetcher.service';
+import IdentityLinker from '../identities/IdentityLinker.service';
+import IdentityLocation from '../identities/IdentityLocation';
 
+class MockIdentityLocation implements IdentityLocation{}
 
 describe('DefaultController', () => {
 
@@ -22,7 +25,8 @@ describe('DefaultController', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ ControlModule ],
-            providers: [ 
+            providers: [
+                IdentityLinker, 
                 { provide: Authenticator, useClass: MockAuthenticator },
                 { provide: ChampionFetcher, useClass: MockChampionFetcher },
                 { provide: Database, useClass: MockDatabase },
@@ -62,6 +66,15 @@ describe('DefaultController', () => {
         await expectAsync(controller.logout()).toBeRejectedWith(
             new Error(AuthenticatorError.NOT_AUTHENTICATED)
         );
+    });
+
+
+    it('should fetch a match and link its identities', async () => {
+        const match_id: number = -1 //doesn't matter
+        const match: Match = await controller.fetchMatch(match_id, new MockIdentityLocation());
+        expect(match).toBeTruthy();
+        match.blue.playerStats.forEach(player => { expect(player).toBeTruthy(); });
+        match.red.playerStats.forEach(player => { expect(player).toBeTruthy(); });
     });
 
     /*

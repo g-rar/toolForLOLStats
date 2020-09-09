@@ -46,5 +46,6 @@ export abstract class Controller{
 }
 
 export enum ControllerError{
-    
+    MATCH_NOT_FETCHED = 'ControllerError.MATCH_NOT_FETCHED',
+    INCORRECT_MATCH_ID = 'ControllerError.INCORRECT_MATCH_ID'
 }

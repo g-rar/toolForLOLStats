@@ -2,11 +2,10 @@ import Clonable from './Clonable';
 
 export default class Player implements Clonable<Player> {
     constructor(
-        public id: string,
-        public name: string
+        public summonerName: string
     ){}
 
     clone(): Player {
-        return new Player(this.id, this.name);
+        return new Player(this.summonerName);
     }
 }

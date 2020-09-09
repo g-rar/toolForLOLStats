@@ -68,7 +68,7 @@ export default class MockController implements Controller{
         //players
         this.players = [];
         for(let i = 0; i < 20; i++)
-            this.players.push(new Player(''+i, 'Player ' + i));
+            this.players.push(new Player('Player ' + i));
 
         //teams
         this.teams = [
@@ -153,7 +153,11 @@ export default class MockController implements Controller{
                 MockController.YUUMI, 
                 MockController.CHOGATH
             ],
-            false, 
+            won,
+            this.random(0, 4), //dragons
+            this.random(0, 1), //heralds
+            this.random(0, 2), //barons
+            this.random(0, 11), //towers
             stats
         );
     }

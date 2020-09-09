@@ -8,6 +8,10 @@ export default class TeamPerformance implements Clonable<TeamPerformance>{
         public teamName: string,
         public bans: Champion[],
         public won: boolean,
+        public dragons: number,
+        public heralds: number,
+        public barons: number,
+        public towers: number,
         public playerStats: PerformanceStats[]
     ){}
 
@@ -23,6 +27,10 @@ export default class TeamPerformance implements Clonable<TeamPerformance>{
             this.teamName,
             bans,
             this.won,
+            this.dragons,
+            this.heralds,
+            this.barons,
+            this.towers,
             playerStats
         );
     }
