@@ -1,27 +1,28 @@
 import Stats from './Stats'
 import Champion from '../Champion'
+import Clonable from '../Clonable';
+import { Player } from '..';
 
-export default class PerformanceStats extends Stats{
+export default class PerformanceStats extends Stats implements Clonable<PerformanceStats>{
     constructor(
-        readonly assists: number,
-        readonly deaths: number,
-        readonly damageDealtToChampions: number,
-        readonly damageDealtToObjectives: number,
-        readonly damageReceived: number,
-        readonly gold: number,
-        readonly kills: number,
-        readonly minions: number,
-        readonly minutesPlayed: number,
-        readonly visionScore: number,
-        readonly crowdControlScore: number,
-        readonly playerId: string,
-        readonly playerName: string,
-        readonly champion: Champion,
-        readonly largestMultikill: number,
-        readonly largestKillingSpree: number,
-        readonly firstBlood: boolean,
-        readonly firstTower: boolean,
-        readonly won: boolean
+        public assists: number,
+        public deaths: number,
+        public damageDealtToChampions: number,
+        public damageDealtToObjectives: number,
+        public damageReceived: number,
+        public gold: number,
+        public kills: number,
+        public minions: number,
+        public minutesPlayed: number,
+        public visionScore: number,
+        public crowdControlScore: number,
+        public player: Player,
+        public champion: Champion,
+        public largestMultikill: number,
+        public largestKillingSpree: number,
+        public firstBlood: boolean,
+        public firstTower: boolean,
+        public won: boolean
     ){ 
         super(
             assists,
@@ -35,6 +36,29 @@ export default class PerformanceStats extends Stats{
             minutesPlayed,
             visionScore,
             crowdControlScore
+        );
+    }
+
+    clone(): PerformanceStats {
+        return new PerformanceStats(
+            this.assists,
+            this.deaths,
+            this.damageDealtToChampions,
+            this.damageDealtToObjectives,
+            this.damageReceived,
+            this.gold,
+            this.kills,
+            this.minions,
+            this.minutesPlayed,
+            this.visionScore,
+            this.crowdControlScore,
+            this.player.clone(),
+            this.champion.clone(),
+            this.largestMultikill,
+            this.largestKillingSpree,
+            this.firstBlood,
+            this.firstTower,
+            this.won
         );
     }
 }

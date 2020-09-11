@@ -1,12 +1,22 @@
 import TeamPerformance from './TeamPerformance'
+import Clonable from './Clonable';
 
-export default class Match {
+export default class Match implements Clonable<Match>{
     constructor(
-        readonly id: string,
-        readonly tournamentCode: string,
-        readonly red: TeamPerformance[],
-        readonly blue: TeamPerformance[],
-        readonly minutesPlayed: number,
-        readonly date: Date
+        public id: number,
+        public red: TeamPerformance,
+        public blue: TeamPerformance,
+        public minutesPlayed: number,
+        public date: Date
     ){}
+
+    clone(): Match{
+        return new Match(
+            this.id,
+            this.red.clone(),
+            this.blue.clone(),
+            this.minutesPlayed,
+            new Date(this.date.getTime())
+        );
+    }
 }

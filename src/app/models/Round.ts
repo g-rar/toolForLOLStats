@@ -2,9 +2,8 @@ import Set from './Set'
 
 export default class Round{
     constructor(
-        readonly id: string,
-        readonly sets: Set[]
+        public id: string,
+        public name: string,
+        public sets: Set[]
     ){}
-
-    get name(): string{ return this.id; }
 }

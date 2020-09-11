@@ -12,13 +12,16 @@ import { MainComponent } from './pages/main/main.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { InlineSVGModule } from 'ng-inline-svg';
 import { ReportGameComponent } from './pages/report-game/report-game.component';
 import { LoginComponent } from './widgets/login/login.component';
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
 import { SideMenuComponent } from './widgets/side-menu/side-menu.component';
 import { TournamentsComponent } from './pages/tournaments/tournaments.component';
-
+import ControlModule from './services/control.module';
+import { Controller } from './services/control/Controller.service';
+import MockController from './services/control/MockController.service';
 
 var firebaseConfig = {
   apiKey: "AIzaSyAm4XhFsTNZUgHbkW7ZFnNglLA0kqlBS6k",
@@ -52,9 +55,13 @@ var firebaseConfig = {
     AngularFireAuthModule,
     InlineSVGModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule
+    NgbModule,
+    HttpClientModule,
+    ControlModule
   ],
-  providers: [],
+  providers: [
+    { provide: Controller, useClass: MockController }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

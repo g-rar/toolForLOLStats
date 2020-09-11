@@ -1,10 +1,11 @@
-import Champion from './Champion'
+import Clonable from './Clonable';
 
-export default class Player {
+export default class Player implements Clonable<Player> {
     constructor(
-        readonly id: string,
-        readonly name: string,
-        readonly champions: Champion[],
-        readonly teams: string[]
+        public summonerName: string
     ){}
+
+    clone(): Player {
+        return new Player(this.summonerName);
+    }
 }

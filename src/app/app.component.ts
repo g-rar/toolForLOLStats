@@ -13,8 +13,8 @@ import { SideMenuComponent } from './widgets/side-menu/side-menu.component';
 })
 export class AppComponent {
 
-  @ViewChild(LoginComponent, {static: false}) private loginComp:LoginComponent;
-  @ViewChild(SideMenuComponent, {static: false}) private sideMenu:SideMenuComponent;
+  @ViewChild(LoginComponent) private loginComp:LoginComponent;
+  @ViewChild(SideMenuComponent) private sideMenu:SideMenuComponent;
 
   isLoggedIn = false;
 
