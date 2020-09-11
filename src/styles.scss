@@ -15,7 +15,7 @@
     --color-alert: #d62727;
 }
 
-body {
+.app-html-body{
     font-family: 'Roboto', sans-serif;
     background: var(--color-bg);
     color: var(--color-text);
@@ -145,6 +145,3 @@ body {
 .page-content table td{
     text-align: center;
 }
-
-/* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
