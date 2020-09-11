@@ -71,7 +71,7 @@ export default class DefaultController implements Controller{
 
     async deleteRound(tournamentId: string, roundId: string): Promise<Round>{
         await this.authenticator.validate();
-        return await this.database.addRound(tournamentId, roundId);
+        return await this.database.deleteRound(tournamentId, roundId);
     }
 
     async getRound(tournamentId: string, roundId: string): Promise<Round>{
@@ -100,7 +100,6 @@ export default class DefaultController implements Controller{
         await this.authenticator.validate();
         const identities: [IdentityMap, IdentityMap] = await this.identityFetcher.fetch(identityLocation);
         const matchWithoutIdentities: Match = await this.matchFetcher.fetch(matchId);
-        //caching the match locally on this object since it needs to be verified later on via add match
         this.fetchedMatch = this.identityLinker.link(matchWithoutIdentities, identities);
         return this.fetchedMatch.clone(); //returning a clone to avoid tampering of the original match
     }
@@ -112,9 +111,9 @@ export default class DefaultController implements Controller{
         else if(this.fetchedMatch.id != matchId)
             throw new Error(ControllerError.INCORRECT_MATCH_ID);
         else{
-            const match: Match = this.fetchedMatch;
+            const match: Match = await this.database.addMatch(tournamentId, roundId, setId, this.fetchedMatch);
             this.fetchedMatch = null;
-            return await this.database.addMatch(tournamentId, roundId, setId, match);
+            return match;
         }
     }
 

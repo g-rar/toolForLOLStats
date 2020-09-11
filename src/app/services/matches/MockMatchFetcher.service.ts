@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import ControlModule from '../control.module';
 import { MatchFetcher, MatchFetcherError } from './MatchFetcher.service';
 import { Match, Team, Champion, PerformanceStats, TeamPerformance, Player } from '../../models';
-import MockController from '../control/MockController.service';
 import { ChampionFetcher } from '../champions/ChampionFetcher.service';
 
 @Injectable({
@@ -10,9 +9,14 @@ import { ChampionFetcher } from '../champions/ChampionFetcher.service';
 })
 export default class MockMatchFetcher implements MatchFetcher{
 
+    public static readonly INCORRECT_ID: number = -1;
+
     constructor(private championFetcher: ChampionFetcher){}
 
     async fetch(id: number): Promise<Match> {
+        if(id === MockMatchFetcher.INCORRECT_ID)
+            throw new Error(MatchFetcherError.MATCH_NOT_FOUND)
+
         const minutesPlayed = this.random(15, 60);
         const winner: Team = new Team('2', 'Devs Lives Matter', [
             new Player('Player2'),

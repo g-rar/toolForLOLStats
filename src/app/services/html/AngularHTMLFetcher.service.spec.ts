@@ -44,11 +44,7 @@ describe('AngularHTMLFetcher', () => {
         httpTestingController = TestBed.inject(HttpTestingController);
     });
 
-    it('should be created', () => {
-        expect(fetcher).toBeTruthy();
-    });
-
-    it('should fail with broken URL', async () => {
+    it('fetch(): fails with broken URL', async () => {
         const htmlPromise: Promise<HTMLDocument> = fetcher.fetch(STUB_URL);
         const ERROR_404: object = { status: 404, statusText: 'Not Found' };
         httpTestingController.expectOne(STUB_URL).flush('deliberate 404 error', ERROR_404);
@@ -57,7 +53,7 @@ describe('AngularHTMLFetcher', () => {
         );
     });
 
-    it('should parse an html document', async () => {
+    it('fetch(): parses an html document', async () => {
         const htmlPromise: Promise<HTMLDocument> = fetcher.fetch(STUB_URL);
         httpTestingController.expectOne(STUB_URL).flush(STUB_HTML);
         const html: HTMLDocument = await htmlPromise;
@@ -66,8 +62,7 @@ describe('AngularHTMLFetcher', () => {
         expect(html.getElementsByClassName('title-class').length).toBe(2);
         expect(html.querySelectorAll('html body nav ul li').length).toBe(3);
         expect(html.querySelector('head title').innerHTML).toBe('HTML Response');
-        expect(html.querySelector(
-            'html body article section div h2.title-class').innerHTML
-        ).toBe('fake title');
+        expect(html.querySelector('html body article section div h2.title-class').innerHTML)
+            .toBe('fake title');
     });
 });

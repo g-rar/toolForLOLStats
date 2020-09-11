@@ -5,5 +5,5 @@ export abstract class MatchFetcher{
 }
 
 export enum MatchFetcherError{
-
+    MATCH_NOT_FOUND = 'MatchFetcherError.MATCH_NOT_FOUND'
 }

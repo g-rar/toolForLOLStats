@@ -22,33 +22,29 @@ describe('MockController', () => {
         controller = TestBed.inject(Controller);
     });
 
-    it('should be created', () => {
-        expect(controller).toBeTruthy();
-    });
-
-    it('should authenticate any user', async () => {
+    it('login(): authenticates any user', async () => {
         const user: User = await controller.login(STUB_USERNAME, STUB_PASSWORD);
         expect(user).toBeTruthy();
     });
 
-    it('should return the same email on the user', async () => {
+    it('login(): returns the same email on the user', async () => {
         const email: string = "ajoscram@gmail.com";
         const user: User = await controller.login(email, STUB_PASSWORD);
 
         expect(user.email).toBe(email);
     });
 
-    it('should always logout regardless of the user state', async () => {
+    it('logout(): always logs out regardless of the user state', async () => {
         await expectAsync(controller.logout()).toBeResolved();
     });
 
-    it('should get a non-empty list of existing tournaments', async () => {
+    it('getTournaments(): gets a non-empty list of existing tournaments', async () => {
         const tournaments: Tournament[] = await controller.getTournaments();
         expect(tournaments).toBeTruthy();
         expect(tournaments.length).toBeGreaterThan(0);
     });
 
-    it('should add a tournament', async () => {
+    it('addTournament(): adds a tournament', async () => {
         const tournamentName: string = "Torneo Meca";
         
         const numberOfTournametsPreInsertion: number = (await controller.getTournaments()).length;
@@ -59,7 +55,7 @@ describe('MockController', () => {
         expect(numberOfTournametsPreInsertion + 1).toBe(numberOfTournametsPostInsertion);
     });
 
-    it('should end an uncompleted a tournament', async () => {
+    it('endTournament(): ends an uncompleted tournament', async () => {
         //getting a random tournament
         let tournaments: Tournament[] = await controller.getTournaments();
         let tournament: Tournament = tournaments[0];
@@ -83,14 +79,14 @@ describe('MockController', () => {
         expect(tournament.completed).toBe(true);
     });
 
-    it('should get all the tournament\'s champions stats', async () => {
+    it('getTournamentChampionsStats(): gets all the tournament\'s champions stats', async () => {
         const stats: ChampionOverallStats[] = await controller.getTournamentChampionsStats(STUB_TOURNAMENT_ID);
 
         expect(stats).toBeTruthy();
         expect(stats.length).toBeGreaterThan(0);
     });
 
-    it('should get Thresh\'s tournament champion stats', async () => {
+    it('getTournamentChampionStats(): gets tournament champion stats for a single champion', async () => {
         //riot's thresh ID
         const threshId: number = 412;
 
@@ -100,7 +96,7 @@ describe('MockController', () => {
         expect(stats).toBeTruthy();
     });
 
-    it('should get random tournament champion stats on every call', async () => {
+    it('getTournamentChampionStats(): gets random tournament champion stats on every call', async () => {
         //riot's thresh ID
         const threshId: number = 412;
         
@@ -111,14 +107,14 @@ describe('MockController', () => {
         expect(stats1).not.toEqual(stats2);
     });
 
-    it('should get a non-empty list of teams in a tournament', async () => {
+    it('getTeams(): gets a non-empty list of teams in a tournament', async () => {
         const teams: Team[] = await controller.getTeams(STUB_TOURNAMENT_ID);
 
         expect(teams).toBeTruthy();
         expect(teams.length).toBeGreaterThan(0);
     });
 
-    it('should add a new team to a tournament', async () => {
+    it('addTeam(): adds a new team to a tournament', async () => {
         const teamName: string = "Los Bandidos";
 
         const numberOfTeamsPreInsertion: number = (await controller.getTeams(STUB_TOURNAMENT_ID)).length;
@@ -129,7 +125,14 @@ describe('MockController', () => {
         expect(numberOfTeamsPreInsertion + 1).toBe(numberOfTeamsPostInsertion); 
     });
 
-    it('should add a round', async () => {
+    it('getRounds(): gets a tournament\'s rounds', async () => {
+        const rounds: Round[] = await controller.getRounds(STUB_TOURNAMENT_ID);
+
+        expect(rounds).toBeTruthy();
+        expect(rounds.length).toBeGreaterThan(0);
+    });
+
+    it('addRound(): adds a new round', async () => {
         const roundName: string = "Test Round";
 
         const numberOfRoundsPreInsertion: number = (await controller.getRounds(STUB_TOURNAMENT_ID)).length;
@@ -140,21 +143,14 @@ describe('MockController', () => {
         expect(numberOfRoundsPreInsertion + 1).toBe(numberOfRoundsPostInsertion);
     });
 
-    it('should get a tournament\'s rounds', async () => {
-        const rounds: Round[] = await controller.getRounds(STUB_TOURNAMENT_ID);
-
-        expect(rounds).toBeTruthy();
-        expect(rounds.length).toBeGreaterThan(0);
-    });
-
-    it('should get a single tournament\'s round', async () => {
+    it('getRound(): gets a single tournament\'s round', async () => {
         const roundId: string = (await controller.getRounds(STUB_TOURNAMENT_ID))[0].id;
         const round: Round = await controller.getRound(STUB_TOURNAMENT_ID, roundId);
 
         expect(round).toBeTruthy();
     });
 
-    it('should delete a round', async () => {
+    it('deleteRound(): deletes a round', async () => {
         //getting the number of rounds predeletion
         let rounds: Round[] = await controller.getRounds(STUB_TOURNAMENT_ID);
         const numberOfRoundsPreDeletion: number = rounds.length;
@@ -169,14 +165,14 @@ describe('MockController', () => {
 
     });
 
-    it('should get a non-empty list of sets from a tournament\'s round', async () => {
+    it('getSets(): gets a non-empty list of sets from a tournament\'s round', async () => {
         const sets: Set[] = await controller.getSets(STUB_TOURNAMENT_ID, STUB_ROUND_ID);
         
         expect(sets).toBeTruthy();
         expect(sets.length).toBeGreaterThan(0);
     });
 
-    it('should add a set to a round in a tournament', async () => {
+    it('addSet(): adds a set to a round in a tournament', async () => {
         // every set needs two opposing teams
         const teams: Team[] = await controller.getTeams(STUB_TOURNAMENT_ID);
         const teamId1: string = teams[0].id;
@@ -190,7 +186,7 @@ describe('MockController', () => {
         expect(numberOfSetsPreInsertion + 1).toBe(numberOfSetsPostInsertion);
     });
 
-    it('should delete a set', async () => {
+    it('deleteSet(): deletes a set', async () => {
         const setId: string = (await controller.getSets(STUB_TOURNAMENT_ID, STUB_ROUND_ID))[0].id;
 
         const numberOfSetsPreDeletion: number = (await controller.getSets(STUB_TOURNAMENT_ID, STUB_ROUND_ID)).length;
@@ -201,28 +197,28 @@ describe('MockController', () => {
         expect(numberOfSetsPreDeletion).toBe(numberOfSetsPostDeletion + 1);
     });
 
-    it('should get a non-empty list of matches', async () => {
+    it('getMatches(): gets a non-empty list of matches', async () => {
         const matches: Match[] = await controller.getMatches(STUB_TOURNAMENT_ID, STUB_ROUND_ID, STUB_SET_ID);
 
         expect(matches).toBeTruthy();
         expect(matches.length).toBeGreaterThan(0);
     });
 
-    it('should fetch a randomly generated match', async () => {
+    it('fetchMatch(): fetches a randomly generated match', async () => {
         const match: Match = await controller.fetchMatch(STUB_MATCH_ID, STUB_IDENTITY_LOCATION);
         
         expect(match).toBeTruthy();
     });
     
-    it('should fail when adding a match if no match has been fetched before', async () => {
+    it('addMatch(): fails when adding a match if no match has been fetched before', async () => {
         await expectAsync(controller.addMatch(STUB_TOURNAMENT_ID, STUB_ROUND_ID, STUB_SET_ID, STUB_MATCH_ID)).toBeRejectedWith(
             new Error("Must fetch a match first!")
         );
     });
 
-    it('should fail when adding a match if the previously fetched match does not match the ID passed whn adding', async () => {
+    it('addMatch(): fails when adding a match if the previously fetched match does not match the ID passed whn adding', async () => {
         //IMPORTANT: the STUB_MATCH_ID passed into fetchMatch is NEVER the actual
-        //id assigned to the match internally because MockTournament assigns it one.
+        //id assigned to the match internally because MockController assigns it one.
         await controller.fetchMatch(STUB_MATCH_ID, STUB_IDENTITY_LOCATION);
         //since the fetched match's id is NOT STUB_MATCH_ID then this will fail
         await expectAsync(controller.addMatch(STUB_TOURNAMENT_ID, STUB_ROUND_ID, STUB_SET_ID, STUB_MATCH_ID)).toBeRejectedWith(
@@ -230,7 +226,7 @@ describe('MockController', () => {
         );
     });
 
-    it('should add a match after fetching with the correct id', async () => {
+    it('addMatch(): adds a match after fetching with the correct id', async () => {
         //IMPORTANT: the STUB_MATCH_ID passed into fetchMatch is NEVER the actual
         //id assigned to the match internally because MockController assigns it one.
         //It must be obtained after fetching.
@@ -244,7 +240,7 @@ describe('MockController', () => {
         expect(numberOfMatchesPreInsertion + 1).toBe(numberOfMatchesPostInsertion);
     });
 
-    it('should get the player\'s overall stats', async () => {
+    it('getPlayerStats(): gets the players\' overall stats', async () => {
         const stats: PlayerOverallStats[] = await controller.getPlayerStats(STUB_TEAM_ID);
         
         expect(stats).toBeTruthy();

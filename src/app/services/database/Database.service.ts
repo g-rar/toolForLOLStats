@@ -21,5 +21,12 @@ export abstract class Database{
 }
 
 export enum DatabaseError{
-
+    UNKNOWN_TEAM_ID = "DatabaseError.UNKNOWN_TEAM_ID",
+    UNKNOWN_TOURNAMENT_ID = "DatabaseError.UNKNOWN_TOURNAMENT_ID",
+    TOURNAMENT_ALREADY_ENDED = "DatabaseError.TOURNAMENT_ALREADY_ENDED",
+    UNKNOWN_ROUND_ID = "DatabaseError.UNKNOWN_ROUND_ID",
+    UNKNOWN_SET_ID = "DatabaseError.UNKNOWN_SET_ID",
+    UNKNOWN_MATCH_ID = "DatabaseError.UNKNOWN_MATCH_ID",
+    UNKNOWN_PLAYER_ID = "DatabaseError.UNKNOWN_PLAYER_ID",
+    UNKNOWN_CHAMPION_ID = "DatabaseError.UNKNOWN_CHAMPION_ID"
 }
