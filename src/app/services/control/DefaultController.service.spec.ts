@@ -151,11 +151,9 @@ describe('DefaultController', () => {
         const incorrectTournamentId: string = 'incorrect id';
         const incorrectChampionId: number = -1; //doesn't exist
         
-        //incorrect tournament id
         await expectAsync(controller.getTournamentChampionStats(incorrectTournamentId, threshId)).toBeRejectedWith(
             new Error(DatabaseError.UNKNOWN_TOURNAMENT_ID)
         );
-        //incorrect champion id
         await expectAsync(controller.getTournamentChampionStats(tournament.id, incorrectChampionId)).toBeRejectedWith(
             new Error(ChampionFetcherError.CHAMPION_NOT_FOUND)
         );
@@ -174,12 +172,9 @@ describe('DefaultController', () => {
         const incorrectTournamentId: string = 'incorrect id';
         const incorrectRoundId: string = 'incorrect id';
 
-        //incorrect tournament id
         await expectAsync(controller.getRound(incorrectTournamentId, round.id)).toBeRejectedWith(
             new Error(DatabaseError.UNKNOWN_TOURNAMENT_ID)
         );
-
-        //incorrect round id
         await expectAsync(controller.getRound(tournament.id, incorrectRoundId)).toBeRejectedWith(
             new Error(DatabaseError.UNKNOWN_ROUND_ID)
         );

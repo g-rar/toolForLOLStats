@@ -33,7 +33,7 @@ export default class MockChampionFetcher implements ChampionFetcher {
         });
     }
 
-    fetch(id: string | number): Champion {
+    async fetch(id: string | number): Promise<Champion> {
         let champion: Champion;
         if(typeof id === 'number')
             champion = this.championsByKey.get(id);

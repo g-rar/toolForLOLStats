@@ -4,5 +4,5 @@ export abstract class HTMLFetcher{
 
 export enum HTMLFetcherError {
     HTML_PARSING_ERROR = "HTMLFetcherError.HTML_PARSING_ERROR",
-    HTTP_ERROR = "HTMLFetcherError.HTTP_ERROR"
+    FETCH_ERROR = "HTMLFetcherError.FETCH_ERROR"
 }
