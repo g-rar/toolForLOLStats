@@ -20,8 +20,9 @@ import { ChampionFetcher } from '../champions/ChampionFetcher.service';
 })
 export default class MockDatabase implements Database {
 
+    private championsPromise: Promise<void>;
+    private champions: Champion[];
     private ids: number = 0;
-    private champions: Champion[]
     private players: Player[];
     private teams: Team[];
     private matches: Match[];
@@ -32,17 +33,7 @@ export default class MockDatabase implements Database {
     constructor(private championFetcher: ChampionFetcher){
 
         //champions
-        this.champions = [
-            this.championFetcher.fetch('Aatrox'),
-            this.championFetcher.fetch('Ezreal'),
-            this.championFetcher.fetch('Yuumi'),
-            this.championFetcher.fetch('Gragas'),
-            this.championFetcher.fetch('Chogath'),
-            this.championFetcher.fetch('Thresh'),
-            this.championFetcher.fetch('KogMaw'),
-            this.championFetcher.fetch('Syndra'),
-            this.championFetcher.fetch('Vi'),
-        ];
+        this.championsPromise = this.fetchChampions();
 
         //players
         this.players = [];
@@ -76,6 +67,20 @@ export default class MockDatabase implements Database {
         //tournaments
         this.tournaments = [
             new Tournament(''+this.ids++, 'Dummy Tournament', new Date(), null, [ groupsID, semifinalsID, finalsID], ['0', '1', '2', '3'])
+        ];
+    }
+
+    private async fetchChampions(): Promise<void>{
+        this.champions = [
+            await this.championFetcher.fetch('Aatrox'),
+            await this.championFetcher.fetch('Ezreal'),
+            await this.championFetcher.fetch('Yuumi'),
+            await this.championFetcher.fetch('Gragas'),
+            await this.championFetcher.fetch('Chogath'),
+            await this.championFetcher.fetch('Thresh'),
+            await this.championFetcher.fetch('KogMaw'),
+            await this.championFetcher.fetch('Syndra'),
+            await this.championFetcher.fetch('Vi'),
         ];
     }
 
@@ -171,6 +176,7 @@ export default class MockDatabase implements Database {
     }
 
     async getTournamentChampionsStats(tournamentId: string): Promise<ChampionOverallStats[]>{
+        await this.championsPromise; //must wait until all champions are fetched
         this.validateId(tournamentId, this.tournaments, DatabaseError.UNKNOWN_TOURNAMENT_ID);
         const stats: ChampionOverallStats[] = [];
         this.champions.forEach(champion => {
@@ -180,8 +186,9 @@ export default class MockDatabase implements Database {
     }
     
     async getTournamentChampionStats(tournamentId: string, championId: number): Promise<ChampionOverallStats>{
+        await this.championsPromise; //must wait until all champions are fetched
         this.validateId(tournamentId, this.tournaments, DatabaseError.UNKNOWN_TOURNAMENT_ID);
-        this.championFetcher.fetch(championId);
+        await this.championFetcher.fetch(championId);
         for(let i = 0; i < this.champions.length; i++)
             if(this.champions[i].id == championId)
                 return this.generateChampionOverallStats(this.champions[i]);
@@ -275,6 +282,7 @@ export default class MockDatabase implements Database {
     }
 
     async getPlayerStats(teamId?: string): Promise<PlayerOverallStats[]>{
+        await this.championsPromise; //must wait until all champions are fetched
         if(teamId)
             this.validateId(teamId, this.teams, DatabaseError.UNKNOWN_TEAM_ID);
         let stats: PlayerOverallStats[] = [];

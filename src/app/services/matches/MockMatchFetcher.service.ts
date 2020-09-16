@@ -27,19 +27,19 @@ export default class MockMatchFetcher implements MatchFetcher{
         ]);
 
         const winningChampions: Champion[] = [ 
-            this.championFetcher.fetch('Aatrox'),
-            this.championFetcher.fetch('Ezreal'),
-            this.championFetcher.fetch('Ahri'),
-            this.championFetcher.fetch('Yuumi'),
-            this.championFetcher.fetch('Gragas')
+            await this.championFetcher.fetch('Aatrox'),
+            await this.championFetcher.fetch('Ezreal'),
+            await this.championFetcher.fetch('Ahri'),
+            await this.championFetcher.fetch('Yuumi'),
+            await this.championFetcher.fetch('Gragas')
         ]
         
         const losingChampions: Champion[] = [
-            this.championFetcher.fetch('Chogath'),
-            this.championFetcher.fetch('Thresh'),
-            this.championFetcher.fetch('KogMaw'),
-            this.championFetcher.fetch('Syndra'),
-            this.championFetcher.fetch('Vi')
+            await this.championFetcher.fetch('Chogath'),
+            await this.championFetcher.fetch('Thresh'),
+            await this.championFetcher.fetch('KogMaw'),
+            await this.championFetcher.fetch('Syndra'),
+            await this.championFetcher.fetch('Vi')
         ];
 
         const loser: Team = new Team('2', 'Los patitos', [
@@ -52,14 +52,14 @@ export default class MockMatchFetcher implements MatchFetcher{
 
         return new Match(
             id,
-            this.generateTeamPerformance(winner, winningChampions, minutesPlayed, true),
-            this.generateTeamPerformance(loser, losingChampions, minutesPlayed, false), 
+            await this.generateTeamPerformance(winner, winningChampions, minutesPlayed, true),
+            await this.generateTeamPerformance(loser, losingChampions, minutesPlayed, false), 
             minutesPlayed, 
             new Date()
         );
     }
 
-    private generateTeamPerformance(team: Team, champions: Champion[], minutesPlayed: number, won: boolean): TeamPerformance {
+    private async generateTeamPerformance(team: Team, champions: Champion[], minutesPlayed: number, won: boolean): Promise<TeamPerformance> {
         const stats: PerformanceStats[] = [
             this.generateRandomPerformanceStats(champions[0], minutesPlayed, won),
             this.generateRandomPerformanceStats(champions[1], minutesPlayed, won),
@@ -71,11 +71,11 @@ export default class MockMatchFetcher implements MatchFetcher{
             team.id,
             team.name,
             [ 
-                this.championFetcher.fetch('Aatrox'),
-                this.championFetcher.fetch('Ezreal'),
-                this.championFetcher.fetch('Ahri'),
-                this.championFetcher.fetch('Yuumi'),
-                this.championFetcher.fetch('Gragas')
+                await this.championFetcher.fetch('Aatrox'),
+                await this.championFetcher.fetch('Ezreal'),
+                await this.championFetcher.fetch('Ahri'),
+                await this.championFetcher.fetch('Yuumi'),
+                await this.championFetcher.fetch('Gragas')
             ],
             won,
             this.random(0, 4), //dragons

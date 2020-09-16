@@ -53,7 +53,7 @@ describe('AngularHTMLFetcher', () => {
         );
     });
 
-    it('fetch(): parses an html document', async () => {
+    it('fetch(): fetches and parses an html document', async () => {
         const htmlPromise: Promise<HTMLDocument> = fetcher.fetch(STUB_URL);
         httpTestingController.expectOne(STUB_URL).flush(STUB_HTML);
         const html: HTMLDocument = await htmlPromise;

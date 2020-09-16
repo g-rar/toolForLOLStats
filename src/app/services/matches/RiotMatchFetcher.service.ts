@@ -4,7 +4,7 @@ import ControlModule from '../control.module';
 import { MatchFetcher, MatchFetcherError } from './MatchFetcher.service'
 import { ChampionFetcher } from '../champions/ChampionFetcher.service';
 import { HttpClient } from '@angular/common/http';
-import { Champion, PerformanceStats, Team, TeamPerformance } from '../../models';
+import { Champion, PerformanceStats, TeamPerformance } from '../../models';
 import { environment } from '../../../environments/environment';
 
 type BlueTeamPerformance = TeamPerformance;

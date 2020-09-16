@@ -9,8 +9,6 @@ import { HttpClient } from '@angular/common/http';
     providedIn: ControlModule,
 })
 export default class DataDragonChampionFetcher implements ChampionFetcher {
-
-    private static readonly VERSIONS_URL: string = 'ddragon/api/versions.json';
     
     private championsByAssetId: Map<string, Champion>;
     private championsById: Map<number, Champion>;
@@ -35,7 +33,7 @@ export default class DataDragonChampionFetcher implements ChampionFetcher {
     }
 
     private async getCurrentVersion(): Promise<string>{
-        const versions: string[] = await this.http.get(DataDragonChampionFetcher.VERSIONS_URL).toPromise() as string[];
+        const versions: string[] = await this.http.get('ddragon/api/versions.json').toPromise() as string[];
         return versions[0];
     }
 
@@ -43,8 +41,8 @@ export default class DataDragonChampionFetcher implements ChampionFetcher {
         try{
             const version: string = await this.getCurrentVersion();
             const response: ResponseDTO = await this.http.get(`ddragon/cdn/${version}/data/en_US/champion.json`).toPromise() as ResponseDTO;
-            
-            response.data.forEach(championDTO => {
+            Object.keys(response.data).forEach(championId => {
+                const championDTO: ChampionDTO = response.data[championId];
                 const champion: Champion = new Champion(
                     parseInt(championDTO.key),
                     championDTO.id,
@@ -56,7 +54,7 @@ export default class DataDragonChampionFetcher implements ChampionFetcher {
             });
             return;
         } catch(error){
-            console.log(error);
+            console.error(error);
             throw new Error(ChampionFetcherError.FETCH_ERROR);
         }
     }
@@ -72,5 +70,5 @@ interface ResponseDTO{
     type: string;
     version: string;
     format: string;
-    data: ChampionDTO[];
+    data: object; //has all champion DTOs
 }
