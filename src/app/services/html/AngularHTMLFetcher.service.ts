@@ -27,7 +27,7 @@ export default class AngularHTMLFetcher implements HTMLFetcher {
         } catch(error) {
             console.error(error);
             if(error instanceof HttpErrorResponse)
-                throw new Error(HTMLFetcherError.HTTP_ERROR);
+                throw new Error(HTMLFetcherError.FETCH_ERROR);
             else
                 throw error;
         }

@@ -4,6 +4,11 @@
         "secure": false,
         "changeOrigin": true
     },
+    "/ddragon/*":{
+        "target":"https://ddragon.leagueoflegends.com",
+        "secure": false,
+        "changeOrigin": true
+    },
     "/battlefy/*":{
         "target":"https://battlefy.com",
         "secure": false,
