@@ -1,0 +1,14 @@
+.rounds-card{
+    margin-top: 1rem;
+    background: var(--color-bg2);
+}
+
+::ng-deep .bg-test{
+    background: gray;
+}
+
+.chevron {
+    fill: var(--color-text);
+    height: 2rem;
+    width: 2rem;
+}

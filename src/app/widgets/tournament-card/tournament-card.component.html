@@ -1,0 +1,28 @@
+<div class="card app-bg-dark">
+    <div class="card-content">
+        <div class="media p-3">
+            <span class="align-self-center mr-3 tournament-svgPlaceholder" [inlineSVG]="'assets/svg/cup.svg'"></span>
+            <div class="tournament-data media-body">
+                <div class="tournament-info">
+                    <h5 class="mb-0">{{tournament.name}}</h5>
+                    <div class="mb-0">
+                        Inicio: {{tournament.startDate.toLocaleDateString()}}
+                    </div>
+                    <div *ngIf="hasFinished" class="mt-0">
+                        Fin: {{tournament.endDate.toLocaleDateString()}} 
+                    </div>
+                    <div *ngIf="hasStarted && !hasFinished">
+                        <app-color-label [text]="'En progreso'" [rgbColor]="{r:0, g:123, b:255}"></app-color-label>
+                    </div>
+                    <div *ngIf="!hasStarted">
+                        <app-color-label [text]="'Próximamente'" [rgbColor]="{r:255,g:209,b:2}"></app-color-label>
+                    </div>
+                </div>
+                <div class="mr-2 text-center">
+                    <h3 class="mb-0">{{tournament.teamIds.length}}</h3>
+                    Equipos
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

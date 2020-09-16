@@ -1,0 +1,17 @@
+
+.app-bg-dark{
+    background: var(--color-bg2)
+}
+
+.tournament-svgPlaceholder svg {
+    height: 3rem;
+    width: 3rem;    
+    fill: var(--color-main)
+}
+
+.tournament-data{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+

@@ -22,6 +22,9 @@ import { TournamentsComponent } from './pages/tournaments/tournaments.component'
 import ControlModule from './services/control.module';
 import { Controller } from './services/control/Controller.service';
 import MockController from './services/control/MockController.service';
+import { TournamentCardComponent } from './widgets/tournament-card/tournament-card.component';
+import { ColorLabelComponent } from './widgets/color-label/color-label.component';
+import { TournamentComponent } from './pages/tournament/tournament.component';
 
 var firebaseConfig = {
   apiKey: "AIzaSyAm4XhFsTNZUgHbkW7ZFnNglLA0kqlBS6k",
@@ -42,7 +45,10 @@ var firebaseConfig = {
     LoginComponent,
     UnauthorizedComponent,
     SideMenuComponent,
-    TournamentsComponent
+    TournamentsComponent,
+    TournamentCardComponent,
+    ColorLabelComponent,
+    TournamentComponent
   ],
   imports: [
     BrowserModule,

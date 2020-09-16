@@ -94,7 +94,8 @@
 /*============= Page content ============*/
 
 .page-content {
-    margin: 2rem 5rem;
+    margin: 2rem auto;
+    width: clamp(20rem, 85%, 70rem);
     background-color: var(--color-bg1);
     padding: 1rem 2rem;
     border-radius: 15px;
@@ -144,4 +145,9 @@
 
 .page-content table td{
     text-align: center;
+}
+
+/*============== Util ===================*/
+.app-bg-dark{
+    background: var(--color-bg2)
 }

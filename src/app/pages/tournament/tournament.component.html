@@ -1,0 +1,33 @@
+<div class="page-content tournament-rounds">
+    <h1>Torneo</h1>
+    <app-tournament-card [tournament]="tournament"></app-tournament-card>
+    <hr>
+    <div class="card rounds-card">
+        <div class="card-header">
+            <h2>Rondas</h2> 
+        </div>
+        <div class="card-body">
+            <ngb-accordion #acc="ngbAccordion" [class]="'bg-test'">
+
+                <ngb-panel *ngFor="let round of roundList" [cardClass]="'bg-test'" id="{{round.id}}">
+                    <ng-template ngbPanelHeader>
+                        <button ngbPanelToggle class="btn p-0 text-white"> 
+                            <span [ngClass]="'chevron'" [inlineSVG]=" acc.isExpanded(round.id) ? 'assets/svg/chevronup.svg' : 'assets/svg/chevrondown.svg'"></span>
+                            {{round.name}}
+                        </button>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <div *ngFor="let set of round.sets">
+                            {{set.firstTeamResult.teamName}} 
+                            {{set.firstTeamResult.score}} 
+                            -
+                            {{set.secondTeamResult.score}} 
+                            {{set.secondTeamResult.teamName}} 
+                        </div>
+                    </ng-template>
+                </ngb-panel>
+
+            </ngb-accordion>
+        </div>
+    </div>
+</div>

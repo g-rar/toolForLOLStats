@@ -6,6 +6,7 @@ import { ReportGameComponent } from './pages/report-game/report-game.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
 import { TournamentsComponent } from './pages/tournaments/tournaments.component';
+import { TournamentComponent } from './pages/tournament/tournament.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,9 @@ const routes: Routes = [
   },
   {
     path: 'tournaments', component: TournamentsComponent
+  },
+  {
+    path: 'tournaments/:tournamentId', component: TournamentComponent
   },
   {
     path: '**', component: NotFoundComponent
