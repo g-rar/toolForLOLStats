@@ -55,6 +55,17 @@ describe('MockController', () => {
         expect(numberOfTournametsPreInsertion + 1).toBe(numberOfTournametsPostInsertion);
     });
 
+    it('getTournament(): gets an existing tournament', async () => {
+        const tournament: Tournament = await controller.addTournament('Some Tournament', new Date());
+        const gottenTournament: Tournament = await controller.getTournament(tournament.id);
+        expect(tournament).toEqual(gottenTournament);
+    });
+
+    it('getTournament(): fails with an incorrect id', async () => {
+        const incorrectTournamentId: string = 'wrong id';
+        await expectAsync(controller.getTournament(incorrectTournamentId)).toBeRejected();
+    });
+
     it('endTournament(): ends an uncompleted tournament', async () => {
         //getting a random tournament
         let tournaments: Tournament[] = await controller.getTournaments();

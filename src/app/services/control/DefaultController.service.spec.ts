@@ -101,6 +101,19 @@ describe('DefaultController', () => {
         );
     });
 
+    it('getTournament(): gets an existing tournament', async () => {
+        const tournament: Tournament = await controller.addTournament('Some Tournament', new Date());
+        const gottenTournament: Tournament = await controller.getTournament(tournament.id);
+        expect(tournament).toEqual(gottenTournament);
+    });
+
+    it('getTournament(): fails with an incorrect id', async () => {
+        const incorrectTournamentId: string = 'wrong id';
+        await expectAsync(controller.getTournament(incorrectTournamentId)).toBeRejectedWith(
+            new Error(DatabaseError.UNKNOWN_TOURNAMENT_ID)
+        );
+    });
+
     it('endTournament(): ends an uncompleted a tournament', async () => {
         let tournament: Tournament = await controller.addTournament('Test Tournament', new Date());
         

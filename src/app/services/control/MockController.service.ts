@@ -83,7 +83,7 @@ export default class MockController implements Controller{
             this.generateMatch(this.teams[0], this.teams[1]),
             this.generateMatch(this.teams[0], this.teams[1]),
             this.generateMatch(this.teams[2], this.teams[3]),
-            this.generateMatch(this.teams[2], this.teams[3])            
+            this.generateMatch(this.teams[2], this.teams[3])
         ];
 
         //Sets
@@ -104,7 +104,9 @@ export default class MockController implements Controller{
 
         //tournaments
         this.tournaments = [
-            new Tournament(''+this.ids++, 'Dummy Tournament', new Date(), null, [ groupsID, semifinalsID, finalsID], ['0', '1', '2', '3'])
+            new Tournament(''+this.ids++, 'Current Dummy Tournament', new Date(), null, [ groupsID, semifinalsID, finalsID], ['0', '1', '2', '3']),
+            new Tournament(''+this.ids++, 'Finished Tournament', new Date(new Date().getMilliseconds() - 2000000), new Date(new Date().getMilliseconds() - 1000000), [ groupsID, semifinalsID, finalsID], ['0', '1', '2', '3']),
+            new Tournament(''+this.ids++, 'Future Dummy Tournament', new Date(new Date().getMilliseconds() + 10000), null, [ groupsID, semifinalsID, finalsID], ['0', '1', '2', '3']),
         ];
     }
 
@@ -265,6 +267,15 @@ export default class MockController implements Controller{
                     return resolve(this.tournaments[i]);
                 }
             }
+            return reject(new Error('tournament not found'));
+        });
+    }
+
+    getTournament(id: string): Promise<Tournament>{
+        return new Promise((resolve, reject) => {
+            for(let i = 0; i < this.tournaments.length; i++)
+                if(this.tournaments[i].id === id)
+                    return resolve(this.tournaments[i]);
             return reject(new Error('tournament not found'));
         });
     }
