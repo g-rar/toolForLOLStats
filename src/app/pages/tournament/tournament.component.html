@@ -17,13 +17,21 @@
                         </button>
                     </ng-template>
                     <ng-template ngbPanelContent>
-                        <div *ngFor="let set of round.sets">
-                            {{set.firstTeamResult.teamName}} 
-                            {{set.firstTeamResult.score}} 
-                            -
-                            {{set.secondTeamResult.score}} 
-                            {{set.secondTeamResult.teamName}} 
-                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item score-item row" *ngFor="let set of round.sets">
+                                <div class="col-0 team-name mx-0">
+                                    {{set.firstTeamResult.teamName}} 
+                                </div>
+                                <div class="col score-nums mx-0 text-center">
+                                    {{set.firstTeamResult.score}} 
+                                    -
+                                    {{set.secondTeamResult.score}} 
+                                </div>
+                                <div class="col-0 team-name mx-0 text-right">
+                                    {{set.secondTeamResult.teamName}}     
+                                </div>
+                            </li>
+                        </ul>
                     </ng-template>
                 </ngb-panel>
 

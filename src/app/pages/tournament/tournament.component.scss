@@ -4,11 +4,23 @@
 }
 
 ::ng-deep .bg-test{
-    background: gray;
+    background: rgb(105, 105, 105);
 }
 
 .chevron {
     fill: var(--color-text);
     height: 2rem;
     width: 2rem;
+}
+
+.score-item{
+    display: flex;
+    flex-wrap: wrap;
+    background: none;
+    color: white;
+    border: none;
+}
+
+.team-name{
+    width: fit-content;
 }

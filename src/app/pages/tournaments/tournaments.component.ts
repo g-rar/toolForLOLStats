@@ -13,13 +13,7 @@ export class TournamentsComponent implements OnInit {
 
   constructor(private controller:Controller) {
     controller.getTournaments().then(res =>{
-      let f:Tournament = Object.create(res[0]);
-      f.startDate = new Date("9/20/2020")
-      let s:Tournament = Object.create(res[0]);
-      s.endDate = new Date();
       this.tournaments = res;
-      this.tournaments.push(f)
-      this.tournaments.push(s)
     })
   }
 
