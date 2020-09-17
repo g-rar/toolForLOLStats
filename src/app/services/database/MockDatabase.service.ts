@@ -171,6 +171,13 @@ export default class MockDatabase implements Database {
         throw new Error(DatabaseError.UNKNOWN_TOURNAMENT_ID);
     }
 
+    async getTournament(id: string): Promise<Tournament>{
+        for(let i = 0; i < this.tournaments.length; i++)
+            if(this.tournaments[i].id === id)
+                return this.tournaments[i];
+        throw new Error(DatabaseError.UNKNOWN_TOURNAMENT_ID);
+    }
+
     async getTournaments(): Promise<Tournament[]>{
         return this.tournaments;
     }

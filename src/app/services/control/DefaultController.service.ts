@@ -52,6 +52,10 @@ export default class DefaultController implements Controller{
         return await this.database.endTournament(id);
     }
 
+    async getTournament(id: string): Promise<Tournament>{
+        return await this.database.getTournament(id);
+    }
+
     async getTournaments(): Promise<Tournament[]>{
         return await this.database.getTournaments();
     }
