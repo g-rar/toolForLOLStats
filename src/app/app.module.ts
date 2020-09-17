@@ -21,16 +21,7 @@ import { SideMenuComponent } from './widgets/side-menu/side-menu.component';
 import ControlModule from './services/control.module';
 import { Controller } from './services/control/Controller.service';
 import MockController from './services/control/MockController.service';
-
-var firebaseConfig = {
-  apiKey: "AIzaSyAm4XhFsTNZUgHbkW7ZFnNglLA0kqlBS6k",
-  authDomain: "teclolstats.firebaseapp.com",
-  databaseURL: "https://teclolstats.firebaseio.com",
-  projectId: "teclolstats",
-  storageBucket: "teclolstats.appspot.com",
-  messagingSenderId: "20095061681",
-  appId: "1:20095061681:web:518c17a1ee148ad4931c90"
-};
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -47,7 +38,7 @@ var firebaseConfig = {
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireAuthModule,
