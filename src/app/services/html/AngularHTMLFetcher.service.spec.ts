@@ -49,11 +49,11 @@ describe('AngularHTMLFetcher', () => {
         const ERROR_404: object = { status: 404, statusText: 'Not Found' };
         httpTestingController.expectOne(STUB_URL).flush('deliberate 404 error', ERROR_404);
         await expectAsync(htmlPromise).toBeRejectedWith(
-            new Error(HTMLFetcherError.HTTP_ERROR)
+            new Error(HTMLFetcherError.FETCH_ERROR)
         );
     });
 
-    it('fetch(): parses an html document', async () => {
+    it('fetch(): fetches and parses an html document', async () => {
         const htmlPromise: Promise<HTMLDocument> = fetcher.fetch(STUB_URL);
         httpTestingController.expectOne(STUB_URL).flush(STUB_HTML);
         const html: HTMLDocument = await htmlPromise;
