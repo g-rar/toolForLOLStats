@@ -23,6 +23,11 @@ export default class MockAuthenticator implements Authenticator{
         }
     }
 
+    async getLoggedUser(): Promise<User>{
+        this.validate();
+        return this.user;
+    }
+
     async logout(): Promise<void>{
         await this.validate();
         this.user = null;

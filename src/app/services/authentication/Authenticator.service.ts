@@ -3,7 +3,10 @@ import User from '../../models/User'
 export abstract class Authenticator {
     login: (username: string, password: string) => Promise<User>;
     logout: () => Promise<void>;
-    validate: () => Promise<void>; //should throw an error if no user is logged in
+
+    //these should throw NOT_AUTHENTICATED if no user is logged in 
+    getLoggedUser: () => Promise<User>;
+    validate: () => Promise<void>;
 }
 
 export enum AuthenticatorError {

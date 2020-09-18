@@ -7,15 +7,19 @@ import ControlModule from '../control.module'
     providedIn: ControlModule,
 })
 export default class FirebaseAuthenticator implements Authenticator{
-    login(username: string, password: string): Promise<User> {
+    async getLoggedUser(): Promise<User>{
         throw new Error("Method not implemented.");
     }
 
-    logout(): Promise<void>{
+    async login(username: string, password: string): Promise<User> {
         throw new Error("Method not implemented.");
     }
 
-    validate(): Promise<void>{
+    async logout(): Promise<void>{
+        throw new Error("Method not implemented.");
+    }
+
+    async validate(): Promise<void>{
         throw new Error("Method not implemented.");
     }
 }

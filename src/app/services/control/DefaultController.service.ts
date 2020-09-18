@@ -42,6 +42,10 @@ export default class DefaultController implements Controller{
         return await this.authenticator.logout();
     }
 
+    async getLoggedUser(): Promise<User>{
+        return await this.authenticator.getLoggedUser();
+    }
+
     async addTournament(name: string, startDate: Date): Promise<Tournament>{
         await this.authenticator.validate();
         return await this.database.addTournament(name, startDate);

@@ -24,6 +24,8 @@ import {
 })
 export default class MockController implements Controller{
 
+    private user: User;
+
     private ids: number = 0;
 
     //champions
@@ -51,6 +53,8 @@ export default class MockController implements Controller{
     private fetchedMatch: Match;
 
     constructor(){
+        this.user = null;
+
         //champions
         this.champions = [ 
             MockController.AATROX,
@@ -241,7 +245,8 @@ export default class MockController implements Controller{
 
     login(email: string, password: string): Promise<User> {
         return new Promise((resolve, reject) => {
-            resolve(new User(email));
+            this.user = new User(email);
+            resolve(this.user);
         });
     }
 
@@ -249,6 +254,13 @@ export default class MockController implements Controller{
         return new Promise((resolve, reject)=> {
             resolve();
         });
+    }
+
+    async getLoggedUser(): Promise<User>{
+        if(!this.user)
+            throw new Error('user not logged in');
+        else
+            return this.user;
     }
 
     addTournament(name: string, startDate: Date): Promise<Tournament> {
