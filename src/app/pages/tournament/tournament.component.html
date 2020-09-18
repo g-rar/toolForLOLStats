@@ -11,26 +11,17 @@
 
                 <ngb-panel *ngFor="let round of roundList" [cardClass]="'round-elem'" id="{{round.id}}">
                     <ng-template ngbPanelHeader>
-                        <button ngbPanelToggle class="btn text-white"> 
+                        <button ngbPanelToggle class="btn text-white text-left m-0 w-100 h-100"> 
                             <span [ngClass]="'chevron'" [inlineSVG]=" acc.isExpanded(round.id) ? 'assets/svg/chevronup.svg' : 'assets/svg/chevrondown.svg'"></span>
                             {{round.name}}
                         </button>
                     </ng-template>
                     <ng-template ngbPanelContent>
                         <ul class="list-group">
-                            <li class="list-group-item score-item row" [routerLink]="'/tournaments/'+tournament.id+'/set/'+set.id" *ngFor="let set of round.sets">
-                                <div class="col mx-0 ">
-                                    {{set.firstTeamResult.teamName}} 
-                                </div>
-                                <h3 class="col m-0 text-center">
-                                    {{set.firstTeamResult.score}} 
-                                    -
-                                    {{set.secondTeamResult.score}} 
-                                </h3>
-                                <div class="col mx-0 text-right">
-                                    {{set.secondTeamResult.teamName}}     
-                                </div>
-                            </li>
+                            <app-set-row [set]="set" [animate]="true"
+                                *ngFor="let set of round.sets" 
+                                [routerLink]="'/tournaments/'+tournament.id+'/set/'+set.id">
+                            </app-set-row>
                         </ul>
                     </ng-template>
                 </ngb-panel>

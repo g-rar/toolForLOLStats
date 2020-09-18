@@ -26,6 +26,7 @@ import { TournamentCardComponent } from './widgets/tournament-card/tournament-ca
 import { ColorLabelComponent } from './widgets/color-label/color-label.component';
 import { TournamentComponent } from './pages/tournament/tournament.component';
 import { environment } from 'src/environments/environment';
+import { SetRowComponent } from './widgets/set-row/set-row.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { environment } from 'src/environments/environment';
     TournamentsComponent,
     TournamentCardComponent,
     ColorLabelComponent,
-    TournamentComponent
+    TournamentComponent,
+    SetRowComponent
   ],
   imports: [
     BrowserModule,

@@ -18,17 +18,17 @@ export class TournamentComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       //todo preguntar por esto
-      this.controller.getTournaments().then(res => {
-        this.tournament = res.find(elem => elem.id === params.tournamentId)         
-        if(!this.tournament){
-          this.router.navigate(["/tournamentNotFound"])
-          return;
-        }
-        this.controller.getRounds(this.tournament.id).then(res => {
-          this.roundList = res;
-          console.log(res);
-          
+      this.controller.getTournament(params.tournamentId).then(res => {
+        this.tournament = res;
+        this.controller.getRounds(this.tournament.id)
+        .then(res => {
+          this.roundList = res;          
+        }).catch(error => {
+          console.error(error)
         })
+      }).catch(error =>{
+        console.error(error);
+        this.router.navigate(['/tournamentNotFound'])
       });
     })
   }

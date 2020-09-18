@@ -1,0 +1,24 @@
+.score-item{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    background: none;
+    color: white;
+    
+}
+
+.animated {
+    transition: 200ms;
+    &:hover{
+        border-radius: 10px;
+        box-shadow: 
+            inset -3px 0px 0px 1px var(--color-main), 
+            inset 3px 0px 0px 1px var(--color-main);
+        cursor: pointer;
+    }
+}
+
+.col{
+    min-width: fit-content;
+    max-width: 33%;
+}

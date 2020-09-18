@@ -14,6 +14,8 @@ export class TournamentsComponent implements OnInit {
   constructor(private controller:Controller) {
     controller.getTournaments().then(res =>{
       this.tournaments = res;
+    }).catch(err => {
+      console.error(err)
     })
   }
 

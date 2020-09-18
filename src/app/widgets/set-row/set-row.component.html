@@ -1,0 +1,14 @@
+<li [ngClass]="animate?'animated':''"
+    class="list-group-item score-item row">
+    <div class="col mx-0 ">
+        {{set.firstTeamResult.teamName}} 
+    </div>
+    <h3 class="col m-0 text-center">
+        {{set.firstTeamResult.score}} 
+        -
+        {{set.secondTeamResult.score}} 
+    </h3>
+    <div class="col mx-0 text-right">
+        {{set.secondTeamResult.teamName}}     
+    </div>
+</li>
