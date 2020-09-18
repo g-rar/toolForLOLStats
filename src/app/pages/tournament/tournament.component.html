@@ -7,27 +7,27 @@
             <h2>Rondas</h2> 
         </div>
         <div class="card-body">
-            <ngb-accordion #acc="ngbAccordion" [class]="'bg-test'">
+            <ngb-accordion #acc="ngbAccordion">
 
-                <ngb-panel *ngFor="let round of roundList" [cardClass]="'bg-test'" id="{{round.id}}">
+                <ngb-panel *ngFor="let round of roundList" [cardClass]="'round-elem'" id="{{round.id}}">
                     <ng-template ngbPanelHeader>
-                        <button ngbPanelToggle class="btn p-0 text-white"> 
+                        <button ngbPanelToggle class="btn text-white"> 
                             <span [ngClass]="'chevron'" [inlineSVG]=" acc.isExpanded(round.id) ? 'assets/svg/chevronup.svg' : 'assets/svg/chevrondown.svg'"></span>
                             {{round.name}}
                         </button>
                     </ng-template>
                     <ng-template ngbPanelContent>
                         <ul class="list-group">
-                            <li class="list-group-item score-item row" *ngFor="let set of round.sets">
-                                <div class="col-0 team-name mx-0">
+                            <li class="list-group-item score-item row" [routerLink]="'/tournaments/'+tournament.id+'/set/'+set.id" *ngFor="let set of round.sets">
+                                <div class="col mx-0 ">
                                     {{set.firstTeamResult.teamName}} 
                                 </div>
-                                <div class="col score-nums mx-0 text-center">
+                                <h3 class="col m-0 text-center">
                                     {{set.firstTeamResult.score}} 
                                     -
                                     {{set.secondTeamResult.score}} 
-                                </div>
-                                <div class="col-0 team-name mx-0 text-right">
+                                </h3>
+                                <div class="col mx-0 text-right">
                                     {{set.secondTeamResult.teamName}}     
                                 </div>
                             </li>

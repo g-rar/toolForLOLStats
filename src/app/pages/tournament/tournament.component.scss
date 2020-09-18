@@ -3,8 +3,12 @@
     background: var(--color-bg2);
 }
 
-::ng-deep .bg-test{
-    background: rgb(105, 105, 105);
+::ng-deep .round-elem{
+    background: rgb(92, 92, 92);
+    transition: 200ms;
+    &:hover{
+
+    }
 }
 
 .chevron {
@@ -16,11 +20,21 @@
 .score-item{
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     background: none;
     color: white;
-    border: none;
+    transition: 200ms;
+    &:hover{
+        border-radius: 10px;
+        box-shadow: 
+            inset -3px 0px 0px 1px var(--color-main), 
+            inset 3px 0px 0px 1px var(--color-main);
+        cursor: pointer;
+    }
 }
 
-.team-name{
-    width: fit-content;
+
+.col{
+    min-width: fit-content;
+    max-width: 33%;
 }
