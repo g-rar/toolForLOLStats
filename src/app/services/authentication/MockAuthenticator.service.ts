@@ -28,6 +28,11 @@ export default class MockAuthenticator implements Authenticator{
         this.user = null;
     }
 
+    async getLoggedUser(): Promise<User>{
+        await this.validate();
+        return this.user;
+    }
+
     async validate(): Promise<void>{
         if(!this.user)
             throw new Error(AuthenticatorError.NOT_AUTHENTICATED);

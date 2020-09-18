@@ -53,20 +53,20 @@ describe('DefaultController', () => {
         );
     });
 
-    it('login(): should authenticate properly with the correct credentials', async () => {
+    it('login(): authenticates properly with the correct credentials', async () => {
         const email: string = MockAuthenticator.CORRECT_USERNAME;
         const password: string = MockAuthenticator.CORRECT_PASSWORD;
         await expectAsync(controller.login(email, password)).toBeResolved();
     });
 
-    it('logout(): should logout if a user is already logged in', async () => {
+    it('logout(): logs out if a user is already logged in', async () => {
         const email: string = MockAuthenticator.CORRECT_USERNAME;
         const password: string = MockAuthenticator.CORRECT_PASSWORD;
         await expectAsync(controller.login(email, password)).toBeResolved();
         await expectAsync(controller.logout()).toBeResolved();
     });
 
-    it('logout(): should fail if a logout is attempted when a user isn\'t logged in', async () => {
+    it('logout(): fails if a logout is attempted when a user isn\'t logged in', async () => {
         //user gets logged-in on the beforeEach, so logout must be called an extra time to trigger
         await expectAsync(controller.logout()).toBeResolved();
         await expectAsync(controller.logout()).toBeRejectedWith(
@@ -76,9 +76,24 @@ describe('DefaultController', () => {
 
     it('logout(): fails when excecuting an operation which requires authorization and the user is unauthorized', async () => {
         const tournanentId: string = 'doesn\'t matter';
-        //user gets logged-in on the beforeEach, so logout must be called an extra time to trigger
         await expectAsync(controller.logout()).toBeResolved();
-        await expectAsync(controller.endTournament(tournanentId)).toBeRejectedWith(
+        await expectAsync(controller.getLoggedUser()).toBeRejectedWith(
+            new Error(AuthenticatorError.NOT_AUTHENTICATED)
+        );
+    });
+
+    it('getLoggedUser(): returns the currently logged user', async () => {
+        const email: string = MockAuthenticator.CORRECT_USERNAME;
+        const password: string = MockAuthenticator.CORRECT_PASSWORD;
+        const user: User = await controller.login(email, password);
+        const logged: User = await controller.getLoggedUser();
+        expect(user).toEqual(logged);
+    });
+
+    it('getLoggedUser(): fails when a user isn\'t logged in', async () => {
+        //user gets logged-in on the beforeEach, so logout must be called here
+        await controller.logout();
+        await expectAsync(controller.getLoggedUser()).toBeRejectedWith(
             new Error(AuthenticatorError.NOT_AUTHENTICATED)
         );
     });

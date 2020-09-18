@@ -15,6 +15,7 @@ export abstract class Controller{
     //basic authentication
     login: (email: string, password: string) => Promise<User>;
     logout: () => Promise<void>;
+    getLoggedUser: () => Promise<User>;
 
     //tournaments
     addTournament: (name: string, startDate: Date) => Promise<Tournament>;

@@ -24,6 +24,8 @@ import {
 })
 export default class MockController implements Controller{
 
+    private user: User;
+
     private ids: number = 0;
 
     //champions
@@ -51,6 +53,8 @@ export default class MockController implements Controller{
     private fetchedMatch: Match;
 
     constructor(){
+        this.user = null;
+
         //champions
         this.champions = [ 
             MockController.AATROX,
@@ -105,8 +109,8 @@ export default class MockController implements Controller{
         //tournaments
         this.tournaments = [
             new Tournament(''+this.ids++, 'Current Dummy Tournament', new Date(), null, [ groupsID, semifinalsID, finalsID], ['0', '1', '2', '3']),
-            new Tournament(''+this.ids++, 'Finished Tournament', new Date(new Date().getMilliseconds() - 2000000), new Date(new Date().getMilliseconds() - 1000000), [ groupsID, semifinalsID, finalsID], ['0', '1', '2', '3']),
-            new Tournament(''+this.ids++, 'Future Dummy Tournament', new Date(new Date().getMilliseconds() + 10000), null, [ groupsID, semifinalsID, finalsID], ['0', '1', '2', '3']),
+            new Tournament(''+this.ids++, 'Finished Tournament', new Date(new Date().setHours(1)-100000), new Date(new Date().setHours(2) - 100000), [ groupsID, semifinalsID, finalsID], ['0', '1', '2', '3']),
+            new Tournament(''+this.ids++, 'Future Dummy Tournament', new Date(new Date().setHours(23)+1000000), null, [ groupsID, semifinalsID, finalsID], ['0', '1', '2', '3']),
         ];
     }
 
@@ -241,7 +245,8 @@ export default class MockController implements Controller{
 
     login(email: string, password: string): Promise<User> {
         return new Promise((resolve, reject) => {
-            resolve(new User(email));
+            this.user = new User(email);
+            resolve(this.user);
         });
     }
 
@@ -249,6 +254,13 @@ export default class MockController implements Controller{
         return new Promise((resolve, reject)=> {
             resolve();
         });
+    }
+
+    async getLoggedUser(): Promise<User>{
+        if(!this.user)
+            throw new Error('user not logged in');
+        else
+            return this.user;
     }
 
     addTournament(name: string, startDate: Date): Promise<Tournament> {

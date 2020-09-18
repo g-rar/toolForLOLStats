@@ -38,6 +38,17 @@ describe('MockController', () => {
         await expectAsync(controller.logout()).toBeResolved();
     });
 
+    it('getLoggedUser(): returns the currently logged user', async () => {
+        const email: string = "ajoscram@gmail.com";
+        const user: User = await controller.login(email, STUB_PASSWORD);
+        const logged: User = await controller.getLoggedUser();
+        expect(user).toEqual(logged);
+    });
+
+    it('getLoggedUser(): fails when a user isn\'t logged in', async () => {
+        await expectAsync(controller.getLoggedUser()).toBeRejected();
+    });
+
     it('getTournaments(): gets a non-empty list of existing tournaments', async () => {
         const tournaments: Tournament[] = await controller.getTournaments();
         expect(tournaments).toBeTruthy();
