@@ -1,3 +1,4 @@
+<div class="overlay-bg" @showHideBg *ngIf="sideMenuOpen" (click)="showSideMenu(false)"></div>
 <div class="side-menu" [@openCloseSideMenu]="sideMenuOpen ? 'open' : 'closed'" (mouseleave)="showSideMenu(false)">
     <ul class="side-menu-nav">
         <li class="nav-item">
@@ -10,7 +11,7 @@
         </li>
         <hr/>
         <li class="nav-item" *ngFor="let elem of navElements">
-            <a href="{{elem.path}}" class="side-menu-link">
+            <a [routerLink]="[elem.path]" class="side-menu-link">
                 <img src="{{elem.icon}}">
                 <span class="link-text">{{elem.text}}</span>
             </a>

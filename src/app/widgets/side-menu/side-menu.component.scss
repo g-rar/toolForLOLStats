@@ -9,6 +9,9 @@
     color: var(--color-bg);
     z-index: 1000;
 }
+.overlay-bg {
+    z-index: 1000;
+}
 
 .side-menu hr {
     width: 90%;
@@ -27,6 +30,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 10;
 }
 
 .nav-item {
