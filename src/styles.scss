@@ -124,7 +124,12 @@
     border-radius: 15px;
     transform: translate(-50%, -50%);
     box-shadow: 0px 5px 15px black;
+    .page-content {
+        margin: 2rem min(10vw, 5rem);
+        width: fit-content;
+    }
 }
+
 
 .overlay-bg {
     background: var(--color-bg);
