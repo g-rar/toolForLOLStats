@@ -44,6 +44,8 @@ import { AuthService } from '../../services/auth.service';
 })
 export class SideMenuComponent implements OnInit {
 
+  //todo when link clicked close menu
+
   navElements = [
     { path: '/tournaments', icon: 'assets/svg/cup.svg', text: 'Torneos'},
     { path: '/players', icon: 'assets/svg/controller.svg', text: 'Jugadores'}

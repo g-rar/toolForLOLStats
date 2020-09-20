@@ -10,6 +10,9 @@ import { Controller } from 'src/app/services/control/Controller.service';
 })
 export class TournamentComponent implements OnInit {
 
+  //TODO remove title, add description, if user logged in give report capabilities
+  //TODO also add tournament round id to URL when redirecting to set
+
   tournament:Tournament;
   roundList:Round[];
 
