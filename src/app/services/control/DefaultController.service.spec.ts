@@ -104,8 +104,9 @@ describe('DefaultController', () => {
     });
 
     it('addTournament(): adds a tournament', async () => {
-        const tournamentName: string = "Torneo Meca";        
-        const tournament: Tournament = await controller.addTournament(tournamentName, new Date());
+        const tournamentName: string = "Torneo Meca";
+        const tournamentDescription: string = 'https://www.google.com';
+        const tournament: Tournament = await controller.addTournament(tournamentName, tournamentDescription, new Date());
         expect(tournament).toBeTruthy();
     });
 
@@ -117,7 +118,7 @@ describe('DefaultController', () => {
     });
 
     it('getTournament(): gets an existing tournament', async () => {
-        const tournament: Tournament = await controller.addTournament('Some Tournament', new Date());
+        const tournament: Tournament = await controller.addTournament('Some Tournament', 'https://www.google.com', new Date());
         const gottenTournament: Tournament = await controller.getTournament(tournament.id);
         expect(tournament).toEqual(gottenTournament);
     });
@@ -130,7 +131,7 @@ describe('DefaultController', () => {
     });
 
     it('endTournament(): ends an uncompleted a tournament', async () => {
-        let tournament: Tournament = await controller.addTournament('Test Tournament', new Date());
+        let tournament: Tournament = await controller.addTournament('Test Tournament', 'https://www.google.com', new Date());
         
         expect(tournament.completed).toBe(false);
         tournament = await controller.endTournament(tournament.id);
@@ -139,7 +140,7 @@ describe('DefaultController', () => {
 
     it('endTournament(): fails when ending a completed tournament', async () => {
         //getting a random tournament
-        const tournament: Tournament = await controller.addTournament('Test Tournament', new Date());
+        const tournament: Tournament = await controller.addTournament('Test Tournament', 'https://www.google.com', new Date());
 
         //it should not have completed
         expect(tournament.completed).toBe(false);
@@ -152,7 +153,7 @@ describe('DefaultController', () => {
     });
 
     it('getTournamentChampionsStats(): gets all the tournament\'s champions stats', async () => {
-        const tournament: Tournament = await controller.addTournament('Test Tournament', new Date());
+        const tournament: Tournament = await controller.addTournament('Test Tournament', 'https://www.google.com', new Date());
         const stats: ChampionOverallStats[] = await controller.getTournamentChampionsStats(tournament.id);
         expect(stats).toBeTruthy();
     });
@@ -166,7 +167,7 @@ describe('DefaultController', () => {
     });
     
     it('getTournamentChampionStats(): gets a single Champion\'s tournament stats', async () => {
-        const tournament: Tournament = await controller.addTournament('Test Tournament', new Date());
+        const tournament: Tournament = await controller.addTournament('Test Tournament', 'https://www.google.com', new Date());
         const threshId: number = 412; //riot's thresh ID
         const stats: ChampionOverallStats = await controller.getTournamentChampionStats(tournament.id, threshId);
 
@@ -174,7 +175,7 @@ describe('DefaultController', () => {
     });
 
     it('getTournamentChampionStats(): fails with an incorrect champion or tournament id', async () => {
-        const tournament: Tournament = await controller.addTournament('Test Tournament', new Date());
+        const tournament: Tournament = await controller.addTournament('Test Tournament', 'https://www.google.com', new Date());
         const threshId: number = 412; //riot's thresh ID
         const incorrectTournamentId: string = 'incorrect id';
         const incorrectChampionId: number = -1; //doesn't exist
@@ -188,14 +189,14 @@ describe('DefaultController', () => {
     });
 
     it('getRound(): gets a single tournament\'s round', async () => {
-        const tournament: Tournament = await controller.addTournament('Test Tournament', new Date());
+        const tournament: Tournament = await controller.addTournament('Test Tournament', 'https://www.google.com', new Date());
         let round: Round = await controller.addRound(tournament.id, 'Test Round');
         round = await controller.getRound(tournament.id, round.id);
         expect(round).toBeTruthy();
     });
 
     it('getRound(): fails with an incorrect tournament or round id', async () => {
-        const tournament: Tournament = await controller.addTournament('Test Tournament', new Date());
+        const tournament: Tournament = await controller.addTournament('Test Tournament', 'https://www.google.com', new Date());
         const round: Round = await controller.addRound(tournament.id, 'Test Round');
         const incorrectTournamentId: string = 'incorrect id';
         const incorrectRoundId: string = 'incorrect id';
@@ -209,7 +210,7 @@ describe('DefaultController', () => {
     });
 
     it('addRound(): adds a new round to a tournament', async () => {
-        const tournament: Tournament = await controller.addTournament('Test Tournament', new Date());
+        const tournament: Tournament = await controller.addTournament('Test Tournament', 'https://www.google.com', new Date());
         const round: Round = await controller.addRound(tournament.id, 'Test Round');
 
         expect(round).toBeTruthy();
@@ -225,7 +226,7 @@ describe('DefaultController', () => {
     });
 
     it('getRounds(): gets a tournament\'s rounds', async () => {
-        const tournament: Tournament = await controller.addTournament('Test Tournament', new Date());
+        const tournament: Tournament = await controller.addTournament('Test Tournament', 'https://www.google.com', new Date());
         const rounds: Round[] = await controller.getRounds(tournament.id);
         expect(rounds).toBeTruthy();
     });
@@ -238,7 +239,7 @@ describe('DefaultController', () => {
     });
 
     it('deleteRound(): deletes a round', async () => {
-        const tournament: Tournament = await controller.addTournament('Test Tournament', new Date());
+        const tournament: Tournament = await controller.addTournament('Test Tournament', 'https://www.google.com', new Date());
         const round: Round = await controller.addRound(tournament.id, 'Test Round');
         const deleted: Round = await controller.deleteRound(tournament.id, round.id);
         
@@ -246,7 +247,7 @@ describe('DefaultController', () => {
     });
 
     it('deleteRound(): fails with an incorrect tournament or round id', async () => {
-        const tournament: Tournament = await controller.addTournament('Test Tournament', new Date());
+        const tournament: Tournament = await controller.addTournament('Test Tournament', 'https://www.google.com', new Date());
         const round: Round = await controller.addRound(tournament.id, 'Test Round');
         const incorrectTournamentId: string = 'incorrect id';
         const incorrectRoundId: string = 'incorrect id';
@@ -260,7 +261,7 @@ describe('DefaultController', () => {
     });
 
     it('addSet(): adds a new set to a round', async () => {
-        const tournament: Tournament = await controller.addTournament('Test Tournament', new Date());
+        const tournament: Tournament = await controller.addTournament('Test Tournament', 'https://www.google.com', new Date());
         const round: Round = await controller.addRound(tournament.id, 'Test Round');
         const teams: Team[] = [
             await controller.addTeam(tournament.id, 'Team 0'),
@@ -273,7 +274,7 @@ describe('DefaultController', () => {
     });
 
     it('addSet(): fails with an incorrect tournament, round or either team ids', async () => {
-        const tournament: Tournament = await controller.addTournament('Test Tournament', new Date());
+        const tournament: Tournament = await controller.addTournament('Test Tournament', 'https://www.google.com', new Date());
         const round: Round = await controller.addRound(tournament.id, 'Test Round');
         const teams: Team[] = [
             await controller.addTeam(tournament.id, 'Team 0'),
@@ -298,7 +299,7 @@ describe('DefaultController', () => {
     });
 
     it('getSets(): fails with an incorrect tournament or round id', async () => {
-        const tournament: Tournament = await controller.addTournament('Test Tournament', new Date());
+        const tournament: Tournament = await controller.addTournament('Test Tournament', 'https://www.google.com', new Date());
         const round: Round = await controller.addRound(tournament.id, 'Test Round');
         const incorrectTournamentId: string = 'incorrect id';
         const incorrectRoundId: string = 'incorrect id';
@@ -312,14 +313,14 @@ describe('DefaultController', () => {
     });
     
     it('getSets(): gets a round\'s sets', async () => {
-        const tournament: Tournament = await controller.addTournament('Test Tournament', new Date());
+        const tournament: Tournament = await controller.addTournament('Test Tournament', 'https://www.google.com', new Date());
         const round: Round = await controller.addRound(tournament.id, 'Test Round');
         const sets: Set[] = await controller.getSets(tournament.id, round.id);
         expect(sets).toBeTruthy();
     });
 
     it('deleteSet(): fails with an incorrect tournament, round or set id', async () => {
-        const tournament: Tournament = await controller.addTournament('Test Tournament', new Date());
+        const tournament: Tournament = await controller.addTournament('Test Tournament', 'https://www.google.com', new Date());
         const round: Round = await controller.addRound(tournament.id, 'Test Round');
         const teams: Team[] = await controller.getTeams(tournament.id);
         const set: Set = await controller.addSet(tournament.id, round.id, teams[0].id, teams[1].id);
@@ -368,7 +369,7 @@ describe('DefaultController', () => {
     });
 
     it('addMatch(): fails with an incorrect tournament, round or set ids', async () => {
-        const tournament: Tournament = await controller.addTournament('Test Tournament', new Date());
+        const tournament: Tournament = await controller.addTournament('Test Tournament', 'https://www.google.com', new Date());
         const round: Round = await controller.addRound(tournament.id, 'Test Round');
         const teams: Team[] = [
             await controller.addTeam(tournament.id, 'Team 0'),
@@ -416,7 +417,7 @@ describe('DefaultController', () => {
     });
 
     it('getMatches(): fails when called with an incorrect tournament, round or set IDs', async () => {
-        const tournament: Tournament = await controller.addTournament('Test Tournament', new Date());
+        const tournament: Tournament = await controller.addTournament('Test Tournament', 'https://www.google.com', new Date());
         const round: Round = await controller.addRound(tournament.id, 'Test Round');
         const incorrectTournamentId: string = 'doesn\'t matter';
         const incorrectRoundId: string = 'doesn\'t matter';
@@ -434,7 +435,7 @@ describe('DefaultController', () => {
     });
 
     it('getMatches(): gets a list of matches for a tournament, round or set', async () => {
-        const tournament: Tournament = await controller.addTournament('Test Tournament', new Date());
+        const tournament: Tournament = await controller.addTournament('Test Tournament', 'https://www.google.com', new Date());
         const round: Round = await controller.addRound(tournament.id, 'Test Round');
         const teams: Team[] = [
             await controller.addTeam(tournament.id, 'Team 0'),
@@ -448,7 +449,7 @@ describe('DefaultController', () => {
     });
 
     it('getTeams(): gets a list of teams in a tournament', async () => {
-        const tournament: Tournament = await controller.addTournament('Test Tournament', new Date());
+        const tournament: Tournament = await controller.addTournament('Test Tournament', 'https://www.google.com', new Date());
         const teams: Team[] = await controller.getTeams(tournament.id);
         expect(teams).toBeTruthy();
     });
@@ -469,7 +470,7 @@ describe('DefaultController', () => {
     });
 
     it('addTeam(): adds a new team to a tournament', async () => {
-        const tournament: Tournament = await controller.addTournament('Test Tournament', new Date());
+        const tournament: Tournament = await controller.addTournament('Test Tournament', 'https://www.google.com', new Date());
         const team: Team = await controller.addTeam(tournament.id, 'Test Team');
         
         expect(team).toBeTruthy();
@@ -484,7 +485,7 @@ describe('DefaultController', () => {
     });
 
     it('getPlayerStats(): gets a list of player stats in general or for a team', async () => {
-        const tournament: Tournament = await controller.addTournament('Test Tournament', new Date());
+        const tournament: Tournament = await controller.addTournament('Test Tournament', 'https://www.google.com', new Date());
         const team: Team = await controller.addTeam(tournament.id, 'Test Team');
 
         await expectAsync(controller.getPlayerStats()).toBeResolved();

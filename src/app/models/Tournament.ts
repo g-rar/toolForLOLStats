@@ -2,6 +2,7 @@ export default class Tournament {
     constructor(
         public id: string,
         public name: string,
+        public description: string,
         public startDate: Date,
         public endDate: Date,
         public roundIds: string[],

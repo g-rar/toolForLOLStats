@@ -66,9 +66,9 @@ export default class MockDatabase implements Database {
 
         //tournaments
         this.tournaments = [
-            new Tournament(''+this.ids++, 'Current Dummy Tournament', new Date(), null, [ groupsID, semifinalsID, finalsID], ['0', '1', '2', '3']),
-            new Tournament(''+this.ids++, 'Finished Tournament', new Date(new Date().setHours(1)-100000), new Date(new Date().setHours(2) - 100000), [ groupsID, semifinalsID, finalsID], ['0', '1', '2', '3']),
-            new Tournament(''+this.ids++, 'Future Dummy Tournament', new Date(new Date().setHours(23)+1000000), null, [ groupsID, semifinalsID, finalsID], ['0', '1', '2', '3']),
+            new Tournament(''+this.ids++, 'Current Dummy Tournament', 'https://www.google.com', new Date(), null, [ groupsID, semifinalsID, finalsID], ['0', '1', '2', '3']),
+            new Tournament(''+this.ids++, 'Finished Tournament', 'https://www.google.com', new Date(new Date().setHours(1)-100000), new Date(new Date().setHours(2) - 100000), [ groupsID, semifinalsID, finalsID], ['0', '1', '2', '3']),
+            new Tournament(''+this.ids++, 'Future Dummy Tournament', 'https://www.google.com', new Date(new Date().setHours(23)+1000000), null, [ groupsID, semifinalsID, finalsID], ['0', '1', '2', '3']),
         ];
     }
 
@@ -155,8 +155,8 @@ export default class MockDatabase implements Database {
         throw new Error(DatabaseError.UNKNOWN_TEAM_ID);
     }
 
-    async addTournament(name: string, startDate: Date): Promise<Tournament>{
-        const tournament: Tournament = new Tournament(''+this.ids++, name, startDate, null, [], []);
+    async addTournament(name: string, description: string, startDate: Date): Promise<Tournament>{
+        const tournament: Tournament = new Tournament(''+this.ids++, name, description, startDate, null, [], []);
         this.tournaments.push(tournament);
         return tournament;
     }

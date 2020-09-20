@@ -57,9 +57,10 @@ describe('MockController', () => {
 
     it('addTournament(): adds a tournament', async () => {
         const tournamentName: string = "Torneo Meca";
+        const tournamentDescription: string = 'https://www.google.com';
         
         const numberOfTournametsPreInsertion: number = (await controller.getTournaments()).length;
-        await controller.addTournament(tournamentName, new Date());
+        await controller.addTournament(tournamentName, tournamentDescription, new Date());
         const numberOfTournametsPostInsertion: number = (await controller.getTournaments()).length;
 
         //there should be one more tournament after inserting
@@ -67,7 +68,7 @@ describe('MockController', () => {
     });
 
     it('getTournament(): gets an existing tournament', async () => {
-        const tournament: Tournament = await controller.addTournament('Some Tournament', new Date());
+        const tournament: Tournament = await controller.addTournament('Some Tournament', 'https://www.google.com', new Date());
         const gottenTournament: Tournament = await controller.getTournament(tournament.id);
         expect(tournament).toEqual(gottenTournament);
     });

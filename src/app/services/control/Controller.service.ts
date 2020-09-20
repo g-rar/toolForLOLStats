@@ -18,7 +18,7 @@ export abstract class Controller{
     getLoggedUser: () => Promise<User>;
 
     //tournaments
-    addTournament: (name: string, startDate: Date) => Promise<Tournament>;
+    addTournament: (name: string, description: string, startDate: Date) => Promise<Tournament>;
     endTournament: (id: string) => Promise<Tournament>;
     getTournament: (id: string) => Promise<Tournament>;
     getTournaments: () => Promise<Tournament[]>;
