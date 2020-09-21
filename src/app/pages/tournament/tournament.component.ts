@@ -20,7 +20,7 @@ export class TournamentComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      //todo preguntar por esto
+      //TODO preguntar por esto
       this.controller.getTournament(params.tournamentId).then(res => {
         this.tournament = res;
         this.controller.getRounds(this.tournament.id)
