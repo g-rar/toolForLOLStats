@@ -27,6 +27,7 @@ import { ColorLabelComponent } from './widgets/color-label/color-label.component
 import { TournamentComponent } from './pages/tournament/tournament.component';
 import { environment } from 'src/environments/environment';
 import { SetRowComponent } from './widgets/set-row/set-row.component';
+import { ToastComponent } from './widgets/toast/toast.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { SetRowComponent } from './widgets/set-row/set-row.component';
     TournamentCardComponent,
     ColorLabelComponent,
     TournamentComponent,
-    SetRowComponent
+    SetRowComponent,
+    ToastComponent
   ],
   imports: [
     BrowserModule,
