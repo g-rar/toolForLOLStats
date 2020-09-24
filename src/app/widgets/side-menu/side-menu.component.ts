@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
-import { AuthService } from '../../services/auth.service';
+import { Controller } from 'src/app/services/control/Controller.service';
 
 @Component({
   selector: 'app-side-menu',
@@ -59,13 +59,13 @@ export class SideMenuComponent implements OnInit {
 
   sideMenuOpen = false;
   
-  constructor(private auth: AuthService) {
+  constructor(private controller: Controller) {
   }
 
   ngOnInit() {
-    if(this.auth.isLoggedIn()){
+    this.controller.getLoggedUser().then(user => {
       this.navElements = this.navElements.concat(this.navElementsTO)
-    }
+    })
   }
 
   showSideMenu(show:boolean){
