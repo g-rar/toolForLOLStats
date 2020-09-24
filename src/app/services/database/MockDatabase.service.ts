@@ -52,7 +52,10 @@ export default class MockDatabase implements Database {
         this.matches = [];
 
         //Sets
-        this.sets = [];
+        this.sets = [
+            this.generateSet(this.teams[0], this.teams[1], [ ]),
+            this.generateSet(this.teams[2], this.teams[3], [ ]),
+        ];
 
         //rounds
         const groupsID: string = ''+this.ids++;

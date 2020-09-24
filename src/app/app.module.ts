@@ -20,14 +20,25 @@ import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.compone
 import { SideMenuComponent } from './widgets/side-menu/side-menu.component';
 import { TournamentsComponent } from './pages/tournaments/tournaments.component';
 import ControlModule from './services/control.module';
-import { Controller } from './services/control/Controller.service';
-import MockController from './services/control/MockController.service';
 import { TournamentCardComponent } from './widgets/tournament-card/tournament-card.component';
 import { ColorLabelComponent } from './widgets/color-label/color-label.component';
 import { TournamentComponent } from './pages/tournament/tournament.component';
 import { environment } from 'src/environments/environment';
 import { SetRowComponent } from './widgets/set-row/set-row.component';
 import { ToastComponent } from './widgets/toast/toast.component';
+import { Controller } from './services/control/Controller.service';
+import DefaultController from './services/control/DefaultController.service'
+import MockController from './services/control/MockController.service';
+import { Authenticator, AuthenticatorError } from './services/authentication/Authenticator.service';
+import MockAuthenticator from './services/authentication/MockAuthenticator.service';
+import { ChampionFetcher, ChampionFetcherError } from './services/champions/ChampionFetcher.service';
+import MockChampionFetcher from './services/champions/MockChampionFetcher.service';
+import { Database, DatabaseError } from './services/database/Database.service';
+import MockDatabase from './services/database/MockDatabase.service';
+import { IdentityFetcher, IdentityFetcherError } from './services/identities/IdentityFetcher.service';
+import MockIdentityFetcher from './services/identities/MockIdentityFetcher.service';
+import { MatchFetcher, MatchFetcherError } from './services/matches/MatchFetcher.service';
+import MockMatchFetcher from './services/matches/MockMatchFetcher.service';
 
 @NgModule({
   declarations: [
@@ -61,7 +72,12 @@ import { ToastComponent } from './widgets/toast/toast.component';
     ControlModule
   ],
   providers: [
-    { provide: Controller, useClass: MockController }
+    { provide: Controller, useClass: DefaultController },
+    { provide: Authenticator, useClass: MockAuthenticator },
+    { provide: ChampionFetcher, useClass: MockChampionFetcher },
+    { provide: Database, useClass: MockDatabase },
+    { provide: IdentityFetcher, useClass: MockIdentityFetcher },
+    { provide: MatchFetcher, useClass: MockMatchFetcher }
   ],
   bootstrap: [AppComponent]
 })
