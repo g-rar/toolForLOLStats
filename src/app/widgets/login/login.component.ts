@@ -47,9 +47,5 @@ export class LoginComponent implements OnInit {
     }).catch(err => {
       console.error(err)
     });
-    // this.authService.logInWithEmailAndPassword(
-    //   formData.email,
-    //   formData.password
-    // )
   }
 }
