@@ -11,12 +11,13 @@ export default class MockAuthenticator implements Authenticator{
     public static readonly CORRECT_USERNAME = "username@example.com";
     public static readonly CORRECT_PASSWORD = "password";
 
-    private user: User;
+    private user: User = JSON.parse(localStorage.getItem("MockUser"));
     
     async login(username: string, password: string): Promise<User>{
         if(username === MockAuthenticator.CORRECT_USERNAME && 
            password === MockAuthenticator.CORRECT_PASSWORD){
             this.user = new User(username);
+            localStorage.setItem("MockUser", JSON.stringify(this.user))
             return this.user;
         } else {
             throw new Error(AuthenticatorError.AUTHENTICATION_FAILED);
@@ -26,6 +27,7 @@ export default class MockAuthenticator implements Authenticator{
     async logout(): Promise<void>{
         await this.validate();
         this.user = null;
+        localStorage.setItem("MockUser", null)
     }
 
     async getLoggedUser(): Promise<User>{

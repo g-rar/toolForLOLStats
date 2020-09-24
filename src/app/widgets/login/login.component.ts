@@ -10,6 +10,8 @@ import { Controller } from 'src/app/services/control/Controller.service';
 })
 export class LoginComponent implements OnInit {
 
+  //TODO when logging in close overlay, change icon and display user's email, also show toast
+
   loginOverlayOpen:boolean;
   isLoggedIn:boolean;
   loginForm:FormGroup;

@@ -9,7 +9,8 @@ import { Tournament } from 'src/app/models';
 })
 export class TournamentCardComponent implements OnInit {
 
-  //todo once tournaments have images, add supor for them.
+  //TODO once tournaments have images, add supor for them.
+  //TODO improve async input data implementation
 
   @Input() tournament:Tournament;
   hasStarted:boolean = false;
@@ -17,9 +18,7 @@ export class TournamentCardComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(){
     if(this.tournament.endDate){

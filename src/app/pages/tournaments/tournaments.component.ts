@@ -9,6 +9,8 @@ import { Tournament } from 'src/app/models';
 })
 export class TournamentsComponent implements OnInit {
 
+  //TODO if user is logged display add tournament button
+
   tournaments:Tournament[]
 
   constructor(private controller:Controller) {

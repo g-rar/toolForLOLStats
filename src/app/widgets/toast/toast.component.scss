@@ -1,0 +1,15 @@
+
+[app-toast].toast-normal {
+    border-left: thick solid var(--color-main);
+}
+[app-toast].toast-danger {
+    border-left: thick solid var(--color-alert);
+}
+[app-toast].toast-notification {
+    border-left: thick solid rgb(95, 95, 235);
+}
+
+.times-sign {
+    position: relative;
+    top: -3px;
+}

@@ -4,6 +4,7 @@ import { RiotComService } from '../../services/riot-com.service';
 import { AuthService } from '../../services/auth.service';
 import { async } from '@angular/core/testing';
 import { AngularFirestore } from '@angular/fire/firestore/';
+import { ToastService } from 'src/app/services/toast/toast.service';
 
 @Component({
   selector: 'app-main',
@@ -14,16 +15,17 @@ export class MainComponent implements OnInit {
 
   isLoggedIn = false;
   loggedMail = '';
-  // btnSVGProps = {'fill':'var(--color-main)',
-  //               'height':'3rem',
-  //               'width':'3rem',
-  //               'transition': '300ms ease-in-out',
-  //              };
 
-
-  constructor(private authService : AuthService, private formBuilder: FormBuilder, private db:AngularFirestore) {}
+  constructor(private toastService:ToastService) {}
 
   ngOnInit() {
+  }
+
+  //TODO Delete this temporary testing code and also 
+  //TODO research a better to test widgets
+  testToast() {
+    this.toastService.showToast({text: "Hola amigos :D", title: "Saludo"})
+    this.toastService.showToast({text: "Hola amigos :D", delay:3000, type: "notification"})
   }
 
 }

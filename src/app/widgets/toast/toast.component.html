@@ -1,0 +1,17 @@
+<ngb-toast
+  *ngFor="let toast of tService.toasts"
+  [class]="'bg-dark toast-'+toast.type"
+  [autohide]="toast.delay ? true : false"
+  (hide)="tService.remove(toast)" 
+  [delay]="toast.delay"
+  @showHideToast
+  app-toast>
+
+  <button type="button" class="ml-2 close" (click)="tService.remove(toast)" *ngIf="toast.delay === undefined">
+    <span aria-hidden="true" class="times-sign">&times;</span>
+  </button>
+  <h5 *ngIf="toast.title !== undefined">{{toast.title}}</h5>
+    
+    {{ toast.text }}
+
+</ngb-toast>

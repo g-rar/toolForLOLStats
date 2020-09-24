@@ -1,7 +1,7 @@
 import { Tournament, Round, Set, Match, Team, PlayerOverallStats, ChampionOverallStats, } from 'src/app/models';
 
 export abstract class Database{
-    addTournament: (name: string, startDate: Date) => Promise<Tournament>;
+    addTournament: (name: string, description: string, startDate: Date) => Promise<Tournament>;
     endTournament: (id: string) => Promise<Tournament>;
     getTournament: (id: string) => Promise<Tournament>;
     getTournaments: () => Promise<Tournament[]>;
