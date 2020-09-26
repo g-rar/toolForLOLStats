@@ -44,8 +44,6 @@ import { Controller } from 'src/app/services/control/Controller.service';
 })
 export class SideMenuComponent implements OnInit {
 
-  //TODO when link clicked close menu
-
   navElements = [
     { path: '/tournaments', icon: 'assets/svg/cup.svg', text: 'Torneos'},
     { path: '/players', icon: 'assets/svg/controller.svg', text: 'Jugadores'}

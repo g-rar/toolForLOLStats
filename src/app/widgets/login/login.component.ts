@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Controller } from 'src/app/services/control/Controller.service';
+import { ToastService } from 'src/app/services/toast/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
   loginForm:FormGroup;
   loggedMail: string = null;
 
-  constructor(private controller:Controller, private formBuilder: FormBuilder) {
+  constructor(private controller:Controller, private formBuilder: FormBuilder, private toast:ToastService) {
     this.loginForm = formBuilder.group({
       email: "",
       password: ""
@@ -43,9 +44,18 @@ export class LoginComponent implements OnInit {
 
   logIn(formData){
     this.controller.login(formData.email, formData.password).then(res => {
-      console.log("Logged in succesfully");
+      this.toast.showToast({
+        text: "Se ha iniciado sesión",
+        delay: 2000
+      })
+      this.showOverlay(false)
       this.ngOnInit()
     }).catch(err => {
+      this.toast.showToast({
+        type: "danger",
+        text: err,
+        delay: 2000
+      })
       console.error(err)
     });
   }
