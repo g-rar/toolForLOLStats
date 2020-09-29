@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
         delay: 2000
       })
       this.showOverlay(false)
-      this.ngOnInit()
+      location.reload()
     }).catch(err => {
       this.toast.showToast({
         type: "danger",

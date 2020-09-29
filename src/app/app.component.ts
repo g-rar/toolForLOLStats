@@ -1,8 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import {AngularFirestore} from '@angular/fire/firestore';
-import { trigger, state, style, animate, transition } from '@angular/animations';
 import { LoginComponent } from './widgets/login/login.component';
-import { AuthService } from './services/auth.service';
 import { SideMenuComponent } from './widgets/side-menu/side-menu.component';
 import { Controller } from './services/control/Controller.service';
 
@@ -27,7 +24,7 @@ export class AppComponent {
     this.sideMenu.showSideMenu(true);
   }
 
-  constructor(private authService: AuthService, private controller: Controller){
+  constructor(private controller: Controller){
   }
 
   ngOnInit() {

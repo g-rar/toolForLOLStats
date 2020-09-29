@@ -7,6 +7,9 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
 import { TournamentsComponent } from './pages/tournaments/tournaments.component';
 import { TournamentComponent } from './pages/tournament/tournament.component';
+import { AddTournamentComponent } from './pages/add-tournament/add-tournament.component';
+import { PlayersComponent } from './pages/players/players.component';
+import { PlayerDetailsComponent } from './pages/player-details/player-details.component';
 
 
 const routes: Routes = [
@@ -24,6 +27,18 @@ const routes: Routes = [
   },
   {
     path: 'tournaments/:tournamentId', component: TournamentComponent
+  },
+  {
+    path: 'tournaments/:tournamentId/:roundId/add-game', component: ReportGameComponent
+  },
+  {
+    path: 'add-tournament', component: AddTournamentComponent, canActivate: [AuthGuardService]
+  },
+  {
+    path: 'players', component: PlayersComponent
+  },
+  {
+    path: 'player-details', component: PlayerDetailsComponent
   },
   {
     path: '**', component: NotFoundComponent

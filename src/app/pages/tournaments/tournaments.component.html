@@ -1,6 +1,6 @@
 <div class="page-content">
     <h1>Torneos recientes</h1>
-    <button *ngIf="isUserLogged" class="main-btn add-tournament-btn" type="button">
+    <button [routerLink]="'/add-tournament'" *ngIf="isUserLogged" class="main-btn add-tournament-btn" type="button">
         <b aria-hidden="true">+</b>
         <span class="ml-2">
             Añadir torneo

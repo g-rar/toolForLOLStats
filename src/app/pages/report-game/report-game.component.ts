@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { RiotComService } from '../../services/riot-com.service';
 
 @Component({
   selector: 'app-report-game',
@@ -9,6 +8,8 @@ import { RiotComService } from '../../services/riot-com.service';
 })
 export class ReportGameComponent implements OnInit {
 
+  //TODO rework like... all of this
+
   nameTeam1 = "Equipo1";
   statsTeam1 = [];
   nameTeam2 = "Equipo2";
@@ -16,7 +17,7 @@ export class ReportGameComponent implements OnInit {
 
   matchForm;
 
-  constructor(private formBuilder: FormBuilder, private riotCom: RiotComService) { 
+  constructor(private formBuilder: FormBuilder) { 
     this.matchForm = this.formBuilder.group({
       apiKey: "",
       matchId: "",
@@ -29,13 +30,13 @@ export class ReportGameComponent implements OnInit {
   onSubmit(formData){
     console.log(formData);
     
-    this.riotCom.consultMatch(formData.apiKey, formData.matchId).then((result) => {
-      console.log(result);
-      this.nameTeam1 = result.team1.name
-      this.nameTeam2 = result.team2.name
-      this.statsTeam1 = result.team1.playerStats
-      this.statsTeam2 = result.team2.playerStats
-    }).catch((error) => console.error(error));
+    // this.riotCom.consultMatch(formData.apiKey, formData.matchId).then((result) => {
+    //   console.log(result);
+    //   this.nameTeam1 = result.team1.name
+    //   this.nameTeam2 = result.team2.name
+    //   this.statsTeam1 = result.team1.playerStats
+    //   this.statsTeam2 = result.team2.playerStats
+    // }).catch((error) => console.error(error));
   }
 
 }

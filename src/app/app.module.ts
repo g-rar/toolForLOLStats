@@ -39,6 +39,9 @@ import { IdentityFetcher, IdentityFetcherError } from './services/identities/Ide
 import MockIdentityFetcher from './services/identities/MockIdentityFetcher.service';
 import { MatchFetcher, MatchFetcherError } from './services/matches/MatchFetcher.service';
 import MockMatchFetcher from './services/matches/MockMatchFetcher.service';
+import { AddTournamentComponent } from './pages/add-tournament/add-tournament.component';
+import { PlayersComponent } from './pages/players/players.component';
+import { PlayerDetailsComponent } from './pages/player-details/player-details.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +57,10 @@ import MockMatchFetcher from './services/matches/MockMatchFetcher.service';
     ColorLabelComponent,
     TournamentComponent,
     SetRowComponent,
-    ToastComponent
+    ToastComponent,
+    AddTournamentComponent,
+    PlayersComponent,
+    PlayerDetailsComponent
   ],
   imports: [
     BrowserModule,
