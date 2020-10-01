@@ -42,6 +42,7 @@ import MockMatchFetcher from './services/matches/MockMatchFetcher.service';
 import { AddTournamentComponent } from './pages/add-tournament/add-tournament.component';
 import { PlayersComponent } from './pages/players/players.component';
 import { PlayerDetailsComponent } from './pages/player-details/player-details.component';
+import { SetDetailsComponent } from './pages/set-details/set-details.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { PlayerDetailsComponent } from './pages/player-details/player-details.co
     ToastComponent,
     AddTournamentComponent,
     PlayersComponent,
-    PlayerDetailsComponent
+    PlayerDetailsComponent,
+    SetDetailsComponent
   ],
   imports: [
     BrowserModule,
