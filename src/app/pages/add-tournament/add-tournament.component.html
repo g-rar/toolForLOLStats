@@ -1,1 +1,29 @@
-<p>add-tournament works!</p>
+<div class="page-content">
+    <button type="submit" class="w-100 title-button" disabled>
+        <h1 class="text-center">
+            <span [inlineSVG]="'assets/svg/cup.svg'" [setSVGAttributes]="{'heigth':'3rem', 'width':'3rem'}" title-icon></span>
+            Añadir torneo + 
+        </h1>
+    </button>
+    <form>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="nombreTorneo">Nombre del torneo</label>
+            <input type="text" class="form-control" placeholder="[e.j.] (LoL) Stats overflow - II 2020">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="fechaComienzo">Fecha de comienzo</label>
+            <input type="date" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+            <label for="description">Descriprión del torneo </label>
+            <small> (opcional)</small>
+            <textarea rows="4" class="form-control" 
+                placeholder="Comparte información útil. ¡Da a conocer los stakes de la competencia! ¡¡HYPEEEEEEEE!!"></textarea>
+        </div>
+
+        
+      </form>
+</div>
+

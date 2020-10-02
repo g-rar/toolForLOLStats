@@ -120,6 +120,33 @@
     font-weight: 900;
 }
 
+.title-button {
+    border: none;
+    margin: .3em 0 .6em 0 ;
+    padding: .5em;
+    color: var(--color-bg);
+    background: var(--color-main);
+    border-radius: 5px;
+
+    h1 {
+        margin: 0;
+    }
+
+    &:disabled {
+        background: var(--color-bg2);
+        color: var(--color-main);
+        fill: var(--color-main);
+        [title-icon] {
+            fill: var(--color-main)
+        }
+    }
+
+}
+
+[title-icon]{
+    fill: var(--color-bg);
+}
+
 .text-alert {
     color: var(--color-alert);
 }
