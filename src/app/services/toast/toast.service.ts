@@ -15,7 +15,7 @@ export class ToastService {
     // imageURL?: string 
   }){
     toast.type = toast.type ? toast.type : "normal";
-    this.toasts.push(toast)
+    this.toasts.unshift(toast)
   }
 
   remove(toast) {

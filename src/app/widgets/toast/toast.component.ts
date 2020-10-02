@@ -5,7 +5,6 @@ import { ToastService } from '../../services/toast/toast.service'
 @Component({
   selector: 'app-toast',
   templateUrl: './toast.component.html',
-  host: {'[class.ngb-toasts]': 'true'},
   styleUrls: ['./toast.component.scss'],
   animations: [    
     trigger(
