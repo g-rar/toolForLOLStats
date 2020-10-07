@@ -14,6 +14,19 @@
     width: 2rem;
 }
 
+.edit-icon {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    fill: gray;
+    transition: 200ms;
+
+    &:hover {
+        cursor: pointer;
+        fill: var(--color-text);
+    }
+}
+
 .score-item{
     display: flex;
     flex-wrap: wrap;
@@ -29,7 +42,6 @@
         cursor: pointer;
     }
 }
-
 
 .col{
     min-width: fit-content;

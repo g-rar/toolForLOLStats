@@ -36,4 +36,16 @@ export class TournamentComponent implements OnInit {
     })
   }
 
+  editRounds() {
+    this.toast.showToast({
+      text: "Edit rounds clicked"
+    })
+  }
+
+  editSets(roundId: string){
+    this.toast.showToast({
+      text: "Edit sets for round: " + roundId
+    })
+  }
+
 }

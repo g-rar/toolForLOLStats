@@ -4,7 +4,8 @@
     <hr>
     <div class="card rounds-card">
         <div class="card-header">
-            <h2>Rondas</h2> 
+            <h2 class="d-inline">Rondas</h2>
+            <span [class]="'edit-icon'" [inlineSVG]="'assets/svg/edit.svg'" (click)="editRounds()"></span>
         </div>
         <div class="card-body">
             <ngb-accordion #acc="ngbAccordion">
@@ -15,6 +16,7 @@
                             <span [ngClass]="'chevron'" [inlineSVG]=" acc.isExpanded(round.id) ? 'assets/svg/chevronup.svg' : 'assets/svg/chevrondown.svg'"></span>
                             {{round.name}}
                         </button>
+                        <span [class]="'edit-icon'" [inlineSVG]="'assets/svg/edit.svg'" (click)="editSets(round.id)"></span>
                     </ng-template>
                     <ng-template ngbPanelContent>
                         <ul class="list-group">
