@@ -15,7 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { InlineSVGModule } from 'ng-inline-svg';
 import { ReportGameComponent } from './pages/report-game/report-game.component';
-import { LoginComponent } from './widgets/login/login.component';
+import { LoginComponent } from './widgets/overlays/login/login.component';
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
 import { SideMenuComponent } from './widgets/side-menu/side-menu.component';
 import { TournamentsComponent } from './pages/tournaments/tournaments.component';
@@ -43,6 +43,9 @@ import { AddTournamentComponent } from './pages/add-tournament/add-tournament.co
 import { PlayersComponent } from './pages/players/players.component';
 import { PlayerDetailsComponent } from './pages/player-details/player-details.component';
 import { SetDetailsComponent } from './pages/set-details/set-details.component';
+import { EditRoundsComponent } from './widgets/overlays/edit-rounds/edit-rounds.component';
+import { EditTeamsComponent } from './widgets/overlays/edit-teams/edit-teams.component';
+import { EditSetsComponent } from './widgets/overlays/edit-sets/edit-sets.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +65,10 @@ import { SetDetailsComponent } from './pages/set-details/set-details.component';
     AddTournamentComponent,
     PlayersComponent,
     PlayerDetailsComponent,
-    SetDetailsComponent
+    SetDetailsComponent,
+    EditRoundsComponent,
+    EditTeamsComponent,
+    EditSetsComponent
   ],
   imports: [
     BrowserModule,

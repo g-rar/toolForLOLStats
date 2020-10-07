@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { LoginComponent } from './widgets/login/login.component';
+import { LoginComponent } from './widgets/overlays/login/login.component';
 import { SideMenuComponent } from './widgets/side-menu/side-menu.component';
 import { Controller } from './services/control/Controller.service';
 import { User } from './models';
