@@ -22,10 +22,6 @@ export class TournamentsComponent implements OnInit {
       console.error(err)
     })
     controller.getLoggedUser().then(res => {
-      toast.showToast({
-        text: "You can now add a tournament",
-        type: "notification", delay: 4000
-      })
       this.isUserLogged = true
     }).catch(err => {})
   }
