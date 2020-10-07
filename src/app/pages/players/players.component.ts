@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+/**
+ * @todo component should show list of players and allow for multiple (but not simultaneous) search filters
+ */
 @Component({
   selector: 'app-players',
   templateUrl: './players.component.html',

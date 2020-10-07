@@ -8,7 +8,7 @@ import { FormBuilder } from '@angular/forms';
 })
 export class ReportGameComponent implements OnInit {
 
-  //TODO rework like... all of this
+  //TODO delete this
 
   nameTeam1 = "Equipo1";
   statsTeam1 = [];

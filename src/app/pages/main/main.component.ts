@@ -16,11 +16,4 @@ export class MainComponent implements OnInit {
   ngOnInit() {
   }
 
-  //TODO Delete this temporary testing code and also 
-  //TODO research a better to test widgets
-  testToast() {
-    this.toastService.showToast({text: "Hola amigos :D", title: "Saludo"})
-    this.toastService.showToast({text: "Hola amigos :D", delay:3000, type: "notification"})
-  }
-
 }

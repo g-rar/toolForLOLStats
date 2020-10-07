@@ -12,7 +12,8 @@ import { ToastService } from 'src/app/services/toast/toast.service';
 export class TournamentComponent implements OnInit {
 
   //TODO remove title, add description, if user logged in give report capabilities
-  //TODO also add tournament round id to URL when redirecting to set
+  //TODO add round edition
+  //TODO add set edition (a set can have 0 games)
 
   tournament:Tournament;
   roundList:Round[];

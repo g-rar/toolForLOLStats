@@ -15,6 +15,8 @@ export class AddTournamentComponent implements OnInit {
   //TODO give data validation feedback
   //TODO clear out what dates should it accept
   //FIXME should be able to set a startday the same day.
+  //TODO add round settings (first in tournament component)
+  //TODO add team settings (first in tournament component)
 
   canSubmit = false;
   newTournamentForm:FormGroup

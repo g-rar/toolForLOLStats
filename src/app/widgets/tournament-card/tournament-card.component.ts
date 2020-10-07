@@ -10,7 +10,6 @@ import { Tournament } from 'src/app/models';
 export class TournamentCardComponent implements OnInit {
 
   //TODO once tournaments have images, add supor for them.
-  //TODO improve async input data implementation
 
   @Input() tournament:Tournament;
   hasStarted:boolean = false;

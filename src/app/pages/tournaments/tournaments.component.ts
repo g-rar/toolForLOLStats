@@ -10,8 +10,6 @@ import { ToastService } from 'src/app/services/toast/toast.service';
 })
 export class TournamentsComponent implements OnInit {
 
-  //TODO if user is logged display add tournament button
-
   tournaments:Tournament[]
   isUserLogged:boolean = false;
 

@@ -1,6 +1,6 @@
 <div class="page-content tournament-rounds">
     <h1>Torneo</h1>
-    <app-tournament-card [tournament]="tournament"></app-tournament-card>
+    <app-tournament-card *ngIf="tournament" [tournament]="tournament"></app-tournament-card>
     <hr>
     <div class="card rounds-card">
         <div class="card-header">
@@ -20,7 +20,7 @@
                         <ul class="list-group">
                             <app-set-row [set]="set" [animate]="true"
                                 *ngFor="let set of round.sets" 
-                                [routerLink]="'/tournaments/'+tournament.id+'/set/'+set.id">
+                                [routerLink]="'/tournaments/'+tournament.id+'/'+round.id+'/set/'+set.id">
                             </app-set-row>
                         </ul>
                     </ng-template>
