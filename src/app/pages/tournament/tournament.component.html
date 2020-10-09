@@ -32,4 +32,4 @@
         </div>
     </div>
 </div>
-<app-edit-rounds [showOverlay$]="this.editRoundsOverlay$" ></app-edit-rounds>
+<app-edit-rounds *ngIf="tournament" [showOverlay$]="this.editRoundsOverlay$" [tournament]="tournament" [rounds]="roundList"></app-edit-rounds>

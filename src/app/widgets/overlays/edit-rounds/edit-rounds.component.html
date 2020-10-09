@@ -7,7 +7,15 @@
             </div>
         </div>
         <div class="page-content">
-            <p>edit rounds works</p>
+            <p>
+                Estas son las rondas que hay en el torneo:
+            </p>
+            <ul>
+                <li *ngFor="let round of roundsCopy">{{round.name}} <span (click)="remove(round)">&times;</span> </li>
+            </ul>
+            <input type="text" [(ngModel)]="newRound">
+            <button (click)="addRound()">Add round</button>
+            <button (click)="saveRounds()">Save</button>
         </div>
     </div>
 
