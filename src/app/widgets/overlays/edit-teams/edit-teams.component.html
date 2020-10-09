@@ -1,1 +1,22 @@
-<p>edit-teams works!</p>
+<div class="edit-rounds-component" *ngIf="showOverlay">
+    <div class="overlay-bg" (click)="hide()"></div>
+    <div class="overlay-card">
+        <div class="toolbar">
+            <div class="main_title">
+                Editar Equipos
+            </div>
+        </div>
+        <div class="page-content">
+            <p>
+                Estas son los equipos que hay en el torneo:
+            </p>
+            <ul>
+                <li *ngFor="let team of teamsCopy">{{team.name}} <span (click)="remove(team)">&times;</span> </li>
+            </ul>
+            <input type="text" [(ngModel)]="newTeam">
+            <button (click)="addTeam()">Add Team</button>
+            <button (click)="saveTeams()">Save</button>
+        </div>
+    </div>
+
+</div>

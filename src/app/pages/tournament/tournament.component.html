@@ -4,6 +4,17 @@
     <hr>
     <div class="card rounds-card">
         <div class="card-header">
+            <h2>Equipos</h2>
+        </div>
+        <div class="class-body">
+            <ul>
+                <li *ngFor="let team of teams"> {{team.name}} </li>
+                <span *ngIf="isLoggedIn" [class]="'edit-icon'" [inlineSVG]="'assets/svg/edit.svg'" (click)="editTeams()"></span>
+            </ul>
+        </div>
+    </div>
+    <div class="card rounds-card">
+        <div class="card-header">
             <h2 class="d-inline">Rondas</h2>
             <span *ngIf="isLoggedIn" [class]="'edit-icon'" [inlineSVG]="'assets/svg/edit.svg'" (click)="editRounds()"></span>
         </div>
@@ -33,3 +44,4 @@
     </div>
 </div>
 <app-edit-rounds *ngIf="tournament" [showOverlay$]="this.editRoundsOverlay$" [tournament]="tournament" [rounds]="roundList"></app-edit-rounds>
+<app-edit-teams *ngIf="tournament" [showOverlay$]="this.editTeamsOverlay$" [tournament]="tournament" [teams]="teams"></app-edit-teams>
