@@ -20,7 +20,7 @@ export class TournamentComponent implements OnInit {
   teams:Team[];
   editRoundsOverlay$:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   editTeamsOverlay$:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  editSetsOverlay$:BehaviorSubject<number> = new BehaviorSubject<number>(-1);  
+  editSetsOverlay$:BehaviorSubject<string> = new BehaviorSubject<string>("");  
   isLoggedIn = false;
 
   constructor(private route: ActivatedRoute, private controller: Controller, private router:Router, private toast: ToastService) {
@@ -34,8 +34,6 @@ export class TournamentComponent implements OnInit {
       this.controller.getTournament(params.tournamentId).then(res => {
 
         this.tournament = res;
-        console.log(res);
-        
         
         //rounds
         this.controller.getRounds(this.tournament.id).then(res => {
@@ -46,9 +44,7 @@ export class TournamentComponent implements OnInit {
 
         //teams
         this.controller.getTeams(this.tournament.id).then(res => {
-          this.teams = res
-          console.log("teams: ",res);
-          
+          this.teams = res          
         }).catch(error => {
           console.error(error);
         })
@@ -69,9 +65,7 @@ export class TournamentComponent implements OnInit {
   }
 
   editSets(roundId: string){
-    this.toast.showToast({
-      text: "Edit sets for round: " + roundId
-    })
+    this.editSetsOverlay$.next(roundId)
   }
 
 }

@@ -4,7 +4,7 @@
     <hr>
     <div class="card rounds-card">
         <div class="card-header">
-            <h2>Equipos</h2>
+            <h2 class="d-inline">Equipos</h2>
         </div>
         <div class="class-body">
             <ul>
@@ -38,10 +38,20 @@
                         </ul>
                     </ng-template>
                 </ngb-panel>
-
             </ngb-accordion>
         </div>
     </div>
 </div>
-<app-edit-rounds *ngIf="tournament" [showOverlay$]="this.editRoundsOverlay$" [tournament]="tournament" [rounds]="roundList"></app-edit-rounds>
-<app-edit-teams *ngIf="tournament" [showOverlay$]="this.editTeamsOverlay$" [tournament]="tournament" [teams]="teams"></app-edit-teams>
+<app-edit-rounds *ngIf="tournament" 
+    [showOverlay$]="this.editRoundsOverlay$" 
+    [tournament]="tournament" 
+    [rounds]="roundList"></app-edit-rounds>
+<app-edit-teams *ngIf="tournament" 
+    [showOverlay$]="this.editTeamsOverlay$" 
+    [tournament]="tournament" 
+    [teams]="teams"></app-edit-teams>
+<app-edit-sets *ngIf="tournament" 
+    [showOverlay$]="this.editSetsOverlay$" 
+    [tournament]="tournament" 
+    [rounds]="roundList" 
+    [teams]="teams"></app-edit-sets>

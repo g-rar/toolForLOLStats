@@ -15,6 +15,7 @@ export class EditTeamsComponent implements OnInit {
   @Input() tournament : Tournament;
   @Input() teams:Team[] = []
   teamsCopy:any[] = []
+  deletedIds:string[] = []
   newTeam:string = "";
   showOverlay = false;
   added = 0;
@@ -29,7 +30,6 @@ export class EditTeamsComponent implements OnInit {
     this.teams.forEach(t => {
       this.teamsCopy.push({...t} as Team)
     })
-    console.log(this.teams);    
   }
 
   hide() {
@@ -56,7 +56,6 @@ export class EditTeamsComponent implements OnInit {
       return;
     }
     let newTeam = {name: this.newTeam, id: "new"+this.added}
-    console.log(newTeam);
     this.teamsCopy.push(newTeam)
     this.added++;
     this.newTeam = "";
@@ -72,8 +71,8 @@ export class EditTeamsComponent implements OnInit {
       })
       return;
     }
-
     this.teamsCopy.splice(this.teamsCopy.findIndex(t => t.name === tm.name),1)
+    this.deletedIds.push(tm.id)
   }
 
   async saveTeams() {
@@ -97,6 +96,10 @@ export class EditTeamsComponent implements OnInit {
         await this.controller.addTeam(this.tournament.id, this.teamsCopy[i].name)
       }
     }
+    //remove deleted teams
+    // for(let i = 0 ; i < this.deletedIds.length ; i++){
+
+    // }
     this.toast.showToast({
       text:"Cambios guardados. Es posible que tengas que recargar la página.",
       title:"💾✅ Completado",

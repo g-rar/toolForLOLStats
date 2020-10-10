@@ -1,1 +1,18 @@
-<p>edit-sets works!</p>
+<div class="edit-rounds-component" *ngIf="showOverlay">
+    <div class="overlay-bg" (click)="hide()"></div>
+    <div class="overlay-card">
+        <div class="toolbar">
+            <div class="main_title">
+                Editar Sets
+            </div>
+        </div>
+        <div class="page-content">
+            Los sets que ya existen son:
+            <ul>
+                <li *ngFor="let set of setsCopy">{{set.firstTeamResult.teamName}} {{set.firstTeamResult.score}} - {{set.secondTeamResult.score}} {{set.secondTeamResult.teamName}} <span (click)="remove(set)">&times;</span> </li>
+            </ul>
+            <button (click)="saveState()">Guardar</button>
+        </div>
+
+    </div>
+</div>
