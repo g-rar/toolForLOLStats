@@ -3,9 +3,6 @@ import { Injectable } from '@angular/core';
 import ControlModule from '../control.module';
 import { Database, DatabaseError } from './Database.service';
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { NgSelectOption } from '@angular/forms';
 
 @Injectable({
     providedIn: ControlModule
@@ -14,12 +11,6 @@ export default class FirebaseDatabase implements Database{
     
     afsCollection: AngularFirestoreCollection<any>;
     afsDocument: AngularFirestoreDocument<any>;
-    item: Observable<any>
-    items: Observable<any[]>;
-    //rounds: Observable<Round[]>;
-    //sets: Observable<Set[]>;
-    //matches: Observable<Match[]>;
-    //teams: Observable<Team[]>;
     
     constructor(private afs: AngularFirestore) {
 
@@ -27,9 +18,8 @@ export default class FirebaseDatabase implements Database{
 
     async addTournament(name: string, description: string, startDate: Date): Promise<Tournament>{    
         
-        const tempID = this.afs.createId()
-        const rounds = new Array<String>()
-        const teams = new Array<String>()
+        let tempID = this.afs.createId()
+        let teams: string[] = []
 
         const newTournament = {
             id: tempID,
@@ -37,7 +27,6 @@ export default class FirebaseDatabase implements Database{
             description: description,
             startDate: new Date(),
             endDate: null,
-            roundIds: rounds,
             teamIds: teams
         }
 
@@ -45,17 +34,17 @@ export default class FirebaseDatabase implements Database{
             console.log('Tournament added!')
         }).catch(err => {
             console.log('Error adding tournament!',err)
-            throw new Error(DatabaseError.UNKNOWN_TOURNAMENT_ID);
+            throw new Error(DatabaseError.UNABLE_TO_REACH_DB);
         });
 
-        this.item = this.afs.doc('tournaments/' + tempID).valueChanges()
-        return this.item.toPromise()
+        return (await this.afs.doc('tournaments/' + tempID).get().toPromise()).data() as Tournament
     }
     
     async endTournament(id: string): Promise<Tournament>{
-        this.afs.doc('tournaments/' + id).set({
-            endDate: new Date()
-        },{ merge: true }
+        this.afs.doc('tournaments/' + id).update(
+        {
+            'endDate': new Date()
+        }
         ).then(res => {
             console.log('Tournament added!')
         }).catch(err => {
@@ -63,32 +52,85 @@ export default class FirebaseDatabase implements Database{
             throw new Error(DatabaseError.UNKNOWN_TOURNAMENT_ID);
         });
         
-        this.item = this.afs.doc('tournaments/' + id).valueChanges()
-        return this.item.toPromise()
+        return (await this.afs.doc('tournaments/' + id).get().toPromise()).data() as Tournament
     }
     
     async getTournament(id: string): Promise<Tournament>{
-        this.item = this.afs.doc('tournaments/' + id).valueChanges()
-        return this.item.toPromise()
+        return (await this.afs.doc('tournaments/' + id).get().toPromise()).data() as Tournament
     }
     
     async getTournaments(): Promise<Tournament[]>{
-        this.items = this.afs.collection<Tournament>('tournaments').valueChanges()
-        return this.items.toPromise()
+        let tournaments: Tournament[] = []
+        await (await this.afs.collection('tournaments').get().toPromise()).docs.forEach(doc => {
+            tournaments.push(doc.data() as Tournament)
+        })
+        return tournaments
     }
 
     getTournamentChampionsStats: (tournamentId: string) => Promise<any[]>; //for later
     getTournamentChampionStats: (tournamentId: string, championId: number) => Promise<any>; //for later
-    addRound: (tournamentId: string, roundName: string) => Promise<any>;
-    deleteRound: (tournamentId: string, roundId: string) => Promise<any>;
-    getRound: (tournamentId: string, roundId: string) => Promise<any>;
-    getRounds: (tournamentId: string) => Promise<any[]>;
+
+    async addRound(tournamentId: string, roundName: string): Promise<any>{
+
+    }
+
+    async deleteRound(tournamentId: string, roundId: string): Promise<any>{
+
+    }
+
+    async getRound(tournamentId: string, roundId: string): Promise<Round>{
+        return (await this.afs.doc('tournaments/' + tournamentId + '/rounds/' + roundId).get().toPromise()).data() as Round
+    }
+
+    async getRounds(tournamentId: string): Promise<Round[]>{
+        let rounds: Round[] = []
+        await (await this.afs.collection('tournaments/' + tournamentId + '/rounds').get().toPromise()).docs.forEach(doc => {
+            rounds.push(doc.data() as Round)
+        })
+        return rounds
+    }
+    
     addSet: (tournamentId: string, roundId: string, firstTeamId: string, secondTeamId: string) => Promise<any>;
     getSets: (tournamentId: string, roundId: string) => Promise<any[]>;
     deleteSet: (tournamentId: string, roundId: string, setId: string) => Promise<any>;
     addMatch: (tournamentId: string, roundId: string, setId: string, match: any) => Promise<any>;
     getMatches: (tournamentId: string, roundId?: string, setId?: string) => Promise<any[]>;
-    addTeam: (tournamentId: string, name: string) => Promise<any>;
+
+    async addTeam(tournamentId: string, name: string): Promise<any>{
+                
+        let tempID = this.afs.createId()
+        let players: Player[] = []
+
+        const newTeam = {
+            id: tempID,
+            name: name,
+            players: players
+        }
+
+        this.afs.doc('teams/' + tempID).set(newTeam).then(res => {
+            console.log('New team added!')
+        }).catch(err => {
+            console.log('Error adding team!',err)
+            throw new Error(DatabaseError.UNABLE_TO_REACH_DB);
+        });
+
+        let tempList: string [] = ((await this.afs.doc('tournaments/' + tournamentId).get().toPromise()).data() as Tournament).roundIds
+        tempList.push(tempID)
+
+        this.afs.doc('tournaments/' + tournamentId).update(
+        {
+            'roundIds': tempList
+        }
+        ).then(res => {
+            console.log('Team added to tournament!')
+        }).catch(err => {
+            console.log('Error adding team to tournament!',err)
+            throw new Error(DatabaseError.UNKNOWN_TOURNAMENT_ID);
+        });
+
+        return (await this.afs.doc('teams/' + tempID).get().toPromise()).data() as Team
+    }
+
     getTeams: (tournamentId: string) => Promise<any[]>;
     getPlayerStats: (teamId?: string) => Promise<any[]>; //for later
 
