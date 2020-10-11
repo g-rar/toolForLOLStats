@@ -5,7 +5,6 @@ export default class Tournament {
         public description: string,
         public startDate: Date,
         public endDate: Date,
-        public roundIds: string[],
         public teamIds: string[]
     ){}
 

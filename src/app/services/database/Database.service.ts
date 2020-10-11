@@ -29,5 +29,6 @@ export enum DatabaseError{
     UNKNOWN_SET_ID = "DatabaseError.UNKNOWN_SET_ID",
     UNKNOWN_MATCH_ID = "DatabaseError.UNKNOWN_MATCH_ID",
     UNKNOWN_PLAYER_ID = "DatabaseError.UNKNOWN_PLAYER_ID",
-    UNKNOWN_CHAMPION_ID = "DatabaseError.UNKNOWN_CHAMPION_ID"
+    UNKNOWN_CHAMPION_ID = "DatabaseError.UNKNOWN_CHAMPION_ID",
+    UNABLE_TO_REACH_DB = "DatabaseError.UNABLE_TO_REACH_DB"
 }
