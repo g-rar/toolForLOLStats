@@ -15,6 +15,7 @@ export class EditRoundsComponent implements OnInit {
   @Input() tournament : Tournament;
   @Input() rounds:Round[];
   roundsCopy:any[] = [];
+  deletedIds:string[] = [];
   showOverlay = false;
   newRound:string = "";
   added = 0;
@@ -72,8 +73,10 @@ export class EditRoundsComponent implements OnInit {
       })
       return;
     }
-
     this.roundsCopy.splice(this.roundsCopy.findIndex(r => r.name === rnd.name),1)
+    if(this.rounds.find(r => r.id === rnd.id)){
+      this.deletedIds.push(rnd.id)
+    }
   }
 
   async saveRounds() {
@@ -103,6 +106,10 @@ export class EditRoundsComponent implements OnInit {
         await this.controller.addRound(this.tournament.id, this.roundsCopy[i].name)
       }
     }
+    this.deletedIds.forEach(async deleted =>{
+      this.rounds.splice(this.rounds.findIndex(r=> r.id === deleted), 1)
+      await this.controller.deleteRound(this.tournament.id, deleted)
+    })
     this.toast.showToast({
       text:"Cambios guardados. Es posible que tengas que recargar la página.",
       title:"💾✅ Completado",
@@ -110,6 +117,7 @@ export class EditRoundsComponent implements OnInit {
     })
     this.showOverlay$.next(false)
     this.roundsCopy = [];
+    this.deletedIds = [];
     this.rounds.forEach(rnd => {
       this.roundsCopy.push({...rnd} as Round)
     })

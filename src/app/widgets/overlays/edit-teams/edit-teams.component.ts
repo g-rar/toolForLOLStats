@@ -34,6 +34,7 @@ export class EditTeamsComponent implements OnInit {
 
   hide() {
     this.showOverlay$.next(false);
+    this.reset()
   }
 
   addTeam() {
@@ -70,9 +71,15 @@ export class EditTeamsComponent implements OnInit {
         delay: 4000
       })
       return;
+    } 
+      
+    if(this.teams.find(t => t.id === tm.id)){
+      this.toast.showToast({title:"TODO",text:"Right now you can't delete teams", type:"notification", delay: 3500})
+      // this.deletedIds.push(tm.id)
+      // this.teamsCopy.splice(this.teamsCopy.findIndex(t => t.name === tm.name),1)
+    } else {
+      this.teamsCopy.splice(this.teamsCopy.findIndex(t => t.name === tm.name),1)
     }
-    this.teamsCopy.splice(this.teamsCopy.findIndex(t => t.name === tm.name),1)
-    this.deletedIds.push(tm.id)
   }
 
   async saveTeams() {
@@ -97,18 +104,21 @@ export class EditTeamsComponent implements OnInit {
       }
     }
     //remove deleted teams
-    // for(let i = 0 ; i < this.deletedIds.length ; i++){
+    // this.deletedIds.forEach( id => {})
 
-    // }
     this.toast.showToast({
       text:"Cambios guardados. Es posible que tengas que recargar la página.",
       title:"💾✅ Completado",
       type:"notification"
     })
-    this.showOverlay$.next(false)
+
+    this.hide()
+  }
+  
+  reset() {
     this.teamsCopy = [];
     this.teams.forEach(tm => {
       this.teamsCopy.push({...tm} as Team)
-    })
+    })  
   }
 }

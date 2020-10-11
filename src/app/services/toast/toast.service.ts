@@ -18,6 +18,28 @@ export class ToastService {
     this.toasts.unshift(toast)
   }
 
+  showErrorToast(toast: {
+    text:string,
+    title?:string,
+    delay?:number,
+    // link?: string,
+    // imageURL?: string 
+  }){
+    (<any>toast).type = "danger"
+    this.toasts.unshift(toast)
+  }
+
+  showNotificationToast(toast: {
+    text:string,
+    title?:string,
+    delay?:number,
+    // link?: string,
+    // imageURL?: string 
+  }){
+    (<any>toast).type = "notification"
+    this.toasts.unshift(toast)
+  }
+
   remove(toast) {
     this.toasts = this.toasts.filter(t => t !== toast);
   }

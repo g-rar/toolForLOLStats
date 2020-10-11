@@ -11,7 +11,15 @@
             <ul>
                 <li *ngFor="let set of setsCopy">{{set.firstTeamResult.teamName}} {{set.firstTeamResult.score}} - {{set.secondTeamResult.score}} {{set.secondTeamResult.teamName}} <span (click)="remove(set)">&times;</span> </li>
             </ul>
+            <!-- TODO add validation for teams, both can't be the same -->
+            <select [(ngModel)]="selectedTeam1">
+                <option *ngFor="let team of teams" value="{{team.id}}">{{team.name}}</option>
+            </select>
+            <select [(ngModel)]="selectedTeam2">
+                <option *ngFor="let team of teams" value="{{team.id}}">{{team.name}}</option>
+            </select>
             <button (click)="saveState()">Guardar</button>
+            <button (click)="addSet()" [disabled]="disableAddition">Add set</button>
         </div>
 
     </div>
