@@ -10,6 +10,7 @@ import { TournamentComponent } from './pages/tournament/tournament.component';
 import { AddTournamentComponent } from './pages/add-tournament/add-tournament.component';
 import { PlayersComponent } from './pages/players/players.component';
 import { PlayerDetailsComponent } from './pages/player-details/player-details.component';
+import { SetDetailsComponent } from './pages/set-details/set-details.component';
 
 
 const routes: Routes = [
@@ -30,6 +31,9 @@ const routes: Routes = [
   },
   {
     path: 'tournaments/:tournamentId/:roundId/add-game', component: ReportGameComponent
+  },
+  {
+    path: 'tournaments/:tournamentId/:roundId/set/:setId', component: SetDetailsComponent
   },
   {
     path: 'add-tournament', component: AddTournamentComponent, canActivate: [AuthGuardService]
