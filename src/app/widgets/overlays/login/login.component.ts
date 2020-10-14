@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
       this.loggedMail = res.email
     }).catch(err => {
       this.isLoggedIn = false;
-      console.error("There's no user logged");
     })
   }
 

@@ -29,7 +29,7 @@ export class TournamentComponent implements OnInit {
   ngOnInit(): void {
     this.controller.getLoggedUser().then(() => {
       this.isLoggedIn = true
-    })
+    }).catch(err => {})
     this.route.params.subscribe(params => {
       this.controller.getTournament(params.tournamentId).then(res => {
 

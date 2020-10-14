@@ -63,7 +63,7 @@ export class SideMenuComponent implements OnInit {
   ngOnInit() {
     this.controller.getLoggedUser().then(user => {
       this.navElements = this.navElements.concat(this.navElementsTO)
-    })
+    }).catch(err => {})
   }
 
   showSideMenu(show:boolean){
