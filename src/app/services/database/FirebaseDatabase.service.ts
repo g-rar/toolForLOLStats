@@ -17,42 +17,60 @@ export default class FirebaseDatabase implements Database{
     }
 
     async addTournament(name: string, description: string, startDate: Date): Promise<Tournament>{    
-        
-        let tempID = this.afs.createId()
-        let teams: string[] = []
-
-        const newTournament = {
-            id: tempID,
-            name: name,
-            description: description,
-            startDate: new Date(),
-            endDate: null,
-            teamIds: teams
-        }
-
-        this.afs.doc('tournaments/' + tempID).set(newTournament).then(res => {
-            console.log('Tournament added!')
-        }).catch(err => {
-            console.log('Error adding tournament!',err)
+        try {
+            let tempID = this.afs.createId()
+            const newTournament = {
+                id: tempID,
+                name: name,
+                description: description,
+                startDate: new Date(),
+                endDate: null,
+                teamIds: []
+            }
+            await this.afs.doc('tournaments/' + tempID).set(newTournament);
+            return new Tournament(
+                newTournament.id,
+                newTournament.name,
+                newTournament.description,
+                newTournament.startDate,
+                newTournament.endDate,
+                newTournament.teamIds
+            );
+        } catch(error) {
+            console.error(error)
             throw new Error(DatabaseError.UNABLE_TO_REACH_DB);
-        });
-
-        return (await this.afs.doc('tournaments/' + tempID).get().toPromise()).data() as Tournament
+        }
     }
     
     async endTournament(id: string): Promise<Tournament>{
-        this.afs.doc('tournaments/' + id).update(
-        {
-            'endDate': new Date()
+        try{
+
+            await this.afs.doc('tournaments/' + id).update({
+                'endDate': new Date()
+            })
+            
+            //then seria a continuacion
+            console.log("Tournament added!");
+            
+            //return
+            return await this.getTournament(id)
+
+            //catch
+        }catch(error){
+            console.error("Error endding tournament")
+            throw new Error(DatabaseError.UNKNOWN_TOURNAMENT_ID);   
         }
-        ).then(res => {
-            console.log('Tournament added!')
-        }).catch(err => {
-            console.log('Error adding tournament!',err)
-            throw new Error(DatabaseError.UNKNOWN_TOURNAMENT_ID);
-        });
-        
-        return (await this.afs.doc('tournaments/' + id).get().toPromise()).data() as Tournament
+
+        // this.afs.doc('tournaments/' + id).update(
+        // {
+        //     'endDate': new Date()
+        // }
+        // ).then(res => {
+        //     console.log('Tournament added!')
+        // }).catch(err => {
+        //     console.log('Error adding tournament!',err)
+        //     throw new Error(DatabaseError.UNKNOWN_TOURNAMENT_ID);
+        // });        
     }
     
     async getTournament(id: string): Promise<Tournament>{
