@@ -13,8 +13,8 @@ import { Match } from 'src/app/models';
 describe('RiotMatchFetcher', () => {
     let httpTestingController: HttpTestingController;
     let fetcher: MatchFetcher;
-    const API_KEY: string = environment.RIOT_API_KEY;
     const STUB_ID: number = 862100018;
+    const STUB_MATCH_URL: string = `/lol/match/v4/matches/${STUB_ID}?api_key=${environment.RIOT_API_KEY}`;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -29,16 +29,15 @@ describe('RiotMatchFetcher', () => {
 
     it('fetch(): fetches and parses a match', async () => {
         const matchPromise: Promise<Match> = fetcher.fetch(STUB_ID);
-        httpTestingController.expectOne(`/lol/match/v4/matches/${STUB_ID}?api_key=${API_KEY}`).flush(mockMatchResponse);
+        httpTestingController.expectOne(STUB_MATCH_URL).flush(mockMatchResponse);
         const match: Match = await matchPromise;
-        console.log(match);
         expect(match).toBeTruthy();
     });
 
-    it('fetch(): fails grecefully when a match can\'t be fetched', async () => {
+    it('fetch(): fails gracefully when a match can\'t be fetched', async () => {
         const matchPromise: Promise<Match> = fetcher.fetch(STUB_ID);
         const ERROR_404: object = { status: 404, statusText: 'Not Found' };
-        httpTestingController.expectOne(`/lol/match/v4/matches/${STUB_ID}?api_key=${API_KEY}`).flush('deliberate 404 error', ERROR_404);
+        httpTestingController.expectOne(STUB_MATCH_URL).flush('deliberate 404 error', ERROR_404);
         await expectAsync(matchPromise).toBeRejectedWith(
             new Error(MatchFetcherError.FETCH_ERROR)
         );

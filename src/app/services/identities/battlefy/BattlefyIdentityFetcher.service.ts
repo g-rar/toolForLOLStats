@@ -5,6 +5,9 @@ import IdentityLocation from '../IdentityLocation'
 import BattlefyIdentityLocation from './BattlefyIdentityLocation'
 import IdentityMap from '../IdentityMap';
 import { HTMLFetcher } from '../../html/HTMLFetcher.service';
+import { ChampionFetcher } from '../../champions/ChampionFetcher.service';
+import { PlayerFetcher } from '../../players/PlayerFetcher.service';
+import { Champion, Player } from 'src/app/models';
 
 @Injectable({
     providedIn: ControlModule,
@@ -20,11 +23,11 @@ export default class BattlefyIdentityFetcher implements IdentityFetcher{
     private static readonly DEFEAT_STATUS: string = "- DEFEAT";
     private static readonly TEAM_SIZE: number = 5;
 
-    private htmlFetcher: HTMLFetcher;
-
-    constructor(htmlFetcher: HTMLFetcher){
-        this.htmlFetcher = htmlFetcher;
-    }
+    constructor(
+        private htmlFetcher: HTMLFetcher,
+        private championFetcher: ChampionFetcher,
+        private playerFetcher: PlayerFetcher
+    ){}
 
     async fetch(location: IdentityLocation): Promise<[IdentityMap, IdentityMap]> {
         if(!(location instanceof BattlefyIdentityLocation))
@@ -36,8 +39,8 @@ export default class BattlefyIdentityFetcher implements IdentityFetcher{
         //get empty team identities
         const identities: [IdentityMap, IdentityMap] = this.getEmptyTeamIdentities(doc, BattlefyIdentityFetcher.TEAM_NAME_AND_STATUS_SELECTOR);
         //add the champion-player maps to the identities
-        const firstTeamChampionToPlayerMap = this.getChampionPlayerMapForIdentity(doc, identities[0]);
-        const secondTeamChampionToPlayerMap = this.getChampionPlayerMapForIdentity(doc, identities[1]);
+        const firstTeamChampionToPlayerMap = await this.getChampionPlayerMapForIdentity(doc, identities[0]);
+        const secondTeamChampionToPlayerMap = await this.getChampionPlayerMapForIdentity(doc, identities[1]);
         identities[0].setAll(firstTeamChampionToPlayerMap);
         identities[1].setAll(secondTeamChampionToPlayerMap);
 
@@ -71,35 +74,65 @@ export default class BattlefyIdentityFetcher implements IdentityFetcher{
             throw new Error(IdentityFetcherError.UNABLE_TO_FIND_TEAM_STATUS);
     }
 
-    private getChampionPlayerMapForIdentity(doc: HTMLDocument, identity: IdentityMap): Map<string, string>{
+    private async getChampionPlayerMapForIdentity(doc: HTMLDocument, identity: IdentityMap): Promise<Map<Champion, Player>>{
         if(identity.won){
-            return this.getChampionPlayerMapBySelectors(doc, 
+            return await this.getChampionPlayerMapBySelectors(doc, 
                 BattlefyIdentityFetcher.WINNING_TEAM_PLAYER_NAME_SELECTOR,
                 BattlefyIdentityFetcher.WINNING_TEAM_CHAMPION_IMAGE_SELECTOR
             );
         } else {
-            return this.getChampionPlayerMapBySelectors(doc, 
+            return await this.getChampionPlayerMapBySelectors(doc, 
                 BattlefyIdentityFetcher.LOSING_TEAM_PLAYER_NAME_SELECTOR,
                 BattlefyIdentityFetcher.LOSING_TEAM_CHAMPION_IMAGE_SELECTOR
             );
         }
     }
 
-    private getChampionPlayerMapBySelectors(doc: HTMLDocument, playerSelector: string, championImageSelector: string): Map<string, string> {
-        const players: string[] = this.getInnerHTMLList(doc, playerSelector);
-        const championImages: string[] = this.getSourceList(doc, championImageSelector);
+    private async getChampionPlayerMapBySelectors(doc: HTMLDocument, playerSelector: string, championImageSelector: string): Promise<Map<Champion, Player>> {
+        const playerSummonerNames: string[] = this.getInnerHTMLList(doc, playerSelector);
+        const championImageURLs: string[] = this.getSourceList(doc, championImageSelector);
 
-        if(players.length != BattlefyIdentityFetcher.TEAM_SIZE)
+        if(playerSummonerNames.length != BattlefyIdentityFetcher.TEAM_SIZE)
             throw new Error(IdentityFetcherError.UNABLE_TO_FIND_PLAYER_DATA);
-        else if(championImages.length != BattlefyIdentityFetcher.TEAM_SIZE)
+        else if(championImageURLs.length != BattlefyIdentityFetcher.TEAM_SIZE)
             throw new Error(IdentityFetcherError.UNABLE_TO_FIND_CHAMPION_DATA);
         else{
-            const champions: string[] = this.getChampionAssetIDsFromImage(championImages);
-            const map: Map<string, string> = new Map();
+            const players: Player[] = await this.getPlayers(playerSummonerNames);
+            const champions: Champion[] = await this.getChampions(championImageURLs);
+            const map: Map<Champion, Player> = new Map();
             for(let i = 0; i < 5; i++)
                 map.set(champions[i], players[i]);
             return map;
         }
+    }
+
+    private async getPlayers(summonerNames: string[]): Promise<Player[]>{
+        const players: Player[] = [];
+        for(let i = 0; i < summonerNames.length; i++){
+            const player: Player = await this.playerFetcher.fetch(summonerNames[i]);
+            players.push(player);
+        }
+        return players;
+    }
+
+    private async getChampions(championImageURLs: string[]): Promise<Champion[]>{
+        const championsAssetIds: string[] = this.getChampionAssetIDsFromImage(championImageURLs);
+        const champions: Champion[] = [];
+        for(let i = 0; i < championsAssetIds.length; i++){
+            const champion: Champion = await this.championFetcher.fetch(championsAssetIds[i]);
+            champions.push(champion);
+        }
+        return champions;
+    }
+
+    private getChampionAssetIDsFromImage(championImages: string[]): string[] {
+        const ids: string[] = [];
+        championImages.forEach( image => {
+            const start: number = image.lastIndexOf('/') + 1;
+            const end: number = image.lastIndexOf('.');
+            ids.push(image.substring(start, end));
+        });
+        return ids;
     }
 
     private getInnerHTMLList(doc: HTMLDocument, selector: string): string[]{
@@ -112,15 +145,5 @@ export default class BattlefyIdentityFetcher implements IdentityFetcher{
         const sources: string[] = [];
         doc.querySelectorAll(selector).forEach( node => sources.push(node.getAttribute('src').trim()) );
         return sources;
-    }
-
-    private getChampionAssetIDsFromImage(championImages: string[]): string[] {
-        const ids: string[] = [];
-        championImages.forEach( image => {
-            const start: number = image.lastIndexOf('/') + 1;
-            const end: number = image.lastIndexOf('.');
-            ids.push(image.substring(start, end));
-        });
-        return ids;
     }
 }

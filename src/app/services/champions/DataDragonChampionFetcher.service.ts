@@ -33,14 +33,14 @@ export default class DataDragonChampionFetcher implements ChampionFetcher {
     }
 
     private async getCurrentVersion(): Promise<string>{
-        const versions: string[] = await this.http.get('ddragon/api/versions.json').toPromise() as string[];
+        const versions: string[] = await this.http.get('/ddragon/api/versions.json').toPromise() as string[];
         return versions[0];
     }
 
     private async getChampions(): Promise<void>{
         try{
             const version: string = await this.getCurrentVersion();
-            const response: ResponseDTO = await this.http.get(`ddragon/cdn/${version}/data/en_US/champion.json`).toPromise() as ResponseDTO;
+            const response: ResponseDTO = await this.http.get(`/ddragon/cdn/${version}/data/en_US/champion.json`).toPromise() as ResponseDTO;
             Object.keys(response.data).forEach(championId => {
                 const championDTO: ChampionDTO = response.data[championId];
                 const champion: Champion = new Champion(

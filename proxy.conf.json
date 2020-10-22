@@ -4,13 +4,12 @@
         "secure": false,
         "changeOrigin": true
     },
-    "/ddragon/*":{
+    "/cdn/*":{
         "target":"https://ddragon.leagueoflegends.com",
         "secure": false,
         "changeOrigin": true
     },
-    "/battlefy/*":{
-        "target":"https://battlefy.com",
+    "https://battlefy.com/*":{
         "secure": false,
         "changeOrigin": true
     }

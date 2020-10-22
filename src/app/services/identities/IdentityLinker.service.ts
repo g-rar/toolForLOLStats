@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import ControlModule from '../control.module';
-import { Match, PerformanceStats, Player, TeamPerformance } from "../../models";
+import { Champion, Match, PerformanceStats, Player, TeamPerformance } from "../../models";
 import IdentityMap from './IdentityMap';
 
 @Injectable({
@@ -16,11 +16,11 @@ export default class IdentityLinker{
 
     private linkTeamPlayers(playerPerformances: PerformanceStats[], identitites: IdentityMap): void {
         playerPerformances.forEach(performance => {
-            const champion: string = performance.champion.assetId;
-            const summonerName: string = identitites.get(champion);
-            if(summonerName === undefined)
+            const champion: Champion = performance.champion;
+            const player: Player = identitites.get(champion);
+            if(player === undefined)
                 throw new Error(IdentityLinkerError.IDENTITIES_COULD_NOT_BE_LINKED);
-            performance.player = new Player(summonerName);
+            performance.player = player;
         });
     }
 

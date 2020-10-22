@@ -19,11 +19,11 @@ export default class MockMatchFetcher implements MatchFetcher{
 
         const minutesPlayed = this.random(15, 60);
         const winner: Team = new Team('2', 'Devs Lives Matter', [
-            new Player('Player2'),
-            new Player('Player6'),
-            new Player('Player10'),
-            new Player('Player14'),
-            new Player('Player18')
+            new Player('id', 'Player2'),
+            new Player('id', 'Player6'),
+            new Player('id', 'Player10'),
+            new Player('id', 'Player14'),
+            new Player('id', 'Player18')
         ]);
 
         const winningChampions: Champion[] = [ 
@@ -43,11 +43,11 @@ export default class MockMatchFetcher implements MatchFetcher{
         ];
 
         const loser: Team = new Team('2', 'Los patitos', [
-            new Player('Player0'),
-            new Player('Player4'),
-            new Player('Player8'),
-            new Player('Player12'),
-            new Player('Player16')
+            new Player('0', 'Player0'),
+            new Player('4', 'Player4'),
+            new Player('8', 'Player8'),
+            new Player('12', 'Player12'),
+            new Player('16', 'Player16')
         ]);
 
         return new Match(

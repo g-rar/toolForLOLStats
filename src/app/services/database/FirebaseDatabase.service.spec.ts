@@ -8,7 +8,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 
-fdescribe('FirebaseDatabase', () => {
+xdescribe('FirebaseDatabase', () => {
 
     const STUB_EXISTING_TOURNY_ID: string = "A4EwXBNykwtb4Yy4iqLK";
     const STUB_EXISTING_ROUND_ID: string = "0Hkr7FliHRGhCk2QUYwU";

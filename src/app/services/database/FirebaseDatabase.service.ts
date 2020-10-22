@@ -132,6 +132,7 @@ export default class FirebaseDatabase implements Database{
             throw new Error(DatabaseError.UNABLE_TO_REACH_DB);
         });
 
+        /*
         let tempList: string [] = ((await this.afs.doc('tournaments/' + tournamentId).get().toPromise()).data() as Tournament).roundIds
         tempList.push(tempID)
 
@@ -144,7 +145,7 @@ export default class FirebaseDatabase implements Database{
         }).catch(err => {
             console.log('Error adding team to tournament!',err)
             throw new Error(DatabaseError.UNKNOWN_TOURNAMENT_ID);
-        });
+        });*/
 
         return (await this.afs.doc('teams/' + tempID).get().toPromise()).data() as Team
     }

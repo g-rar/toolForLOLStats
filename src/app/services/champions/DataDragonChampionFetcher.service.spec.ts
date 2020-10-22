@@ -10,8 +10,8 @@ const mockVersionResponse: object = [ "CURRENT_VERSION" ];
 describe('DataDragonChampionFetcher', ()=>{
     let httpTestingController: HttpTestingController;
     let fetcher: ChampionFetcher;
-    const STUB_VERSION_URL = 'ddragon/api/versions.json';
-    const STUB_CHAMPIONS_URL = `ddragon/cdn/${mockVersionResponse[0]}/data/en_US/champion.json`;
+    const STUB_VERSION_URL = '/ddragon/api/versions.json';
+    const STUB_CHAMPIONS_URL = `/ddragon/cdn/${mockVersionResponse[0]}/data/en_US/champion.json`;
 
     beforeEach(() => {
         TestBed.configureTestingModule({

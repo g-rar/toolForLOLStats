@@ -38,7 +38,7 @@ export default class MockDatabase implements Database {
         //players
         this.players = [];
         for(let i = 0; i < 20; i++)
-            this.players.push(new Player('Player ' + i));
+            this.players.push(new Player(i + '', 'Player ' + i));
 
         //teams
         this.teams = [
