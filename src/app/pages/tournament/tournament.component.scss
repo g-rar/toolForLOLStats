@@ -1,11 +1,34 @@
-.rounds-card{
+.content-card{
     margin-top: 1rem;
     background: var(--color-bg2);
+
+    &.nest1{
+        background: var(--color-bg3);
+    }
+    &.nest2{
+        background: var(--color-bg4);
+    }
+}
+
+.team-list-item {
+    background: var(--color-bg4);
+    transition: 200ms;
+
+    &.selected {
+        box-shadow: inset -4px 0px 0px -1px var(--color-main);
+    }
+
+    &:hover {
+        background:var(--color-bg3);
+    }
 }
 
 ::ng-deep .round-elem{
-    background: rgb(92, 92, 92);
+    background: var(--color-bg4);
     transition: 200ms;
+    &:hover{
+        background: var(--color-bg3);
+    }
 }
 
 .chevron {
@@ -24,6 +47,36 @@
     &:hover {
         cursor: pointer;
         fill: var(--color-text);
+    }
+}
+
+.team-icon{
+    fill:  var(--color-main);
+}
+
+#teams-list {
+    overflow-y: scroll;
+    max-height: 300px;
+}
+
+#team-header {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    padding-top: .54rem;
+    padding-bottom: .54rem;
+}
+
+#team-card {
+    border-radius: 3px;
+
+    .list-group {
+        overflow-y: scroll;
+        max-height: 250px;
+    }
+
+    .team-list-item{
+        background: transparent;
     }
 }
 

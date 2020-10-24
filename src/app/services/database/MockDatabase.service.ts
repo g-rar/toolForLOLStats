@@ -70,7 +70,7 @@ export default class MockDatabase implements Database {
         //tournaments
         this.tournaments = [
             new Tournament(''+this.ids++, 'Current Dummy Tournament', 'https://www.google.com', new Date(), null, [ groupsID, semifinalsID, finalsID]),
-            new Tournament(''+this.ids++, 'Finished Tournament', 'https://www.google.com', new Date(new Date().setHours(1)-100000), new Date(new Date().setHours(2) - 100000), [ groupsID, semifinalsID, finalsID]),
+            new Tournament(''+this.ids++, 'Finished Tournament', 'https://www.google.com', new Date(new Date().setHours(1)-10000000), new Date(new Date().setHours(2) - 10000000), [ groupsID, semifinalsID, finalsID]),
             new Tournament(''+this.ids++, 'Future Dummy Tournament', 'https://www.google.com', new Date(new Date().setHours(23)+1000000), null, [ groupsID, semifinalsID, finalsID]),
         ];
     }

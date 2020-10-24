@@ -2,18 +2,47 @@
     <h1>Torneo</h1>
     <app-tournament-card *ngIf="tournament" [tournament]="tournament"></app-tournament-card>
     <hr>
-    <div class="card rounds-card">
+    <div class="card content-card">
         <div class="card-header">
             <h2 class="d-inline">Equipos</h2>
+            <span *ngIf="isLoggedIn" [class]="'edit-icon'" [inlineSVG]="'assets/svg/edit.svg'" (click)="editTeams()"></span>
         </div>
-        <div class="class-body">
-            <ul>
+        <div class="card-body">
+            <div class="row m-0">
+                <div class="col-lg list-group p-0 custom-scrollbar" id="teams-list">
+                    <button type="button" 
+                        *ngFor="let team of teams"
+                        (click)= "selectTeam(team)"
+                        [class]="'team-list-item ' + (activeTeam === team ? 'selected' : '')" 
+                        class="text-white list-group-item list-group-item-action">
+
+                        {{team.name}}
+                    </button>
+                </div>
+                <div class="col-lg m-0 p-0 content-card nest1" id="team-card">
+                    <div class="card-header" id="team-header">
+                        <span [inlineSVG]="'assets/svg/team.svg'" [setSVGAttributes]="{'height':'2rem', 'width':'2rem'}" [class]="'team-icon'"></span>
+                    </div>
+                    
+                    <div class="list-group custom-scrollbar">
+                        <button 
+                        [class]="'team-list-item'" 
+                        *ngFor="let player of displayParticipants"
+                        (click)="playerClicked(player)"
+                        class="text-white list-group-item list-group-item-action">            
+                            {{player.summonerName}}
+                        </button>
+                    </div>
+                                    <!-- <div class="card-body"> -->
+                    <!-- </div> -->
+                </div>
+            </div>
+            <!-- <ul>
                 <li *ngFor="let team of teams"> {{team.name}} </li>
-                <span *ngIf="isLoggedIn" [class]="'edit-icon'" [inlineSVG]="'assets/svg/edit.svg'" (click)="editTeams()"></span>
-            </ul>
+            </ul> -->
         </div>
     </div>
-    <div class="card rounds-card">
+    <div class="card content-card">
         <div class="card-header">
             <h2 class="d-inline">Rondas</h2>
             <span *ngIf="isLoggedIn" [class]="'edit-icon'" [inlineSVG]="'assets/svg/edit.svg'" (click)="editRounds()"></span>
