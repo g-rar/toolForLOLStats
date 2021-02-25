@@ -39,6 +39,7 @@ import { SetDetailsComponent } from './pages/set-details/set-details.component';
 import { EditRoundsComponent } from './widgets/overlays/edit-rounds/edit-rounds.component';
 import { EditTeamsComponent } from './widgets/overlays/edit-teams/edit-teams.component';
 import { EditSetsComponent } from './widgets/overlays/edit-sets/edit-sets.component';
+import { LolPlayerStatsComponent } from './widgets/stats-widgets/lol-player-stats/lol-player-stats.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { EditSetsComponent } from './widgets/overlays/edit-sets/edit-sets.compon
     SetDetailsComponent,
     EditRoundsComponent,
     EditTeamsComponent,
-    EditSetsComponent
+    EditSetsComponent,
+    LolPlayerStatsComponent
   ],
   imports: [
     BrowserModule,

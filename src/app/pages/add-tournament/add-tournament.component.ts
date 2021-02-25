@@ -13,8 +13,6 @@ import { ToastService } from 'src/app/services/toast/toast.service';
 export class AddTournamentComponent implements OnInit {
 
   //TODO give data validation feedback
-  //TODO clear out what dates should it accept
-  //FIXME should be able to set a startday the same day.
   //TODO add round settings (first in tournament component)
   //TODO add team settings (first in tournament component)
 
@@ -25,27 +23,13 @@ export class AddTournamentComponent implements OnInit {
     this.newTournamentForm = formBuilder.group({
       tournamentName: new FormControl('', [Validators.required]),
       tournamentDescription: new FormControl('', [Validators.required]),
-      startDate: new FormControl('', [Validators.required, this.dateValidator])
+      startDate: new FormControl('', [Validators.required])
     })
     this.newTournamentForm.valueChanges.subscribe(value => {
       this.canSubmit = this.newTournamentForm.valid
     })
   }
 
-  dateValidator(control : AbstractControl) : {[key:string]:boolean} | null  {
-    if(control.value){
-      let d = new Date(control.value)
-      console.log("Fecha creada:" ,d);
-      console.log("Desde el form",control.value);
-      console.log("Fecha del momento:", new Date());
-      
-      
-      if(d < new Date()){
-        return {'futureDateValidator': true}
-      }
-    }
-    return null
-  }
 
   ngOnInit(): void {
   }

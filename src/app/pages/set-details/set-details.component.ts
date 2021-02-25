@@ -20,13 +20,13 @@ export class SetDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.controller.getMatches(params.tournamentId, params.roundId, params.setId).then(res => {
-        console.log(res);
+        console.log(" Los encuentros recuperados ",res);
         
       }).catch(err => {
         this.toast.showErrorToast({title:"Hubo un error", text: err, delay:4000})
       })
       this.controller.getPlayerStats().then(res => {
-        console.log(res);
+        console.log("Stats de jugadores recuperados",res);
         
       })
     })

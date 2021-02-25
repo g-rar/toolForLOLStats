@@ -1,15 +1,18 @@
 import { Injectable, TemplateRef } from '@angular/core';
 
+type ToastType = ("normal"|"danger"|"notification");
+
 @Injectable({
   providedIn: 'root'
 })
 export class ToastService {
+
   toasts: any[] = [];
 
   showToast(toast:{
     text:string,
     title?:string,
-    type?:("normal"|"danger"|"notification"),
+    type?:ToastType,
     delay?:number,
     // link?: string,
     // imageURL?: string 

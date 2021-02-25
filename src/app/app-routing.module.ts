@@ -42,7 +42,7 @@ const routes: Routes = [
     path: 'players', component: PlayersComponent
   },
   {
-    path: 'player-details', component: PlayerDetailsComponent
+    path: 'players/:playerid', component: PlayerDetailsComponent
   },
   {
     path: '**', component: NotFoundComponent
