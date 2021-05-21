@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { PlayerOverallStats } from 'src/app/models';
 
 @Component({
   selector: 'app-lol-player-stats',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LolPlayerStatsComponent implements OnInit {
 
+  @Input() stats : PlayerOverallStats;
+  statsStr : string;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.statsStr = JSON.stringify(this.stats, null, 4)
   }
 
 }

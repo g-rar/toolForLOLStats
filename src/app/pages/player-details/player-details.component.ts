@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PlayerOverallStats } from 'src/app/models';
+import { Controller } from 'src/app/services/control/Controller.service';
 
 /** 
  * @todo Component should display the overall stats of a player and also display a list of recently used champ which can redirect to champs component
@@ -12,8 +14,15 @@ export class PlayerDetailsComponent implements OnInit {
 
   //TODO build this
 
+  stats : PlayerOverallStats
 
-  constructor() { }
+
+  constructor(private controller:Controller) {
+    controller.getPlayerStats().then(res => {
+      this.stats = res[0]
+      
+    });
+  }
 
   ngOnInit(): void {
   }
