@@ -1,0 +1,33 @@
+.custom-table {
+    thead h3 {
+        margin-top: .5rem;
+        margin-left: 1rem;
+    }
+
+    td {
+        text-align: start;
+        padding: .2rem 1rem;
+    }
+}
+
+.content-card{
+    margin-top: 1rem;
+    background: var(--color-bg2);
+
+    &.nest1{
+        background: var(--color-bg3);
+    }
+    &.nest2{
+        background: var(--color-bg4);
+    }
+}
+
+.col-card{
+    @media (min-with: 990px) {
+        padding-left: 0.3rem;    
+    }
+    @media (max-with: 990px) {
+        padding-left: 0;    
+    }
+
+}

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PlayerOverallStats } from 'src/app/models';
+import { Player, PlayerOverallStats } from 'src/app/models';
 import { Controller } from 'src/app/services/control/Controller.service';
 
 /** 
@@ -15,7 +15,7 @@ export class PlayerDetailsComponent implements OnInit {
   //TODO build this
 
   stats : PlayerOverallStats
-
+  player :  Player
 
   constructor(private controller:Controller) {
     controller.getPlayerStats().then(res => {
